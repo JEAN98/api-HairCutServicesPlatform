@@ -1,0 +1,29 @@
+{
+  "name": "api-haircutservicesplatform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JEAN98/api-HairCutServicesPlatform.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "JeanCarloVegaBejarano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JEAN98/api-HairCutServicesPlatform/issues"
+  },
+  "homepage": "https://github.com/JEAN98/api-HairCutServicesPlatform#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.4"
+  }
+}
