@@ -1,13 +1,24 @@
 module.exports = (sequelize, Sequelize) => {
-    var gender = sequelize.define('genders', {
+    var gender = sequelize.define('workers', {
     id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
     },
-    population: {
+    firstName: {
           type: Sequelize.STRING,
-          allowNull: false    
+          allowNull: false,
+          field:  'first_name'  
+    },
+    lastName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        field:  'last_name'  
+    },
+    isActive: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        field:  'last_name'  
     },
     createdAt: {
       type: Sequelize.DATE,

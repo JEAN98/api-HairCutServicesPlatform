@@ -20,7 +20,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //Verify the conneciton works fine
-function db_connection_test() {
+function dbConnectionTest() {
     db.sequelize
         .authenticate()
         .then(() => {
@@ -31,11 +31,10 @@ function db_connection_test() {
         });
 }
 
-db_connection_test();
+dbConnectionTest();
 
 
-//Models/tables
-db.gender = require('../models/gender.model')(sequelize, Sequelize);
+const dbContext = require('./tableAssociation')(db,sequelize,Sequelize);
 
 
-module.exports = db;
+module.exports = dbContext;

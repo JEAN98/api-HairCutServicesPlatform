@@ -15,6 +15,7 @@ const router = express.Router();
 
 //load routes
 require('./routes/gender.route')(app); 
+require('./routes/hairdressingSalon.route')(app); 
 //const userRoute = require('./routes/user-route');
 
 // parse application/x-www-form-urlencoded
