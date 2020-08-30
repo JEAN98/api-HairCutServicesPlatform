@@ -1,13 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
-    var gender = sequelize.define('genders', {
+    var appoimentService = sequelize.define('appoiment_services', {
     id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
     },
-    population: {
-          type: Sequelize.STRING,
-          allowNull: false    
+    isActive:{
+        type: Sequelize.BOOLEAN,
+        field: 'is_active',
     },
     createdAt: {
       type: Sequelize.DATE,
@@ -18,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
       field: 'updated_at'
     }
   });
-  return gender;
+  return appoimentService;
 }

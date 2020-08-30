@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    var worker = sequelize.define('workers', {
+    var client = sequelize.define('clients', {
     id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -8,17 +8,24 @@ module.exports = (sequelize, Sequelize) => {
     firstName: {
           type: Sequelize.STRING,
           allowNull: false,
-          field:  'first_name'  
+          field: 'first_name'    
     },
     lastName: {
         type: Sequelize.STRING,
         allowNull: false,
-        field:  'last_name'  
+        field: 'last_name'    
     },
-    isActive: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        field:  'last_name'  
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    birth_day: {
+        type: Sequelize.DATE,
+        allowNull: false
     },
     createdAt: {
       type: Sequelize.DATE,
@@ -28,6 +35,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       field: 'updated_at'
     }
+  },
+  {
+    timestamps: false
   });
-  return worker;
+  return client;
 }
