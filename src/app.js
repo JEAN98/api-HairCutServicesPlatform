@@ -1,23 +1,18 @@
 'use strict'
-
 const express = require('express');
 const bodyParser = require('body-parser');
-//const mongoose = require('mongoose');
 const config = require('./config');
-
 const app = express();
-const router = express.Router();
+const { handleError,ErrorHandler } = require('./helpers/error');
 
-//mongoose.connect(config.CONNECTION_STRING);
-
-//load models
-//const User = require('./models/user');
 
 //load routes
 require('./routes/gender.route')(app); 
 require('./routes/hairdressingSalon.route')(app); 
 require('./routes/appoimentService.route')(app); 
-//const userRoute = require('./routes/user-route');
+require('./routes/worker.route')(app); 
+
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -36,6 +31,13 @@ if(config.MODE == 'development') {
     });
 }
 
+
+
+app.use((err, req, res, next) => {
+    handleError(err, res);
+});
+
+
 // Create a Server
 var server = app.listen(3000, function () {
  
@@ -52,6 +54,10 @@ app.get('/', function (req, res) {
 });
 
 
-//app.use('/users', userRoute);
+/*
+app.get('/error', function(req, res) {
+    throw new ErrorHandler(500, 'Internal server error');
+})
+*/
 
 module.exports = app;

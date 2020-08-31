@@ -1,9 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
     var appoimentService = sequelize.define('appoiment_services', {
     id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true
     },
     isActive:{
         type: Sequelize.BOOLEAN,

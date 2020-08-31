@@ -23,9 +23,15 @@ module.exports = (db, sequelize, Sequelize) => {
     db.gender.hasMany( db.worker, {
       foreignKey: 'gender_id'
     });
+    db.hairdressingSalon.hasMany( db.worker, {
+      foreignKey: 'hairdressing_salon_id'
+    });
 
     db.worker.belongsTo(db.gender, {
       foreignKey: 'gender_id'
+    });  
+    db.worker.belongsTo(db.hairdressingSalon, {
+      foreignKey: 'hairdressing_salon_id'
     });  
 
     //hairdressersService
