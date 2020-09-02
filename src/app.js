@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const app = express();
-const { handleError,ErrorHandler } = require('./helpers/error');
+const errorHandler = require('./middleware/errrorHandler');
 
 
 //load routes
@@ -31,12 +31,13 @@ if(config.MODE == 'development') {
     });
 }
 
-
-
-app.use((err, req, res, next) => {
-    handleError(err, res);
+app.get('/', function (req, res) {
+    res.send('NodeRestAPi is running');
 });
 
+
+// error handler middleware
+app.use(errorHandler);
 
 // Create a Server
 var server = app.listen(3000, function () {
@@ -45,14 +46,7 @@ var server = app.listen(3000, function () {
     var port = server.address().port
    
     console.log("NodeRestAPi is running at http://%s:%s", host, port)
-})
-  
-
-
-app.get('/', function (req, res) {
-    res.send('NodeRestAPi is running');
 });
-
 
 /*
 app.get('/error', function(req, res) {
