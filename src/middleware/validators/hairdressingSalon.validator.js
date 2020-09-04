@@ -1,7 +1,7 @@
 const { Joi } = require('express-validation')
 
 const regexTimeValidation = new RegExp(/(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)/);
-const loginValidation = {
+const hairdressinSalonValidator = {
     body: Joi.object({
       name: Joi.string().alphanum().max(100).required(),
       description: Joi.string().alphanum().max(500).required(),
@@ -18,4 +18,4 @@ const loginValidation = {
     }),
 }
 
-module.exports = loginValidation;
+module.exports = hairdressinSalonValidator;
