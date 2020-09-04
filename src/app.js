@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/errrorHandler');
-const {  ValidationError } = require('express-validation')
+
 const app = express();
 
 
@@ -42,12 +42,7 @@ app._router.stack.forEach(function(r){
   })
 
 // error handler middleware
-app.use(function(err, req, res, next) {
-    if (err instanceof ValidationError) {
-      return res.status(err.statusCode).json(err)
-    }
-    return res.status(500).json(err)
-  })
+app.use(errorHandler)
 
 // Create a Server
 app.listen(3000)
