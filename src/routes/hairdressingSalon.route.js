@@ -1,18 +1,10 @@
 'use strict'
-const controller                 = require('../controllers/hairdressingSalon.controller');
- const loginValidation = require('../middleware/validators/hairdressingSalon.validator');
- const { validate,Joi} = require('express-validation')
+const { validate, ValidationError, Joi } = require('express-validation')
+const controller = require('../controllers/hairdressingSalon.controller');
+const loginValidation3 = require('../middleware/validators/hairdressingSalon.validator');
 
 module.exports = function(app) {
 
-
-   app.post('/api/hairdressingSalon/', validate(loginValidation, {}, {}), (req, res) => {
-        res.json(200)
-      })
-  
-   // app.post('/api/hairdressingSalon/', validate(loginValidation, {}, {}), controller.create);
-
-      
-    // Retrieve a single debit by Id
-    app.get('/api/hairdressingSalon/', controller.findAll);
+  app.post('/api/hairdressingSalon', validate(loginValidation3, {}, {}),controller.create)
+  app.get('/api/hairdressingSalon/', controller.findAll);
 }

@@ -2,12 +2,10 @@ const { Joi } = require('express-validation')
 
 const loginValidation = {
     body: Joi.object({
-      email: Joi.string()
-        .email()
-        .required(),
-      password: Joi.string()
-        .regex(/[a-zA-Z0-9]{3,30}/)
-        .required(),
+      name: Joi.string().alphanum().max(100).required(),
+      description: Joi.string().alphanum().max(500).required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().min(6).required()
     }),
 }
 

@@ -9,8 +9,7 @@ const app = express();
 app.use(bodyParser.json())
 //load routes
 require('./routes/gender.route')(app); 
-//require('./routes/hairdressingSalon.route')(app); 
-require('./routes/route2.route')(app); 
+require('./routes/hairdressingSalon.route')(app);
 require('./routes/appoimentService.route')(app); 
 require('./routes/worker.route')(app); 
 
