@@ -1,27 +1,30 @@
 'use strict'
 const express = require('express');
 const bodyParser = require('body-parser');
-const config = require('./config');
-const app = express();
 const errorHandler = require('./middleware/errrorHandler');
+const {  ValidationError } = require('express-validation')
+const app = express();
 
 
+app.use(bodyParser.json())
 //load routes
 require('./routes/gender.route')(app); 
-require('./routes/hairdressingSalon.route')(app); 
+//require('./routes/hairdressingSalon.route')(app); 
+require('./routes/route2.route')(app); 
 require('./routes/appoimentService.route')(app); 
 require('./routes/worker.route')(app); 
 
 
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+//app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
-app.use(bodyParser.json())
+
 
 
 // Enable CORS ()
+/*
 if(config.MODE == 'development') {
     app.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
@@ -29,24 +32,26 @@ if(config.MODE == 'development') {
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         next();
     });
-}
+} */
 
-app.get('/', function (req, res) {
-    res.send('NodeRestAPi is running');
-});
 
+
+app._router.stack.forEach(function(r){
+    if (r.route && r.route.path){
+      console.log(r.route.path)
+    }
+  })
 
 // error handler middleware
-app.use(errorHandler);
+app.use(function(err, req, res, next) {
+    if (err instanceof ValidationError) {
+      return res.status(err.statusCode).json(err)
+    }
+    return res.status(500).json(err)
+  })
 
 // Create a Server
-var server = app.listen(3000, function () {
- 
-    var host = server.address().address
-    var port = server.address().port
-   
-    console.log("NodeRestAPi is running at http://%s:%s", host, port)
-});
+app.listen(3000)
 
 /*
 app.get('/error', function(req, res) {
@@ -54,4 +59,4 @@ app.get('/error', function(req, res) {
 })
 */
 
-module.exports = app;
+//module.exports = app;

@@ -11,6 +11,11 @@ ValidationContract.prototype.isRequired = (value, message) => {
         errors.push({ message: message });
 }
 
+ValidationContract.prototype.isBoolean = (value, message) => {
+    if (!value || typeof variable !== "boolean" )
+        errors.push({ message: message });
+}
+
 ValidationContract.prototype.hasMinLen = (value, min, message) => {
     if (!value || value.length < min)
         errors.push({ message: message });
