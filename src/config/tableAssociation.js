@@ -12,12 +12,10 @@ module.exports = (db, sequelize, Sequelize) => {
 
     //hairdressingSalon
     db.gender.hasMany(db.hairdressingSalon, {
-     
       foreignKey: 'gender_id'
     });
 
     db.hairdressingSalon.belongsTo(db.gender, {
-    
       foreignKey: 'gender_id'
     });
  

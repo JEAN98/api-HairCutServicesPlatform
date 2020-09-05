@@ -75,7 +75,7 @@ create table hairdressers_services
 	title varchar(100) not null,
 	description varchar(250) not null,
 	cost double precision ,
-	time_duration time ,
+	time_duration int not null ,
 	hairdressing_salon_id int not null,
 	gender_id int not null,
 	is_active bytea not null,

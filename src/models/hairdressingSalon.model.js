@@ -52,7 +52,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: true     
     },
-    genderID:{  //In order to match with the foreing key
+    genderID:{  //In order to match with the foreing key 
         type: Sequelize.INTEGER,
         allowNull: false,
         field: 'gender_id',

@@ -1,5 +1,5 @@
 'use strict'
-const { validate, ValidationError, Joi } = require('express-validation')
+const { validate } = require('express-validation')
 const controller = require('../controllers/hairdressingSalon.controller');
 const hairdressinSalonValidator = require('../middleware/validators/hairdressingSalon.validator');
 
