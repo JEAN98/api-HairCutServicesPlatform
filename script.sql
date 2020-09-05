@@ -120,7 +120,7 @@ create table appoiments
 	client_id int not null,
 	worker_id int not null,
 	hairdressing_salon_id int not null,
-	total_time time not null,
+	total_time double precision not null,
 	total_cost double precision	 not null,
     created_at timestamp,
     updated_at timestamp,

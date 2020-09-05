@@ -13,5 +13,13 @@ exports.findAll = async(req, res,next) => {
 
 
 exports.create = async(req, res,next) => {
-    res.status(200).send({ok:"123456789"});
+   try {
+       console.log(req.body)
+       let result = await repository.create(req.body);
+       //console.log(result);
+       res.status(200).send(result);
+   } catch (error) {
+       console.log(error);
+       next(new GeneralError("Internal server error"));
+   }
 }

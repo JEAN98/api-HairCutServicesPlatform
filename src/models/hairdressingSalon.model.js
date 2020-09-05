@@ -46,24 +46,32 @@ module.exports = (sequelize, Sequelize) => {
     },
     photo:{
         type: Sequelize.BLOB('long'),
-        allowNull: false    
+        allowNull: true    
     },
     website:{
         type: Sequelize.STRING,
         allowNull: true     
     },
+    genderID:{  //In order to match with the foreing key
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        field: 'gender_id',
+    },
     isActive: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        field: 'is_active',    
+        field: 'is_active',   
+        defaultValue: true 
     },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at',
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     },
     updatedAt: {
       type: Sequelize.DATE,
-      field: 'updated_at'
+      field: 'updated_at',
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
   });
   return hairdressingSalon;
