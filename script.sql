@@ -23,7 +23,7 @@ create table hairdressing_salons
     id serial primary key,
     name varchar(100) not null,
 	description varchar(500) not null,
-	email varchar(100) not null,
+	email varchar(100) not null UNIQUE,
 	password varchar(200) not null,
 	shift_starts time not null,
 	shift_ends time not null,

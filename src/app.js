@@ -35,12 +35,12 @@ if(config.MODE == 'development') {
 } */
 
 
-
+/*
 app._router.stack.forEach(function(r){
     if (r.route && r.route.path){
       console.log(r.route.path)
     }
-  })
+  }) */
 
 // error handler middleware
 app.use(errorHandler)

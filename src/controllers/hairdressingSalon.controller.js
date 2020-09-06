@@ -1,5 +1,5 @@
 const repository         = require('../repositories/hairdressingSalon.repository');
-const {GeneralError}     = require('../utils/error');
+const {GeneralError,BadRequest}     = require('../utils/error');
 
 exports.findAll = async(req, res,next) => {
    try {
@@ -19,7 +19,7 @@ exports.create = async(req, res,next) => {
        //console.log(result);
        res.status(200).send(result);
    } catch (error) {
-       console.log(error);
-       next(new GeneralError("Internal server error"));
+   // next(new GeneralError(error));
+      next(new BadRequest(error));
    }
 }

@@ -1,22 +1,33 @@
 class GeneralError extends Error {
-  constructor(message) {
+  constructor(message,statusCode) {
     super();
     this.message = message;
-    this.statusCode = '';
-  }
-
-  getCode() {
-    if (this instanceof BadRequest) {
-      return 400;
-    } if (this instanceof NotFound) {
-      return 404;
-    }
-    return 500;
+    this.statusCode = statusCode;
   }
 }
 
-class BadRequest extends GeneralError { }
-class NotFound extends GeneralError { }
+class BadRequest extends GeneralError { 
+  constructor(message){
+    super( message,400);
+  }
+}
+
+class BadRequestSequelizeError extends GeneralError { 
+  constructor(message){
+    if(message.errors !== undefined)
+    {
+     // TODO:Needs to remove arrary of errors
+    }
+    super( message,400);
+  }
+}
+
+class NotFound extends GeneralError { 
+  constructor(message){
+    super(message,404);
+  }
+}
+
 
 module.exports = {
   GeneralError,

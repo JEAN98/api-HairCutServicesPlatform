@@ -13,3 +13,5 @@ exports.create = async(newHairdressingSalon) => {
     let res = await HairdressingSalon.create(newHairdressingSalon);
     return res;
 }
+
+//exports.findByEmail

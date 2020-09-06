@@ -1,3 +1,6 @@
+const password_key = require('../config/db.config').password_key;
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, Sequelize) => {
     var hairdressingSalon = sequelize.define('hairdressing_salons', {
     id:{
@@ -15,7 +18,8 @@ module.exports = (sequelize, Sequelize) => {
     },
     email:{
         type: Sequelize.STRING,
-        allowNull: false     
+        allowNull: false,
+        unique: true  
     },
     password:{
         type: Sequelize.STRING,
@@ -73,6 +77,20 @@ module.exports = (sequelize, Sequelize) => {
       field: 'updated_at',
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
-  });
+  },
+   {
+        hooks: {
+            beforeCreate: (hairdressingSalon, options) => {
+                {
+                    password = hairdressingSalon.password;
+                    hairdressingSalon.password = password && password != "" ? bcrypt.hashSync(password_key + password, 1) : "";
+                   /* if (user.social_Token) {
+                        user.social_Token = bcrypt.hashSync(password_key + user.social_Token, 1);
+                    }*/
+                }
+            }
+        }
+    }
+  );
   return hairdressingSalon;
 }
