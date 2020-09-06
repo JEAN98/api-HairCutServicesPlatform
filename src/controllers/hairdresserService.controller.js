@@ -2,9 +2,9 @@ const repository         = require('../repositories/hairdresserService.repositor
 const {GeneralError}     = require('../utils/error');
 
 
-exports.findAll = async(req, res,next) => {
+exports.findByHairdressingSalon = async(req, res,next) => {
     try {
-         let data = await repository.get(req.query);
+         let data = await repository.getByHairdressingSalon(req.query);
          res.status(200).send(data);
       } catch(e) {
         console.log(e);

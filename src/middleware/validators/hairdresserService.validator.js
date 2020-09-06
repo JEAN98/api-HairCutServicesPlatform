@@ -1,6 +1,6 @@
 const { Joi } = require('express-validation')
 
-const hairdresserServiceValidator = {
+exports.createValidator = {
     body: Joi.object({
         title: Joi.string().min(2).max(100).required(),
         description: Joi.string().min(2).max(250).required(),
@@ -12,4 +12,14 @@ const hairdresserServiceValidator = {
     }),
 }
 
-module.exports = hairdresserServiceValidator;
+exports.getServicesByHairdressingSalonValidator = {
+    query:Joi.object({
+        hairdressingSalonID: Joi.number().required()
+    }),
+}
+
+/*
+module.exports = {
+    getServicesByHairdressingSalonValidator,
+    createValidator
+};*/

@@ -52,7 +52,7 @@ create table workers
 	first_name varchar(100),
 	last_name varchar(100),
 	gender_id int not null,
-	is_active boolean,
+	is_active BOOLEAN not null,
     created_at timestamp,
     updated_at timestamp,
 
@@ -78,8 +78,8 @@ create table hairdressers_services
 	time_duration int not null ,
 	hairdressing_salon_id int not null,
 	gender_id int not null,
-	is_active bytea not null,
-	is_measurable bytea not null,
+	is_active BOOLEAN  not null,
+	is_measurable BOOLEAN  not null,
     created_at timestamp,
     updated_at timestamp,
     
@@ -148,7 +148,7 @@ create table appoiment_services
 	service_id int not null,
     created_at timestamp,
     updated_at timestamp,
-	is_active bytea not null,
+	is_active BOOLEAN  not null,
 
 	CONSTRAINT fk_appoiment_appoimentservices
       FOREIGN KEY(appoiment_id) 
