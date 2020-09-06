@@ -17,9 +17,3 @@ exports.getServicesByHairdressingSalonValidator = {
         hairdressingSalonID: Joi.number().required()
     }),
 }
-
-/*
-module.exports = {
-    getServicesByHairdressingSalonValidator,
-    createValidator
-};*/

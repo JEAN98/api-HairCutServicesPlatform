@@ -1,7 +1,7 @@
 const env = {
     facebook_api_key: '***',
     facebook_api_secret: '***',
-    secret_key: '***',
+    secret_key: 'hdsp_token-advbc3',
     password_key: '***',
     database: 'hcsp',
     username: 'postgres',
