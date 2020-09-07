@@ -36,7 +36,7 @@ const checkCredentials = async(email,password) => {
         }
     }
     response.message.title = "Failed to create session";
-    response.message.error = "The email or password is invalid";
+    response.message.error = "The email or password are invalid";
     response.statusCode = 401;  
     console.log(response);
     return response;
