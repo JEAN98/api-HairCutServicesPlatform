@@ -16,8 +16,9 @@ class BadRequestSequelizeError extends GeneralError {
   constructor(message){
     if(message.errors !== undefined)
     {
-      message.errors[0].instance = null;
-      message =   message.errors[0];
+      delete message.errors[0].instance;
+      delete message.errors[0].origin;
+      message =  message.errors[0];
     }
     super( message,400);
   }

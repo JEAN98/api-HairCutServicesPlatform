@@ -1,5 +1,6 @@
 'use strict';
 const HairdressingSalon = require('../config/db.config').hairdressingSalon;
+const {BadRequestSequelizeError}  = require('../utils/error');
 
 exports.get = async(params) => {
     console.log(params)
@@ -11,7 +12,8 @@ exports.get = async(params) => {
 
 exports.create = async(newHairdressingSalon) => {
     let res = await HairdressingSalon.create(newHairdressingSalon);
-    return res;
+    console.log(res);
+    return res;    
 }
 
 //exports.findByEmail
