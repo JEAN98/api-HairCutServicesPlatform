@@ -4,6 +4,7 @@ const {BadRequestSequelizeError}  = require('../utils/error');
 
 exports.get = async(params) => {
     let res = await HairdressingSalon.findAll({
+        attributes: {exclude: ['genderID','password','createdAt','updatedAt']},
         where: {is_active: params.isActive == undefined ? true : params.isActive}
     });
     return res;
@@ -11,9 +12,10 @@ exports.get = async(params) => {
 
 exports.create = async(newHairdressingSalon) => {
     let res = await HairdressingSalon.create(newHairdressingSalon);
-    return res;    
+    let newObject = res.toJSON();
+    delete newObject.password;
+    return newObject;    
 }
-
 
 exports.findByEmail = async(email) => {
     let res = await HairdressingSalon.findAll({

@@ -7,7 +7,7 @@ const {createValidator,getServicesByHairdressingSalonValidator} = require('../mi
 module.exports = function(app) {
 
     // Retrieve a single debit by Id
-    app.post('/api/hairdresserService', validate(createValidator, {}, {}),controller.create);
+    app.post('/api/hairdresserService',auth.autentication, validate(createValidator, {}, {}),controller.create);
     
     app.get('/api/hairdresserService', auth.autentication, validate(getServicesByHairdressingSalonValidator, {}, {}), controller.findByHairdressingSalon);
 }
