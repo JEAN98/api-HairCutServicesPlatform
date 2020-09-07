@@ -1,4 +1,4 @@
-const password_key = require('../config/db.config').password_key;
+const {password_key} = require('../config/env');
 const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, Sequelize) => {
@@ -83,7 +83,7 @@ module.exports = (sequelize, Sequelize) => {
             beforeCreate: (hairdressingSalon, options) => {
                 {
                     password = hairdressingSalon.password;
-                    hairdressingSalon.password = password && password != "" ? bcrypt.hashSync(password_key + password, 1) : "";
+                    hairdressingSalon.password = bcrypt.hashSync(password_key + password, 12);
                    /* if (user.social_Token) {
                         user.social_Token = bcrypt.hashSync(password_key + user.social_Token, 1);
                     }*/

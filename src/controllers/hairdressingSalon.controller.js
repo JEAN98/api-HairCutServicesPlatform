@@ -1,5 +1,6 @@
 const repository = require('../repositories/hairdressingSalon.repository');
 const Sequelize = require('sequelize');
+const JWT = require('../token/jwt');
 const {GeneralError,BadRequestSequelizeError}  = require('../utils/error');
 
 exports.findAll = async(req, res,next) => {
@@ -15,8 +16,13 @@ exports.findAll = async(req, res,next) => {
 
 exports.create = async(req, res,next) => {
    try {
-       let result = await repository.create(req.body,next);
-       res.status(200).send(result);
+       let newHairdressingSalon = await repository.create(req.body,next);
+       let token = JWT.createToken(newHairdressingSalon.id,newHairdressingSalon.email,newHairdressingSalon.email);
+       let response = {
+         hairdressingSalon: newHairdressingSalon,
+         token: token
+      };
+       res.status(201).send(response);
    } 
    catch (error) {
      if (error.constructor.prototype instanceof Sequelize.BaseError)

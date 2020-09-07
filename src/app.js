@@ -13,6 +13,7 @@ require('./routes/hairdresserService.route')(app);
 require('./routes/hairdressingSalon.route')(app);
 require('./routes/appoimentService.route')(app); 
 require('./routes/worker.route')(app); 
+require('./routes/session.route')(app); 
 
 
 
