@@ -1,3 +1,5 @@
+//TODO: NEEDS TO BE UPDATED
+
 drop table appoiment_services;
 drop table appoiments;
 drop table clients;
@@ -53,6 +55,7 @@ create table workers
 	last_name varchar(100),
 	gender_id int not null,
 	is_active BOOLEAN not null,
+	birthday timestamp,
     created_at timestamp,
     updated_at timestamp,
 

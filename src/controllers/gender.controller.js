@@ -2,7 +2,6 @@ const repository = require('../repositories/gender.respository');
 
 
 exports.findAll = async(req, res) => {
-
    try {
         let data = await repository.get();
         res.status(200).send(data);

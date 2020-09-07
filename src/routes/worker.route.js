@@ -1,8 +1,10 @@
 'use strict'
+const controller = require('../controllers/worker.controller');
+const {createWorker,getWorkersByHairdressingSalon} = require('../middleware/validators/worker.validator');
+const { validate } = require('express-validation')
+const auth =  require('../token/aut');
+
 module.exports = (app) => {
-    const controller = require('../controllers/worker.controller');
- 
     // Retrieve a single debit by Id
-    app.get('/api/worker/',controller.findByHairDressingSalon);
-    
+    app.get('/api/worker/',auth.autentication, validate(getWorkersByHairdressingSalon, {}, {}), controller.findByHairDressingSalon);
 }
