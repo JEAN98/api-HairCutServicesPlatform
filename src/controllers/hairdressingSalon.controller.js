@@ -1,5 +1,5 @@
-const repository         = require('../repositories/hairdressingSalon.repository');
-const {GeneralError,BadRequest}     = require('../utils/error');
+const repository = require('../repositories/hairdressingSalon.repository');
+const {GeneralError,BadRequest,BadRequestSequelizeError}  = require('../utils/error');
 
 exports.findAll = async(req, res,next) => {
    try {
@@ -14,12 +14,9 @@ exports.findAll = async(req, res,next) => {
 
 exports.create = async(req, res,next) => {
    try {
-       console.log(req.body)
        let result = await repository.create(req.body);
-       //console.log(result);
        res.status(200).send(result);
    } catch (error) {
-   // next(new GeneralError(error));
-      next(new BadRequest(error));
+      next(new BadRequestSequelizeError(error));
    }
 }
