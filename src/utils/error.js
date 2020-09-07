@@ -24,6 +24,12 @@ class BadRequestSequelizeError extends GeneralError {
   }
 }
 
+class Unauthorized extends GeneralError{
+  constructor(message){
+    super(message,401);
+  }
+}
+
 class NotFound extends GeneralError { 
   constructor(message){
     super(message,404);
@@ -35,5 +41,6 @@ module.exports = {
   GeneralError,
   BadRequest,
   NotFound,
+  Unauthorized,
   BadRequestSequelizeError
 };
