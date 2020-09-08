@@ -7,4 +7,6 @@ const auth =  require('../token/aut');
 module.exports = (app) => {
     // Retrieve a single debit by Id
     app.get('/api/worker/',auth.autentication, validate(getWorkersByHairdressingSalon, {}, {}), controller.findByHairDressingSalon);
+
+    app.post('/api/worker/',auth.autentication, validate(createWorker, {}, {}), controller.create)
 }

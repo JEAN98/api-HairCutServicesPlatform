@@ -8,7 +8,8 @@ module.exports = (sequelize, Sequelize) => {
     identificationCard:{
       type: Sequelize.STRING,
       allowNull: false,
-      field:  'identification_card'  
+      field:  'identification_card',
+      unique: true   
     },
     firstName: {
           type: Sequelize.STRING,
@@ -23,8 +24,18 @@ module.exports = (sequelize, Sequelize) => {
     isActive: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        field:  'last_name',
+        field:  'is_active',
         defaultValue: true
+    },
+    hairdressingSalonID: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      field: 'hairdressing_salon_id',   
+    },
+    genderID: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      field: 'gender_id',   
     },
     createdAt: {
       type: Sequelize.DATE,

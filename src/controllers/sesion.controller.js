@@ -11,9 +11,14 @@ exports.createSession = async(req,res,next) => {
         console.log(body);
         let response = await checkCredentials(body.email,body.password);
         res.status(response.statusCode).json(response.message);
-    } catch (error) {
-        next(new GeneralError("Internal server error"));
-    }
+    }  catch (error) {
+        if (error.constructor.prototype instanceof Sequelize.BaseError)
+        {
+           next(new BadRequestSequelizeError(error));  
+        }
+        else
+           next(new GeneralError("Internal server error"));  
+     }
 }
 
 

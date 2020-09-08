@@ -2,7 +2,6 @@
 const Worker = require('../config/db.config').worker;
 
 exports.getWorkersByHairdressingSalon = async(query) => {
-    console.log(query)
     let res = await Worker.findAll(
         { where: 
             { 
@@ -11,4 +10,10 @@ exports.getWorkersByHairdressingSalon = async(query) => {
             },
 	});
     return res;
+}
+
+
+exports.create = async(newWorker) => {
+    let data = await Worker.create(newWorker);
+    return data;
 }

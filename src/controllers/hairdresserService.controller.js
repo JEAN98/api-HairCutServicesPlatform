@@ -19,7 +19,11 @@ exports.findByHairdressingSalon = async(req, res,next) => {
         //console.log(result);
         res.status(200).send(result);
     } catch (error) {
-        console.log(error);
-        next(new GeneralError("Internal server error"));
-    }
+        if (error.constructor.prototype instanceof Sequelize.BaseError)
+        {
+           next(new BadRequestSequelizeError(error));  
+        }
+        else
+           next(new GeneralError("Internal server error"));  
+     }
  }
