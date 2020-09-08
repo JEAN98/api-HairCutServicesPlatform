@@ -1,12 +1,13 @@
 module.exports = (db, sequelize, Sequelize) => {
     //Models/tables
-    db.gender              = require('../models/gender.model')(sequelize, Sequelize);
-    db.hairdressingSalon   = require('../models/hairdressingSalon.model')(sequelize, Sequelize);
-    db.worker              = require('../models/worker.model')(sequelize, Sequelize);
-    db.hairdressersService = require('../models/hairdressersService.model')(sequelize, Sequelize);
-    db.client              = require('../models/clients.model')(sequelize, Sequelize);
-    db.appoiment           = require('../models/appoiment.model')(sequelize, Sequelize);
-    db.appoimentServices  = require('../models/appoimentService.model')(sequelize, Sequelize);
+    db.gender                 = require('../models/gender.model')(sequelize, Sequelize);
+    db.hairdressingSalon      = require('../models/hairdressingSalon.model')(sequelize, Sequelize);
+    db.worker                 = require('../models/worker.model')(sequelize, Sequelize);
+    db.hairdressersService    = require('../models/hairdressersService.model')(sequelize, Sequelize);
+    db.client                 = require('../models/clients.model')(sequelize, Sequelize);
+    db.appoiment              = require('../models/appoiment.model')(sequelize, Sequelize);
+    db.appoimentServices      = require('../models/appoimentService.model')(sequelize, Sequelize);
+    db.haircutPlatformAccount = require('../models/haircutPlatformAccount.model')(sequelize, Sequelize);
 
     //Association
 
@@ -84,6 +85,15 @@ module.exports = (db, sequelize, Sequelize) => {
     });
     db.appoimentServices.belongsTo(db.hairdressersService, {
       foreignKey: 'service_id'
+    });
+
+    //haircutPlatformAccount
+    db.client.hasMany(db.haircutPlatformAccount, {
+      foreignKey: 'client_id'
+    });     
+    
+    db.haircutPlatformAccount.belongsTo(db.client, {
+      foreignKey: 'client_id'
     });
 
 

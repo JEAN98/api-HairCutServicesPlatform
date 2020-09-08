@@ -120,7 +120,7 @@ create table clients
 create table haircut_platform_accounts
 (
 	id serial primary key,
-	email varchar(100) not null,
+	email varchar(100) not null UNIQUE,
 	password varchar(100) not null,
 	client_id int not null,
 	created_at timestamp,

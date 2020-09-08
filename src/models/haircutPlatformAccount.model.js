@@ -4,13 +4,14 @@ const bcrypt = require('bcrypt');
 module.exports = (sequelize, Sequelize) => {
     var haircutPlatformAccount = sequelize.define('haircut_platform_accounts', {
     id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     email: {
-          type: Sequelize.STRING,
-          allowNull: false 
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true  
     },
     password: {
         type: Sequelize.STRING,
