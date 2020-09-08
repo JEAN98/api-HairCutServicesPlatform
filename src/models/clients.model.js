@@ -15,15 +15,6 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         field: 'last_name'    
     },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true   
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
     birthday: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -32,11 +23,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       field: 'is_soccial_account'
-    },
-    isActive:{
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      va
     },
     createdAt: {
       type: Sequelize.DATE,

@@ -1,7 +1,9 @@
 
-
 drop table appoiment_services;
 drop table appoiments;
+drop table facebook_accounts;
+drop table google_accounts;
+drop table haircut_platform_accounts;
 drop table clients;
 drop table workers;
 drop table hairdressers_services;
@@ -119,7 +121,13 @@ create table haircut_platform_accounts
 (
 	id serial primary key,
 	email varchar(100) not null,
-	password varchar(100) not null
+	password varchar(100) not null,
+	client_id int not null,
+	created_at timestamp,
+    updated_at timestamp,
+	CONSTRAINT fk_client_haircut_platform_accounts
+      FOREIGN KEY(client_id) 
+	  REFERENCES clients(id)
 );
 
 create table facebook_accounts
@@ -129,10 +137,12 @@ create table facebook_accounts
 	token varchar(100) not null,
 	facebook_id int not null,
 	client_id int not null,
+	created_at timestamp,
+    updated_at timestamp,
 
 	CONSTRAINT fk_client_facebook
       FOREIGN KEY(client_id) 
-	  REFERENCES clients(id),
+	  REFERENCES clients(id)
 );
 
 create table google_accounts
@@ -142,10 +152,12 @@ create table google_accounts
 	token varchar(100) not null,
 	google_id int not null,
 	client_id int not null,
+	created_at timestamp,
+    updated_at timestamp,
 
 	CONSTRAINT fk_client_google
       FOREIGN KEY(client_id) 
-	  REFERENCES clients(id),
+	  REFERENCES clients(id)
 );
 
 create table appoiments
