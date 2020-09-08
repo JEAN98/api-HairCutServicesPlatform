@@ -97,14 +97,15 @@ create table hairdressers_services
 	  REFERENCES hairdressing_salons(id)
 );
 
+
+
 create table clients
 (
 	id serial primary key,
 	first_name varchar(100) not null,
 	last_name varchar(100) not null,
-	email varchar(100) not null, 
-	password varchar(100) not null,
-	birth_day timestamp not null,
+	birthday timestamp ,
+	is_soccial_account boolean not null,
 	gender_id int not null,
     created_at timestamp,
     updated_at timestamp,
@@ -112,9 +113,40 @@ create table clients
 	CONSTRAINT fk_gender_clients
       FOREIGN KEY(gender_id) 
 	  REFERENCES genders(id)
-
 );
 
+create table haircut_platform_accounts
+(
+	id serial primary key,
+	email varchar(100) not null,
+	password varchar(100) not null
+);
+
+create table facebook_accounts
+(
+	id serial primary key,
+	email varchar(100) not null,
+	token varchar(100) not null,
+	facebook_id int not null,
+	client_id int not null,
+
+	CONSTRAINT fk_client_facebook
+      FOREIGN KEY(client_id) 
+	  REFERENCES clients(id),
+);
+
+create table google_accounts
+(
+	id serial primary key,
+	email varchar(100) not null,
+	token varchar(100) not null,
+	google_id int not null,
+	client_id int not null,
+
+	CONSTRAINT fk_client_google
+      FOREIGN KEY(client_id) 
+	  REFERENCES clients(id),
+);
 
 create table appoiments
 (
