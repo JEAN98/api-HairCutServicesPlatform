@@ -1,9 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     var worker = sequelize.define('workers', {
     id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    identificationCard:{
+      type: Sequelize.STRING,
+      allowNull: false,
+      field:  'identification_card'  
     },
     firstName: {
           type: Sequelize.STRING,
@@ -18,15 +23,18 @@ module.exports = (sequelize, Sequelize) => {
     isActive: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        field:  'last_name'  
+        field:  'last_name',
+        defaultValue: true
     },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at',
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') //TODO: Needs to be updated according to CostaRicaTime
     },
     updatedAt: {
       type: Sequelize.DATE,
-      field: 'updated_at'
+      field: 'updated_at',
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
   });
   return worker;

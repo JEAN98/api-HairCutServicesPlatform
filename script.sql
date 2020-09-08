@@ -1,4 +1,4 @@
-//TODO: NEEDS TO BE UPDATED
+
 
 drop table appoiment_services;
 drop table appoiments;
@@ -51,8 +51,9 @@ create table workers
 (
 	id serial primary key,
 	hairdressing_salon_id int  not null,
-	first_name varchar(100),
-	last_name varchar(100),
+	identification_card varchar(100) not null UNIQUE,
+	first_name varchar(100) not null,
+	last_name varchar(100) not null,
 	gender_id int not null,
 	is_active BOOLEAN not null,
 	birthday timestamp,
@@ -68,8 +69,8 @@ create table workers
 	  REFERENCES hairdressing_salons(id)
 );
 
-insert into workers(hairdressing_salon_id,first_name,last_name,gender_id,is_active)
-values (1,'Shey','Gonzales Vega',2,true);
+insert into workers(hairdressing_salon_id,first_name,last_name,gender_id,is_active,identification_card)
+values (1,'Shey','Gonzales Vega',2,true,'207810973');
 
 select * from workers;
 create table hairdressers_services
