@@ -1,15 +1,23 @@
 const haircutPlatformAccountRepository = require('../repositories/haircutPlatformAccount.repository');
-const {GeneralError,BadRequestSequelizeError}  = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../utils/error');
 const clientRepository = require('../repositories/client.repository');
 const {getClientObject} = require('../utils/readClientProperties');
 const Sequelize = require('sequelize');
+const {isEmailExist} = require('../utils/verifyEmailExist');
+
 
 exports.create = async(req, res,next) => {
    try 
-   { //TODO: Needs to be fixed
-       let newAccount = req.body;
-       let clientObject = getClientObject(newAccount);
-       clientObject.isSoccialAccount = true;
+    { 
+        let emailExist = await isEmailExist(req.body.email);
+        if(!emailExist.isEmailAccepted)
+        {
+            console.log(emailExist);
+            next(new BadRequest(emailExist));  
+        }
+        let newAccount = req.body;
+        let clientObject = getClientObject(newAccount);
+        clientObject.isSoccialAccount = true;
 
         let client = await clientRepository.create(clientObject);
         newAccount.clientID = client.id;
