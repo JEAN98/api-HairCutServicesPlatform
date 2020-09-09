@@ -12,9 +12,7 @@ exports.get = async(params) => {
 
 exports.create = async(newHairdressingSalon) => {
     let res = await HairdressingSalon.create(newHairdressingSalon);
-    let newObject = res.toJSON();
-    delete newObject.password;
-    return newObject;    
+    return cleanEntity(res);    
 }
 
 exports.findByEmail = async(email) => {
@@ -24,4 +22,11 @@ exports.findByEmail = async(email) => {
     return res;
 }
 
+const cleanEntity = (hairdressingSalon) => {
+    hairdressingSalon = hairdressingSalon.toJSON();
+    delete hairdressingSalon.password;
+    delete hairdressingSalon.createdAt;
+    delete hairdressingSalon.updatedAt;
+    return hairdressingSalon;
+}
 //exports.findByEmail
