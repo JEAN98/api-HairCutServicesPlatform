@@ -2,10 +2,11 @@ const haircutPlatformAccountRepository = require('../repositories/haircutPlatfor
 const {GeneralError,BadRequestSequelizeError}  = require('../utils/error');
 const clientRepository = require('../repositories/client.repository');
 const {getClientObject} = require('../utils/readClientProperties');
+const Sequelize = require('sequelize');
 
 exports.create = async(req, res,next) => {
    try 
-   {
+   { //TODO: Needs to be fixed
        let newAccount = req.body;
        let clientObject = getClientObject(newAccount);
        clientObject.isSoccialAccount = true;
@@ -14,18 +15,22 @@ exports.create = async(req, res,next) => {
         newAccount.clientID = client.id;
 
         accountCreated = await haircutPlatformAccountRepository.create(newAccount);
+
         res.status(200).send(accountCreated);
     } 
-    catch(e) 
+    catch(error) 
     {
-        console.log(e);
+        console.log(error);
+        console.log("errrorrr here",error.constructor.prototype)
         if (error.constructor.prototype instanceof Sequelize.BaseError)
         {
+            console.log("errrorrr here3")
             next(new BadRequestSequelizeError(error));  
         }
         else
             next(new GeneralError("Internal server error"));  
     }
 };
+
 
 
