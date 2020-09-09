@@ -12,7 +12,6 @@ exports.create = async(req, res,next) => {
         let emailExist = await isEmailExist(req.body.email);
         if(!emailExist.isEmailAccepted)
         {
-            console.log(emailExist);
             next(new BadRequest(emailExist));  
         }
         let newAccount = req.body;
