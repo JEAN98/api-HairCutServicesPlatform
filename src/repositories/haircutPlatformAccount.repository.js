@@ -18,3 +18,11 @@ const cleanAccountEntity = (account) => {
 
     return account;
 }
+
+
+exports.findByEmail = async(newEmail) => {
+    let account = await HaircutPlatformAccount.findAll({
+        where: {email: newEmail}
+    });
+    return account;
+}

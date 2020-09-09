@@ -1,7 +1,8 @@
 const repository = require('../repositories/hairdressingSalon.repository');
 const Sequelize = require('sequelize');
+const {isEmailExist} = require('../utils/verifyEmailExist');
 const JWT = require('../token/jwt');
-const {GeneralError,BadRequestSequelizeError}  = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError, BadRequest}  = require('../utils/error');
 
 exports.findAll = async(req, res,next) => {
    try {
@@ -16,6 +17,12 @@ exports.findAll = async(req, res,next) => {
 
 exports.create = async(req, res,next) => {
    try {
+       let emailExist = await isEmailExist(req.body.email);
+       if(!emailExist.isEmailAccepted)
+       {
+          console.log(emailExist);
+          next(new BadRequest(emailExist));  
+       }
        let newHairdressingSalon = await repository.create(req.body,next);
        let token = JWT.createToken(newHairdressingSalon.id,newHairdressingSalon.email,newHairdressingSalon.email);
        let response = {
