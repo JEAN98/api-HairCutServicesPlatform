@@ -19,7 +19,8 @@ module.exports = (sequelize, Sequelize) => {
     },
     clientID: {
         type: Sequelize.INTEGER,
-        allowNull: false 
+        allowNull: false,
+        field: 'client_id'
     },
     createdAt: {
       type: Sequelize.DATE,

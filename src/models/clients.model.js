@@ -24,6 +24,11 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       field: 'is_soccial_account'
     },
+    genderID:{
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      field: 'gender_id'
+    },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at',

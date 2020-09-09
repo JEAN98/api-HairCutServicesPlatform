@@ -90,12 +90,11 @@ module.exports = (db, sequelize, Sequelize) => {
     //haircutPlatformAccount
     db.client.hasMany(db.haircutPlatformAccount, {
       foreignKey: 'client_id'
-    });     
+    });
     
     db.haircutPlatformAccount.belongsTo(db.client, {
       foreignKey: 'client_id'
     });
-
 
   return db;
 }

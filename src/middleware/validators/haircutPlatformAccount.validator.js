@@ -7,6 +7,7 @@ const createPlatformAccount = {
     birthday: Joi.date().optional(),
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),  
+    genderID: Joi.number().strict().integer().required(),  
     }),
 }
 
