@@ -2,6 +2,7 @@ const { Joi } = require('express-validation')
 
 exports.createValidator = {
     body: Joi.object({
+        code: Joi.string().min(2).max(100).required(),
         title: Joi.string().min(2).max(100).required(),
         description: Joi.string().min(2).max(250).required(),
         cost: Joi.number().strict().optional(),

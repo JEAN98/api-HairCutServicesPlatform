@@ -79,6 +79,7 @@ create table hairdressers_services
 (
 	id serial primary key,
 	title varchar(100) not null,
+	code varchar(100) not null UNIQUE,
 	description varchar(250) not null,
 	cost double precision ,
 	time_duration int not null ,

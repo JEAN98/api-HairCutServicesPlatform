@@ -1,5 +1,6 @@
 const repository         = require('../repositories/hairdresserService.repository');
-const {GeneralError}     = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError}     = require('../utils/error');
+const Sequelize = require('sequelize');
 
 
 exports.findByHairdressingSalon = async(req, res,next) => {
@@ -16,9 +17,9 @@ exports.findByHairdressingSalon = async(req, res,next) => {
  exports.create = async(req, res,next) => {
     try {
         let result = await repository.create(req.body);
-        //console.log(result);
         res.status(200).send(result);
     } catch (error) {
+        console.log(error)
         if (error.constructor.prototype instanceof Sequelize.BaseError)
         {
            next(new BadRequestSequelizeError(error));  

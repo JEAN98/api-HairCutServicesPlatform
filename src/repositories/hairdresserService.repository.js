@@ -8,10 +8,19 @@ exports.getByHairdressingSalon = async(params) => {
             hairdressingSalonID: params.hairdressingSalonID
         }
     });
-    return res;
+    return cleanEntity(res);
 }
 
 exports.create = async(newService) => {
     let res = await HairdressersService.create(newService);
-    return res;
+    return cleanEntity(res);
+}
+
+
+const cleanEntity = (newService) => {
+    newService = newService.toJSON();
+    delete newService.createdAt;
+    delete newService.updatedAt;
+
+    return newService;
 }
