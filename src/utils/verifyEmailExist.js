@@ -14,6 +14,8 @@ exports.isEmailExist = async (newEmail) => {
         return buildErrorMessage("Client",newEmail);
     }
 
+    //TODO: Then verify google account and Facebook too
+
     return {isEmailAccepted: true}    
 }
 
