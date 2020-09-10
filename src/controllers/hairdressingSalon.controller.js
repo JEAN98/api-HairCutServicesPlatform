@@ -23,13 +23,16 @@ exports.create = async(req, res,next) => {
           console.log(emailExist);
           next(new BadRequest(emailExist));  
        }
-       let newHairdressingSalon = await repository.create(req.body,next);
-       let token = JWT.createToken(newHairdressingSalon.id,newHairdressingSalon.email,newHairdressingSalon.email);
-       let response = {
-         hairdressingSalon: newHairdressingSalon,
-         token: token
-      };
-       res.status(201).send(response);
+       else{
+         let newHairdressingSalon = await repository.create(req.body,next);
+         let token = JWT.createToken(newHairdressingSalon.id,newHairdressingSalon.email,newHairdressingSalon.email);
+         let response = {
+           hairdressingSalon: newHairdressingSalon,
+           token: token
+         };
+         res.status(201).send(response);
+       }
+      
    } 
    catch (error) {
      if (error.constructor.prototype instanceof Sequelize.BaseError)

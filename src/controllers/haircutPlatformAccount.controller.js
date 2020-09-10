@@ -14,16 +14,18 @@ exports.create = async(req, res,next) => {
         {
             next(new BadRequest(emailExist));  
         }
-        let newAccount = req.body;
-        let clientObject = getClientObject(newAccount);
-        clientObject.isSoccialAccount = true;
-
-        let client = await clientRepository.create(clientObject);
-        newAccount.clientID = client.id;
-
-        accountCreated = await haircutPlatformAccountRepository.create(newAccount);
-
-        res.status(200).send(accountCreated);
+        else{
+            let newAccount = req.body;
+            let clientObject = getClientObject(newAccount);
+            clientObject.isSoccialAccount = true;
+    
+            let client = await clientRepository.create(clientObject);
+            newAccount.clientID = client.id;
+    
+            accountCreated = await haircutPlatformAccountRepository.create(newAccount);
+    
+            res.status(200).send(accountCreated);
+        }
     } 
     catch(error) 
     {
