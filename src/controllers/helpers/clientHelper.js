@@ -1,4 +1,4 @@
-const clientRepository = require('../repositories/client.repository');
+const clientRepository = require('../../repositories/client.repository');
 
 const getClientObject = (entity) => {
     let client = {};
