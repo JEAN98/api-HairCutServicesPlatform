@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
     code:{
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true  
+      unique: true  //TODO: Needs to be able to accept code repetions
     },
     description: {
         type: Sequelize.STRING,

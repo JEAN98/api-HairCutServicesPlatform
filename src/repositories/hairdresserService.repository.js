@@ -2,20 +2,30 @@
 const HairdressersService = require('../config/db.config').hairdressersService;
 
 exports.getByHairdressingSalon = async(params) => {
-    let res = await HairdressersService.findAll({
+    let servicesList = await HairdressersService.findAll({
         where: {
             is_active: params.isActive == undefined ? true : params.isActive,
             hairdressingSalonID: params.hairdressingSalonID
         }
     });
-    return cleanEntity(res);
+    return cleanListEntity(servicesList);
 }
 
 exports.create = async(newService) => {
-    let res = await HairdressersService.create(newService);
-    return cleanEntity(res);
+    let service = await HairdressersService.create(newService);
+    return cleanEntity(service);
 }
 
+
+const cleanListEntity = (serviceList) => {
+    if(serviceList.length > 0 )
+    {
+        for (let index = 0; index < serviceList.length; index++) {
+            serviceList[index] = cleanEntity(serviceList[index] );
+        }
+    }
+    return serviceList;
+}
 
 const cleanEntity = (newService) => {
     newService = newService.toJSON();

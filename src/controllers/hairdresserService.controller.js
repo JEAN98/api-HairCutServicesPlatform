@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 
 exports.findByHairdressingSalon = async(req, res,next) => {
     try {
+        req.query.hairdressingSalonID = req.token.sub;
          let data = await repository.getByHairdressingSalon(req.query);
          res.status(200).send(data);
       } catch(e) {
@@ -16,6 +17,7 @@ exports.findByHairdressingSalon = async(req, res,next) => {
  
  exports.create = async(req, res,next) => {
     try {
+        req.body.hairdressingSalonID = req.token.sub;
         let result = await repository.create(req.body);
         res.status(200).send(result);
     } catch (error) {

@@ -7,7 +7,6 @@ exports.createValidator = {
         description: Joi.string().min(2).max(250).required(),
         cost: Joi.number().strict().optional(),
         timeDuration: Joi.number().strict().integer().optional(),
-        hairdressingSalonID: Joi.number().strict().integer().required(),
         genderID: Joi.number().strict().integer().required(),
         isMeasurable: Joi.boolean().required()
     }),
@@ -15,6 +14,6 @@ exports.createValidator = {
 
 exports.getServicesByHairdressingSalonValidator = {
     query:Joi.object({
-        hairdressingSalonID: Joi.number().required()
+        isActive:  Joi.boolean().optional()
     }),
 }

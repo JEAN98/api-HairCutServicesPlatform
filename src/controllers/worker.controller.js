@@ -23,7 +23,6 @@ exports.create = async(req,res,next) => {
       res.status(200).send(data);
    } 
    catch (error) {
-      console.log(error)
       if (error.constructor.prototype instanceof Sequelize.BaseError)
       {
          next(new BadRequestSequelizeError(error));  
