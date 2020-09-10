@@ -1,7 +1,6 @@
 const haircutPlatformAccountRepository = require('../repositories/haircutPlatformAccount.repository');
 const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../utils/error');
-const clientRepository = require('../repositories/client.repository');
-const {getClientObject} = require('../utils/readClientProperties');
+const {createClientRerefence,getMappedAccountWithClient} = require('../utils/clientHelper');
 const Sequelize = require('sequelize');
 const {isEmailExist} = require('../utils/verifyEmailExist');
 
@@ -16,15 +15,13 @@ exports.create = async(req, res,next) => {
         }
         else{
             let newAccount = req.body;
-            let clientObject = getClientObject(newAccount);
-            clientObject.isSoccialAccount = true;
-    
-            let client = await clientRepository.create(clientObject);
+            let client = await createClientRerefence(newAccount,false);
             newAccount.clientID = client.id;
-    
+  
             accountCreated = await haircutPlatformAccountRepository.create(newAccount);
-    
-            res.status(200).send(accountCreated);
+            
+            let bodyResponse = getMappedAccountWithClient(client,accountCreated);
+            res.status(200).send(bodyResponse);
         }
     } 
     catch(error) 
@@ -37,6 +34,9 @@ exports.create = async(req, res,next) => {
             next(new GeneralError("Internal server error"));  
     }
 };
+
+
+
 
 
 
