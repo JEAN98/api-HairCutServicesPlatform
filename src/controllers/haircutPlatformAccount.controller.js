@@ -1,6 +1,6 @@
 const haircutPlatformAccountRepository = require('../repositories/haircutPlatformAccount.repository');
 const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../utils/error');
-const {createClientRerefence,getMappedAccountWithClient} = require('../utils/clientHelper');
+const {createClientRerefence,getMappedAccountWithClient} = require('./helpers/clientHelper');
 const Sequelize = require('sequelize');
 const {isEmailExist} = require('../utils/verifyEmailExist');
 

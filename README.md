@@ -7,3 +7,8 @@ npm install express --save
 npm install --save sequelize
 
  npm install --save pg pg-hstore # Postgres
+
+
+
+
+ 
