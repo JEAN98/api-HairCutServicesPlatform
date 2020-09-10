@@ -37,9 +37,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATE,
       field: 'updated_at'
     }
-  },
-  {
-    timestamps: false
   });
   return client;
 }

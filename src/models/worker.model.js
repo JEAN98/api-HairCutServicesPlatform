@@ -40,12 +40,10 @@ module.exports = (sequelize, Sequelize) => {
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at',
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') //TODO: Needs to be updated according to CostaRicaTime
     },
     updatedAt: {
       type: Sequelize.DATE,
       field: 'updated_at',
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
   });
   return worker;
