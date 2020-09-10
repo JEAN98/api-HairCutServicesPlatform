@@ -1,10 +1,12 @@
 const repository = require('../repositories/worker.repository');
 const Sequelize = require('sequelize');
+const {decodeToken} = require('../token/jwt');
 const {GeneralError,BadRequestSequelizeError} = require('../utils/error');
 
 exports.findByHairDressingSalon = async(req, res,next) => {
    try {
-        let data = await repository.getWorkersByHairdressingSalon(req.query);
+        req.query.hairdressingSalonID = req.token.sub;
+        let data = await repository.getWorkersByHairdressingSalon( req.query);
         res.status(200).send(data);
      } 
      catch(e) 
@@ -16,6 +18,7 @@ exports.findByHairDressingSalon = async(req, res,next) => {
 exports.create = async(req,res,next) => {
    try
    {
+      req.body.hairdressingSalonID = req.token.sub
       let data = await repository.create(req.body);
       res.status(200).send(data);
    } 

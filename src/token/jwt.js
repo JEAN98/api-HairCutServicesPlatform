@@ -15,3 +15,4 @@ exports.createToken = (id, email, name) => {
     }
     return token.encode(loadToken, secretKey,"HS512");
 }
+
