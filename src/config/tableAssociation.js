@@ -5,15 +5,13 @@ module.exports = (db, sequelize, Sequelize) => {
   const pathModels = '../models/';
   let fileDataList = getFilesName('./src/models/');
   
+  //load models
   fileDataList.forEach(fileData => {
     //console.log(pathModels +fileData.fileName)
      db[fileData.nameReduced] = require(pathModels +fileData.fileName )(sequelize, Sequelize);
   });
 
-    //Models/tables
-    /*db.gender                 = require('../models/gender.model')(sequelize, Sequelize);
-    db.hairdressingSalon      = require('../models/hairdressingSalon.model')(sequelize, Sequelize);
-    *///Association
+  //Association
 
     //hairdressingSalon
     db.gender.hasMany(db.hairdressingSalon, {

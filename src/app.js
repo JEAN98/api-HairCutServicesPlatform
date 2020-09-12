@@ -2,24 +2,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/errrorHandler');
+const {getFilesName} = require('./utils/getFilesInDirectory');
 
 const app = express();
 
-
 app.use(bodyParser.json())
-//load routes
-require('./routes/gender.route')(app); 
-require('./routes/hairdresserService.route')(app); 
-require('./routes/hairdressingSalon.route')(app);
-require('./routes/appoimentService.route')(app); 
-require('./routes/worker.route')(app); 
-require('./routes/session.route')(app); 
-require('./routes/haircutPlatformAccount.route')(app); 
 
+
+//load routes
+let routeList = getFilesName('./src/routes/');
+routeList.forEach(fileData => {
+  //console.log(pathModels +fileData.fileName)
+  var pathFileRoute = './routes/' +fileData.fileName;
+   require(pathFileRoute )(app);
+});
 
 
 // parse application/x-www-form-urlencoded
-//app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
 
@@ -37,23 +37,11 @@ if(config.MODE == 'development') {
 } */
 
 
-/*
-app._router.stack.forEach(function(r){
-    if (r.route && r.route.path){
-      console.log(r.route.path)
-    }
-  }) */
-
 // error handler middleware
 app.use(errorHandler)
 
 // Create a Server
 app.listen(3000)
 
-/*
-app.get('/error', function(req, res) {
-    throw new ErrorHandler(500, 'Internal server error');
-})
-*/
 
 //module.exports = app;

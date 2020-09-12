@@ -1,7 +1,7 @@
 'use strict';
-const AppoimentServices = require('../config/db.config').appoimentServices;
+const AppoimentService = require('../config/db.config').appoimentService;
 
 exports.get = async() => {
-    let res = await AppoimentServices.findAll();
+    let res = await AppoimentService.findAll();
     return res;
 }
