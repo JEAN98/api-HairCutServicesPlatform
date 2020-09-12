@@ -1,15 +1,19 @@
-module.exports = (db, sequelize, Sequelize) => {
-    //Models/tables
-    db.gender                 = require('../models/gender.model')(sequelize, Sequelize);
-    db.hairdressingSalon      = require('../models/hairdressingSalon.model')(sequelize, Sequelize);
-    db.worker                 = require('../models/worker.model')(sequelize, Sequelize);
-    db.hairdressersService    = require('../models/hairdressersService.model')(sequelize, Sequelize);
-    db.client                 = require('../models/clients.model')(sequelize, Sequelize);
-    db.appoiment              = require('../models/appoiment.model')(sequelize, Sequelize);
-    db.appoimentServices      = require('../models/appoimentService.model')(sequelize, Sequelize);
-    db.haircutPlatformAccount = require('../models/haircutPlatformAccount.model')(sequelize, Sequelize);
+const {getFilesName} = require('../utils/getFilesInDirectory');
 
-    //Association
+module.exports = (db, sequelize, Sequelize) => {
+
+  const pathModels = '../models/';
+  let fileDataList = getFilesName('./src/models/');
+  
+  fileDataList.forEach(fileData => {
+    //console.log(pathModels +fileData.fileName)
+     db[fileData.nameReduced] = require(pathModels +fileData.fileName )(sequelize, Sequelize);
+  });
+
+    //Models/tables
+    /*db.gender                 = require('../models/gender.model')(sequelize, Sequelize);
+    db.hairdressingSalon      = require('../models/hairdressingSalon.model')(sequelize, Sequelize);
+    *///Association
 
     //hairdressingSalon
     db.gender.hasMany(db.hairdressingSalon, {
@@ -67,17 +71,17 @@ module.exports = (db, sequelize, Sequelize) => {
 
 
     //appoiment_services
-    db.appoiment.hasMany( db.appoimentServices , {
+    db.appoiment.hasMany( db.appoimentService , {
       foreignKey: 'appoiment_id'
     });
-    db.hairdressersService.hasMany( db.appoimentServices , {
+    db.hairdressersService.hasMany( db.appoimentService , {
       foreignKey: 'service_id'
     });
 
-    db.appoimentServices.belongsTo(db.appoiment, {
+    db.appoimentService.belongsTo(db.appoiment, {
       foreignKey: 'appoiment_id'
     });
-    db.appoimentServices.belongsTo(db.hairdressersService, {
+    db.appoimentService.belongsTo(db.hairdressersService, {
       foreignKey: 'service_id'
     });
 

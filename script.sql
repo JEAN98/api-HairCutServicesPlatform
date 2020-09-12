@@ -24,7 +24,9 @@ create table genders
 create table weekdays(
 	id serial primary key,
     weekday varchar(50) not null,
-	letter varchar(1) not null
+	letter varchar(1) not null,
+	created_at timestamp,
+    updated_at timestamp
 );
 
 
@@ -58,6 +60,8 @@ create table work_days(
 	id serial primary key,
 	weekday_id int not null,
 	hairdressing_salon_id int not null,
+	created_at timestamp,
+    updated_at timestamp
 
 
 	CONSTRAINT fk_weekdays
