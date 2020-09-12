@@ -1,5 +1,5 @@
 const repository         = require('../repositories/hairdresserService.repository');
-const {GeneralError,BadRequestSequelizeError}     = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../middleware/error/error');
 const Sequelize = require('sequelize');
 
 

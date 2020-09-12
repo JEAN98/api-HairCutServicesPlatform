@@ -1,8 +1,8 @@
 const repository = require('../repositories/hairdressingSalon.repository');
 const Sequelize = require('sequelize');
 const {isEmailExist} = require('../utils/verifyEmailExist');
-const JWT = require('../token/jwt');
-const {JWTData} = require('../token/jwtData')
+const JWT = require('../middleware/token/jwt');
+const {JWTData} = require('../middleware/token/jwtData');
 const {GeneralError,BadRequestSequelizeError, BadRequest}  = require('../utils/error');
 
 exports.findAll = async(req, res,next) => {

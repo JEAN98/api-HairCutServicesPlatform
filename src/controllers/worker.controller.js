@@ -1,7 +1,7 @@
 const repository = require('../repositories/worker.repository');
-const Sequelize = require('sequelize');
 const {decodeToken} = require('../token/jwt');
-const {GeneralError,BadRequestSequelizeError} = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../middleware/error/error');
+const Sequelize = require('sequelize');
 
 exports.findByHairDressingSalon = async(req, res,next) => {
    try {

@@ -1,5 +1,5 @@
 const repository = require('../repositories/appoimentService.repository');
-const { BadRequest,GeneralError } = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError}  = require('../middleware/error/error');
 
 exports.findAll = async(req, res,next) => {
 

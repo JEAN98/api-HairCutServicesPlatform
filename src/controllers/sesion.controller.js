@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
-const jwt =  require('../token/jwt');
-const {JWTData} =  require('../token/jwtData');
+const JWT = require('../middleware/token/jwt');
+const {JWTData} = require('../middleware/token/jwtData');
 const { password_key } = require('../config/env');
 const findByEmail = require('../repositories/hairdressingSalon.repository').findByEmail;
-const {GeneralError,BadRequestSequelizeError}  = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError}  = require('../middleware/error/error');
 
 
 exports.createSession = async(req,res,next) => {

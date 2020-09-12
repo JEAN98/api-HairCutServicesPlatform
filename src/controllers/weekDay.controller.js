@@ -1,5 +1,5 @@
 const repository = require('../repositories/weekDay.respository');
-const {GeneralError,BadRequestSequelizeError} = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../middleware/error/error');
 
 exports.findAll = async(req, res,next) => {
    try {

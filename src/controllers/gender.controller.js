@@ -1,5 +1,6 @@
 const repository = require('../repositories/gender.respository');
-const {GeneralError,BadRequestSequelizeError}  = require('../utils/error');
+const {GeneralError,BadRequestSequelizeError}  = require('../middleware/error/error');
+const Sequelize = require('sequelize');
 
 exports.findAll = async(req, res,next) => {
    try 
