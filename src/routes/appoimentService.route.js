@@ -1,5 +1,5 @@
 'use strict'
-const auth =  require('../token/aut');
+const auth =  require('../middleware/token/aut');
 const controller = require('../controllers/appoimentService.controller');
 module.exports = function(app) {
     // Retrieve a single debit by Id

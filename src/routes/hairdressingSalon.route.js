@@ -1,7 +1,7 @@
 'use strict'
 const { validate } = require('express-validation')
 const controller = require('../controllers/hairdressingSalon.controller');
-const auth =  require('../token/aut');
+const auth =  require('../middleware/token/aut');
 const hairdressinSalonValidator = require('../middleware/validators/hairdressingSalon.validator');
 
 module.exports = function(app) {

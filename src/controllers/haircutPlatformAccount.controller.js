@@ -3,7 +3,7 @@ const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../middlewa
 const Sequelize = require('sequelize');
 const {createClientRerefence,getMappedAccountWithClient} = require('../utils/clientMapper');
 const {isEmailExist} = require('../utils/verifyEmailExist');
-const {JWTData} = require('../token/jwtData')
+const {JWTData} = require('../middleware/token/jwtData')
 
 exports.create = async(req, res,next) => {
    try 

@@ -1,8 +1,8 @@
 "use strict"
-const env = require("../config/env");
+const env = require("../../config/env");
 const token = require("jwt-simple");
 const moment = require("moment");
-const {Unauthorized} = require('../utils/error');
+const {Unauthorized} = require('../error/error');
 const secretKey = env.secret_key;
 
 exports.autentication = function(req, res, next) {

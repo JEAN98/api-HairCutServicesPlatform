@@ -1,6 +1,6 @@
 'use strict';
 const HairdressingSalon = require('../config/db.config').hairdressingSalon;
-const {BadRequestSequelizeError}  = require('../utils/error');
+const {BadRequestSequelizeError}  = require('../middleware/error/error');
 
 exports.get = async(params) => {
     let res = await HairdressingSalon.findAll({

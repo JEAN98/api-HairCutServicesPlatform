@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express');
 const bodyParser = require('body-parser');
-const errorHandler = require('./middleware/errrorHandler');
+const errorHandler = require('./middleware/error/errrorHandler');
 const {getFilesName} = require('./utils/getFilesInDirectory');
 
 const app = express();

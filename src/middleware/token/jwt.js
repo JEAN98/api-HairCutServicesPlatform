@@ -1,5 +1,5 @@
 "use strict"
-const env       = require("../config/env");
+const env       = require("../../config/env");
 const token     = require("jwt-simple");
 const moment    = require("moment");
 const secretKey = env.secret_key;

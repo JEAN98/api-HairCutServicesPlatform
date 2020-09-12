@@ -2,7 +2,7 @@
 const controller = require('../controllers/worker.controller');
 const {createWorker,getWorkersByHairdressingSalon} = require('../middleware/validators/worker.validator');
 const { validate } = require('express-validation')
-const auth =  require('../token/aut');
+const auth =  require('../middleware/token/aut');
 
 module.exports = (app) => {
     // Retrieve a single debit by Id

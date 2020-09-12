@@ -1,5 +1,5 @@
 const {  ValidationError } = require('express-validation');
-const { GeneralError } = require('../utils/error');
+const { GeneralError } = require('./error');
 
 const errorHandler = (err, req, res, next) => {
   if(err instanceof ValidationError)
