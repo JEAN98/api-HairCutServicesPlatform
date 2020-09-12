@@ -1,6 +1,7 @@
-
 drop table appoiment_services;
 drop table appoiments;
+drop table work_days;
+drop table weekdays;
 drop table facebook_accounts;
 drop table google_accounts;
 drop table haircut_platform_accounts;
@@ -10,17 +11,22 @@ drop table hairdressers_services;
 drop table hairdressing_salons;
 drop table genders;
 
-
 create table genders
 (
 	id serial primary key,
 	population varchar(100) not null,
+	letter varchar(1) not null,
     created_at timestamp,
     updated_at timestamp
 );
-insert into genders (population) values ('hombre');
-insert into genders (population) values ('mujer');
-insert into genders (population) values ('ambos');
+
+
+create table weekdays(
+	id serial primary key,
+    weekday varchar(50) not null,
+	letter varchar(1) not null
+);
+
 
 create table hairdressing_salons
 (
@@ -46,8 +52,23 @@ create table hairdressing_salons
 	  REFERENCES genders(id)
 );
 
-insert into hairdressing_salons(name,description,email,password,shift_starts,shift_ends,lunch_time,latitud,longitud,gender_id,is_active)
-VALUES  ('Salon Test', 'Description of salon', 'salonTest@gmail.com','admin@123',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,-488.15,8441.58,1,true);
+
+
+create table work_days(
+	id serial primary key,
+	weekday_id int not null,
+	hairdressing_salon_id int not null,
+
+
+	CONSTRAINT fk_weekdays
+      FOREIGN KEY(weekday_id) 
+	  REFERENCES weekdays(id),
+
+	CONSTRAINT fk_hairdressing_salon_weekdays
+      FOREIGN KEY(hairdressing_salon_id) 
+	  REFERENCES hairdressing_salons(id)
+);
+
 
 create table workers
 (
@@ -71,10 +92,9 @@ create table workers
 	  REFERENCES hairdressing_salons(id)
 );
 
-insert into workers(hairdressing_salon_id,first_name,last_name,gender_id,is_active,identification_card)
-values (1,'Shey','Gonzales Vega',2,true,'207810973');
 
-select * from workers;
+
+
 create table hairdressers_services
 (
 	id serial primary key,
@@ -167,7 +187,7 @@ create table appoiments
 	shift_starts timestamp not null,
 	shift_ends timestamp not null,
 	client_id int not null,
-	worker_id int not null,
+	worker_id int not null, 
 	hairdressing_salon_id int not null,
 	total_time double precision not null,
 	total_cost double precision	 not null,
@@ -209,4 +229,12 @@ create table appoiment_services
 );
 
 
-select * from genders;
+insert into genders (population,letter) values ('Men','M');
+insert into genders (population,letter) values ('Women','W');
+insert into genders (population,letter) values ('Both','B');
+
+
+insert into weekdays(weekday,letter) 
+values ('Sunday','S'), ('Monday','M'), ('Tuesday','T'),
+('Wednesday','W'), ('Thursday','T'), ('Friday','F'),('Saturday','S');
+
