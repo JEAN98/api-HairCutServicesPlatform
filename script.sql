@@ -39,7 +39,8 @@ create table hairdressing_salons
 	password varchar(200) not null,
 	shift_starts time not null,
 	shift_ends time not null,
-	lunch_time time not null,
+	lunch_starts time not null,
+	lunch_ends time not null,
 	latitud double precision	 not null,
 	longitud double precision	 not null,
 	photo bytea,
@@ -61,7 +62,7 @@ create table work_days(
 	weekday_id int not null,
 	hairdressing_salon_id int not null,
 	created_at timestamp,
-    updated_at timestamp
+    updated_at timestamp,
 
 
 	CONSTRAINT fk_weekdays

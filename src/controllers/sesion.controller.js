@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
+const Sequelize = require('sequelize');
 const jwt =  require('../token/jwt');
+const {JWTData} =  require('../token/jwtData');
 const { password_key } = require('../config/env');
 const findByEmail = require('../repositories/hairdressingSalon.repository').findByEmail;
 const {GeneralError,BadRequestSequelizeError}  = require('../utils/error');
@@ -12,6 +14,7 @@ exports.createSession = async(req,res,next) => {
         let response = await checkCredentials(body.email,body.password);
         res.status(response.statusCode).json(response.message);
     }  catch (error) {
+        console.log(error)
         if (error.constructor.prototype instanceof Sequelize.BaseError)
         {
            next(new BadRequestSequelizeError(error));  
@@ -20,13 +23,14 @@ exports.createSession = async(req,res,next) => {
            next(new GeneralError("Internal server error"));  
      }
 }
-
+//TODO: Needs to be fixed in order to handle client credentials
 
 const checkCredentials = async(email,password) => {
     let response = {};
     response.message = {};
     let hairdressingSalonList = await findByEmail(email);
-    if(hairdressingSalonList.length   > 0 )
+   
+    if(hairdressingSalonList.length > 0 )
     {
         hairdressingSalon = hairdressingSalonList[0].toJSON();
         //console.log( bcrypt.hashSync(password_key + password, 1),'passssworrdd+++')
@@ -34,7 +38,8 @@ const checkCredentials = async(email,password) => {
         match = bcrypt.compareSync(password_key+password, hairdressingSalon.password);
         console.log('match*************',match)
         if(match) {
-            response.message.token = jwt.createToken(hairdressingSalon.id,hairdressingSalon.email,hairdressingSalon.name);
+            let jwtData = new JWTData(hairdressingSalon.id,hairdressingSalon.email,hairdressingSalon.name,'HairdressingSalon');
+            response.message.token = jwt.createToken(jwtData);
             response.message.entity = deleteHairdressingSalonAttributes(hairdressingSalon);
             response.statusCode = 201;
             return response;
