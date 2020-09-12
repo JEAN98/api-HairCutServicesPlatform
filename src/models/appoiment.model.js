@@ -35,11 +35,6 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         field: 'worker_id', 
     },
-    hairdressingSalonID: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        field: 'hairdressing_salon_id', 
-    },
     createdAt: {
         type: Sequelize.DATE,
         field: 'created_at',

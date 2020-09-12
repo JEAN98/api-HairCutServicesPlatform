@@ -51,9 +51,6 @@ module.exports = (db, sequelize, Sequelize) => {
     }); 
     
     //appoiment
-    db.hairdressingSalon.hasMany( db.appoiment , {
-      foreignKey: 'hairdressing_salon_id'
-    });
     db.client.hasMany( db.appoiment , {
       foreignKey: 'client_id'
     });
@@ -61,9 +58,6 @@ module.exports = (db, sequelize, Sequelize) => {
       foreignKey: 'worker_id'
     });
 
-    db.appoiment.belongsTo(db.hairdressingSalon, {
-      foreignKey: 'hairdressing_salon_id'
-    });
     db.appoiment.belongsTo(db.client, {
       foreignKey: 'client_id'
     });

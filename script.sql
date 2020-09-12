@@ -188,17 +188,11 @@ create table appoiments
 	shift_ends timestamp not null,
 	client_id int not null,
 	worker_id int not null, 
-	hairdressing_salon_id int not null,
 	total_time double precision not null,
 	total_cost double precision	 not null,
     created_at timestamp,
     updated_at timestamp,
 
-	CONSTRAINT fk_hairdressing_salon_appoiment
-      FOREIGN KEY(hairdressing_salon_id) 
-	  REFERENCES hairdressing_salons(id),
-
-	
 	CONSTRAINT fk_client_appoiment
       FOREIGN KEY(client_id) 
 	  REFERENCES clients(id),
