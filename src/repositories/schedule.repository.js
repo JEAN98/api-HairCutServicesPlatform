@@ -1,19 +1,10 @@
 'use strict';
 const Schedule = require('../config/db.config').schedule;
+const cleanHelper = require('../utils/cleanEntity.helper');
+const attributesToBeRemoved = ['createdAt','updatedAt'];
 
 
 exports.create = async(scheduleData) => {
-    let newSchedule = await Schedule.bulkCreate(scheduleData);
-    return newSchedule
+    let newScheduleList = await Schedule.bulkCreate(scheduleData);
+    return cleanHelper.cleanEntityList(newScheduleList,attributesToBeRemoved)
 }
-
-
-const cleanScheduleEntity = (Schedule) => {
-    Schedule = Schedule.toJSON();
-    delete Schedule.updatedAt;
-    delete Schedule.createdAt;
-
-    return Schedule;
-}
-
-
