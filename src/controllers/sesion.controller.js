@@ -39,7 +39,7 @@ const checkCredentials = async(email,password) => {
         console.log('match*************',match)
         if(match) {
             let jwtData = new JWTData(hairdressingSalon.id,hairdressingSalon.email,hairdressingSalon.name,'HairdressingSalon');
-            response.message.token = jwt.createToken(jwtData);
+            response.message.token = JWT.createToken(jwtData);
             response.message.entity = deleteHairdressingSalonAttributes(hairdressingSalon);
             response.statusCode = 201;
             return response;

@@ -1,11 +1,14 @@
 const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../middleware/error/error');
 const Sequelize = require('sequelize');
-exports.create = (req,res,next) => {
+const repository = require('../repositories/schedule.repository');
+exports.create = async (req,res,next) => {
     try
     {
-       res.status(200).send({ok:req.body});
+       let bodyResponse = await repository.create(req.body);
+       res.status(201).send(bodyResponse);
     } 
     catch (error) {
+       console.log(error)
        if (error.constructor.prototype instanceof Sequelize.BaseError)
        {
           next(new BadRequestSequelizeError(error));  

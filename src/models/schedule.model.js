@@ -1,14 +1,16 @@
 module.exports = (sequelize, Sequelize) => {
-    var schedule = sequelize.define('schedule', {
+    var schedule = sequelize.define('schedules', {
     weekDayID: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          field: 'weekday_id',    
+          field: 'weekday_id',
+          primaryKey: true    
     },
     hairdressingSalonID: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        field: 'hairdressing_salon_id',    
+        field: 'hairdressing_salon_id',
+        primaryKey: true    
     },
     shiftStarts: {
         type: Sequelize.TIME,

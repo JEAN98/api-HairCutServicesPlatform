@@ -20,7 +20,7 @@ values (1,'Shey','Gonzales Vega',2,true,'207810973');
 select * from workers;
 
 
-insert into schedule(weekday_id,hairdressing_salon_id,shift_starts,shift_ends) values (2,1,'10:00:00','05:00:00');
+insert into schedules(weekday_id,hairdressing_salon_id,shift_starts,shift_ends) values (2,1,'10:00:00','05:00:00');
 
 
 select * from genders;

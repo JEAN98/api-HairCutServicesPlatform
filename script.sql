@@ -54,7 +54,7 @@ create table hairdressing_salons
 
 
 
-create table schedule(
+create table schedules(
 	weekday_id int not null,
 	hairdressing_salon_id int not null,
 	shift_starts time not null,

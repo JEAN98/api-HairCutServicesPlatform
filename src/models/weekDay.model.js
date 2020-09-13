@@ -10,11 +10,6 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         unique: true     
     },
-    letter:{
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true   
-    },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created_at',
