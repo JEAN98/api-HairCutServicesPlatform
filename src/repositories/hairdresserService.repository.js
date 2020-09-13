@@ -1,5 +1,7 @@
 'use strict';
 const HairdressersService = require('../config/db.config').hairdressersService;
+const cleanHelper = require('../utils/cleanEntity.helper');
+const attributesToBeRemoved = ['createdAt','updatedAt'];
 
 exports.getByHairdressingSalon = async(params) => {
     let servicesList = await HairdressersService.findAll({
@@ -8,29 +10,10 @@ exports.getByHairdressingSalon = async(params) => {
             hairdressingSalonID: params.hairdressingSalonID
         }
     });
-    return cleanListEntity(servicesList);
+    return cleanHelper.cleanEntityList(servicesList,attributesToBeRemoved);
 }
 
 exports.create = async(newService) => {
     let service = await HairdressersService.create(newService);
-    return cleanEntity(service);
-}
-
-
-const cleanListEntity = (serviceList) => {
-    if(serviceList.length > 0 )
-    {
-        for (let index = 0; index < serviceList.length; index++) {
-            serviceList[index] = cleanEntity(serviceList[index] );
-        }
-    }
-    return serviceList;
-}
-
-const cleanEntity = (newService) => {
-    newService = newService.toJSON();
-    delete newService.createdAt;
-    delete newService.updatedAt;
-
-    return newService;
+    return cleanHelper.cleanEntity(service,attributesToBeRemoved);
 }

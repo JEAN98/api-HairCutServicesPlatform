@@ -1,18 +1,21 @@
 'use strict';
 const HairdressingSalon = require('../config/db.config').hairdressingSalon;
 const {BadRequestSequelizeError}  = require('../middleware/error/error');
+const cleanHelper = require('../utils/cleanEntity.helper');
+const attributesToBeRemoved = ['createdAt','updatedAt','password'];
+
 
 exports.get = async(params) => {
-    let res = await HairdressingSalon.findAll({
+    let list = await HairdressingSalon.findAll({
         attributes: {exclude: ['genderID','password','createdAt','updatedAt']},
         where: {is_active: params.isActive == undefined ? true : params.isActive}
     });
-    return res;
+    return list;
 }
 
 exports.create = async(newHairdressingSalon) => {
-    let res = await HairdressingSalon.create(newHairdressingSalon);
-    return cleanEntity(res);    
+    let hsalon = await HairdressingSalon.create(newHairdressingSalon);
+    return cleanHelper.cleanEntity(hsalon,attributesToBeRemoved);    
 }
 
 exports.findByEmail = async(email) => {
@@ -21,12 +24,3 @@ exports.findByEmail = async(email) => {
     });
     return res;
 }
-
-const cleanEntity = (hairdressingSalon) => {
-    hairdressingSalon = hairdressingSalon.toJSON();
-    delete hairdressingSalon.password;
-    delete hairdressingSalon.createdAt;
-    delete hairdressingSalon.updatedAt;
-    return hairdressingSalon;
-}
-//exports.findByEmail

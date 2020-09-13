@@ -1,21 +1,14 @@
 'use strict';
 const Client = require('../config/db.config').client;
+const cleanHelper = require('../utils/cleanEntity.helper');
+const attributesToBeRemoved = ['createdAt','updatedAt'];
 
 exports.create = async(clientData) => {
     let newClient = await Client.create(clientData);
-    return cleanClientEntity(newClient);
+    return cleanHelper.cleanEntity(newClient,attributesToBeRemoved);
 }
 
 exports.findByID = async(clientID) => {
     let client = await Client.findById(clientID);
-    return cleanClientEntity(client);
-}
-
-
-const cleanClientEntity = (client) => {
-    client = client.toJSON();
-    delete client.updatedAt;
-    delete client.createdAt;
-
-    return client;
+    return cleanHelper.cleanEntity(client,attributesToBeRemoved);
 }

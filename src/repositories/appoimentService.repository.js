@@ -1,5 +1,7 @@
 'use strict';
 const AppoimentService = require('../config/db.config').appoimentService;
+const cleanHelper = require('../utils/cleanEntity.helper');
+const attributesToBeRemoved = ['createdAt','updatedAt'];
 
 exports.get = async() => {
     let res = await AppoimentService.findAll();
