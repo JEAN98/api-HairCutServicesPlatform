@@ -1,0 +1,11 @@
+'use strict'
+const { validate } = require('express-validation')
+const controller = require('../controllers/schedule.controller');
+const auth =  require('../middleware/token/aut');
+const createSchedule = require('../middleware/validators/schedule.validator');
+
+module.exports = function(app) {
+
+  app.post('/api/schedule', validate(createSchedule, {}, {}),controller.create)
+ // app.get('/api/hairdressingSalon/', auth.autentication ,controller.findAll);
+}

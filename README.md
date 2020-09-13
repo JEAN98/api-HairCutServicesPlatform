@@ -11,4 +11,4 @@ npm install --save sequelize
 
 
 
- 
+ FYI: The models files name must match with db.[property]
