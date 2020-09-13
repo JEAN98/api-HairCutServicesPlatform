@@ -39,6 +39,7 @@ exports.create = async(req, res,next) => {
    catch (error) {
      if (error.constructor.prototype instanceof Sequelize.BaseError)
       {
+         //FIXME: There should be a better way to hadle this error
          next(new BadRequestSequelizeError(error));  
       }
       else

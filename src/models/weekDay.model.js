@@ -7,11 +7,13 @@ module.exports = (sequelize, Sequelize) => {
     },
     weekday:{
         type: Sequelize.STRING,
-        allowNull: false   
+        allowNull: false,
+        unique: true     
     },
     letter:{
         type: Sequelize.STRING,
-        allowNull: false   
+        allowNull: false,
+        unique: true   
     },
     createdAt: {
       type: Sequelize.DATE,

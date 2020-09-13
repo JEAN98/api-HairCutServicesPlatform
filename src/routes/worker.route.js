@@ -10,3 +10,4 @@ module.exports = (app) => {
 
     app.post('/api/worker/',auth.autentication, validate(createWorker, {}, {}), controller.create)
 }
+ 

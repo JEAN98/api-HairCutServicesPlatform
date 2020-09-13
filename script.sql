@@ -1,15 +1,15 @@
-drop table appoiment_services;
-drop table appoiments;
-drop table work_days;
-drop table weekdays;
-drop table facebook_accounts;
-drop table google_accounts;
-drop table haircut_platform_accounts;
-drop table clients;
-drop table workers;
-drop table hairdressers_services;
-drop table hairdressing_salons;
-drop table genders;
+drop table IF EXISTS appoiment_services;
+drop table IF EXISTS appoiments;
+drop table IF EXISTS schedule;
+drop table IF EXISTS weekdays;
+drop table IF EXISTS facebook_accounts;
+drop table IF EXISTS google_accounts;
+drop table IF EXISTS haircut_platform_accounts;
+drop table IF EXISTS clients;
+drop table IF EXISTS workers;
+drop table IF EXISTS hairdressers_services;
+drop table IF EXISTS hairdressing_salons;
+drop table IF EXISTS genders;
 
 create table genders
 (
@@ -23,8 +23,7 @@ create table genders
 
 create table weekdays(
 	id serial primary key,
-    weekday varchar(50) not null,
-	letter varchar(1) not null,
+    weekday varchar(50) not null UNIQUE,
 	created_at timestamp,
     updated_at timestamp
 );
@@ -37,12 +36,10 @@ create table hairdressing_salons
 	description varchar(500) not null,
 	email varchar(100) not null UNIQUE,
 	password varchar(200) not null,
-	shift_starts time not null,
-	shift_ends time not null,
 	lunch_starts time not null,
 	lunch_ends time not null,
-	latitud double precision	 not null,
-	longitud double precision	 not null,
+	latitud double precision  not null,
+	longitud double precision not null,
 	photo bytea,
 	website varchar(500),
 	gender_id int not null,
@@ -57,12 +54,15 @@ create table hairdressing_salons
 
 
 
-create table work_days(
-	id serial primary key,
+create table schedule(
 	weekday_id int not null,
 	hairdressing_salon_id int not null,
+	shift_starts time not null,
+	shift_ends time not null,
 	created_at timestamp,
     updated_at timestamp,
+
+	 PRIMARY KEY(weekday_id,hairdressing_salon_id),
 
 
 	CONSTRAINT fk_weekdays
@@ -227,13 +227,4 @@ create table appoiment_services
 	  REFERENCES hairdressers_services(id)
 );
 
-
-insert into genders (population,letter) values ('Men','M');
-insert into genders (population,letter) values ('Women','W');
-insert into genders (population,letter) values ('Both','B');
-
-
-insert into weekdays(weekday,letter) 
-values ('Sunday','S'), ('Monday','M'), ('Tuesday','T'),
-('Wednesday','W'), ('Thursday','T'), ('Friday','F'),('Saturday','S');
 

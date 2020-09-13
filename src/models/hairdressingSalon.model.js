@@ -25,20 +25,15 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false     
     },
-    shiftStarts:{
+    lunchStarts:{
         type: Sequelize.TIME,
         allowNull: false,
-        field: 'shift_starts',    
+        field: 'lunch_starts',            
     },
-    shiftEnds:{
+    lunchEnds:{
         type: Sequelize.TIME,
         allowNull: false,
-        field: 'shift_ends',        
-    },
-    lunchTime:{
-        type: Sequelize.TIME,
-        allowNull: false,
-        field: 'lunch_time',            
+        field: 'lunch_ends',            
     },
     latitud:{
         type: Sequelize.DOUBLE,
