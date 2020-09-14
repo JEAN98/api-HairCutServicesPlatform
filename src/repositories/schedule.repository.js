@@ -9,20 +9,19 @@ exports.create = async(scheduleData) => {
     return cleanHelper.cleanEntityList(newScheduleList,attributesToBeRemoved)
 }
 
-
-exports.verifyAvailability = async(hSalonID, shiftStarts,shiftEnds) => {
+exports.verifyAvailability = async(workerID, shiftStarts,shiftEnds) => {
    let availability = await dbContext.sequelize.query(
             'select weekdays.weekday from \
             schedules as sch \
             inner join weekdays on sch.weekday_id = weekdays.id \
-            where sch.hairdressing_salon_id = :hSalonID and \
+            left join workers on sch.hairdressing_salon_id = workers.hairdressing_salon_id \
+            where workers.id = :workerID  and \
             extract(dow from date :shiftStarts) + 1  = sch.weekday_id \
             and :shiftStarts between sch.shift_starts and sch.shift_ends \
-            and :shiftEnds between sch.shift_starts and sch.shift_ends;'
-            ,
+            and :shiftEnds between sch.shift_starts and sch.shift_ends;',
             {
                 replacements: { 
-                    hSalonID: hSalonID,
+                    workerID: workerID,
                     shiftStarts: shiftStarts,
                     shiftEnds: shiftEnds
                 },

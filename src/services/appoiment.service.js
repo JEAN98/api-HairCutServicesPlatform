@@ -5,7 +5,7 @@ exports.verifyAvailabity = async(reqBody) => {
     try {
         let availabityList = 
                 await scheduleRepository.verifyAvailability
-                    (reqBody.hairdressingSalonID,reqBody.shiftStarts,reqBody.shiftEnds);
+                    (reqBody.workerID,reqBody.shiftStarts,reqBody.shiftEnds);
         if(availabityList.length > 0)
         {
             return {message: 'We can work' };
@@ -16,3 +16,4 @@ exports.verifyAvailabity = async(reqBody) => {
         throw Error('Error from schedule service');
     }
 }
+
