@@ -25,3 +25,33 @@ insert into schedules(weekday_id,hairdressing_salon_id,shift_starts,shift_ends) 
 
 select * from genders;
 select * from weekdays;
+
+/*
+insert into appoiments
+(shift_starts,shift_ends,client_id,worker_id,total_time,total_cost)
+values('2017-06-22 10:00:00','2017-06-22 11:00:00',1,1,1,5000),
+('2017-06-22 14:00:00','2017-06-22 15:00:00',2,1,1,5000),
+('2017-06-22 15:00:00','2017-06-22 16:00:00',3,1,1,5000);
+
+
+*/
+select * 
+		from (
+			select shift_starts, shift_ends
+			from appoiments as ap
+			where ap.worker_id = 1
+			and DATE(ap.shift_starts) = '2017-06-22' 
+			and DATE(ap.shift_ends) = '2017-06-22' 
+		) as workerAuxTable
+	where 
+	'2017-06-22 07:00:00' >= workerAuxTable.shift_starts and 
+	'2017-06-22 07:00:00' < workerAuxTable.shift_ends
+
+	or '2017-06-22 10:00:00' < workerAuxTable.shift_starts and 
+	'2017-06-22 10:00:00' >= workerAuxTable.shift_ends
+
+	or workerAuxTable.shift_starts >= '2017-06-22 07:00:00' and 
+	workerAuxTable.shift_starts < '2017-06-22 10:00:00'
+
+	or workerAuxTable.shift_ends < '2017-06-22 07:00:00' and 
+	workerAuxTable.shift_ends >= '2017-06-22 10:00:00' 
