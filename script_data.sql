@@ -35,13 +35,13 @@ values('2017-06-22 10:00:00','2017-06-22 11:00:00',1,1,1,5000),
 
 
 */
+
 select * 
 		from (
 			select shift_starts, shift_ends
 			from appoiments as ap
 			where ap.worker_id = 1
-			and DATE(ap.shift_starts) = '2017-06-22' 
-			and DATE(ap.shift_ends) = '2017-06-22' 
+			and DATE(ap.shift_starts) = DATE('2017-06-22 07:00:00')
 		) as workerAuxTable
 	where 
 	'2017-06-22 07:00:00' >= workerAuxTable.shift_starts and 
@@ -62,6 +62,7 @@ select *
 select weekdays.weekday from
 schedules as sch
 inner join weekdays on sch.weekday_id = weekdays.id
-where extract(dow from date '2020-09-15') + 1  = sch.weekday_id
+where sch.hairdressing_salon_id = 1 and
+extract(dow from date '2020-09-15 10:00:00') + 1  = sch.weekday_id
 and '2020-09-15 10:00:00' between sch.shift_starts and sch.shift_ends
 and '2020-09-15 11:00:00' between sch.shift_starts and sch.shift_ends;
