@@ -2,8 +2,6 @@
 const dbContext       = require('../config/db.config');
 const Appoiment = dbContext.appoiment;
 
-
-
 exports.verifyAppoimentAvailability = async(workerID, shiftStarts,shiftEnds) => {
     let availability = await dbContext.sequelize.query(
              'select * \

@@ -62,7 +62,14 @@ select *
 select weekdays.weekday from
 schedules as sch
 inner join weekdays on sch.weekday_id = weekdays.id
-where sch.hairdressing_salon_id = 1 and
+left join workers on sch.hairdressing_salon_id = workers.hairdressing_salon_id
+where workers.id = 1 and
 extract(dow from date '2020-09-15 10:00:00') + 1  = sch.weekday_id
 and '2020-09-15 10:00:00' between sch.shift_starts and sch.shift_ends
 and '2020-09-15 11:00:00' between sch.shift_starts and sch.shift_ends;
+
+
+
+select SUM(cost) as totalCost, SUM(time_duration_min) as totalTime
+from hairdressers_services
+where id in (1,2)

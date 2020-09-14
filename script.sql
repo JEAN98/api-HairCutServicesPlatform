@@ -1,6 +1,6 @@
 drop table IF EXISTS appoiment_services;
 drop table IF EXISTS appoiments;
-drop table IF EXISTS schedule;
+drop table IF EXISTS schedules;
 drop table IF EXISTS weekdays;
 drop table IF EXISTS facebook_accounts;
 drop table IF EXISTS google_accounts;
@@ -107,7 +107,7 @@ create table hairdressers_services
 	code varchar(100) not null UNIQUE,
 	description varchar(250) not null,
 	cost double precision ,
-	time_duration int not null ,
+	time_duration_min int not null ,
 	hairdressing_salon_id int not null,
 	gender_id int not null,
 	is_active BOOLEAN  not null,

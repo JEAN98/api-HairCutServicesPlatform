@@ -1,5 +1,6 @@
 'use strict';
-const HairdressersService = require('../config/db.config').hairdressersService;
+const dbContext = require('../config/db.config');
+const HairdressersService = dbContext.hairdressersService;
 const cleanHelper = require('../utils/cleanEntity.helper');
 const attributesToBeRemoved = ['createdAt','updatedAt'];
 
@@ -16,4 +17,41 @@ exports.getByHairdressingSalon = async(params) => {
 exports.create = async(newService) => {
     let service = await HairdressersService.create(newService);
     return cleanHelper.cleanEntity(service,attributesToBeRemoved);
+}
+
+
+exports.getTotalCostAndTimeByServicesResquested = async(servicesList) => {
+    let totalCostAndTime = await dbContext.sequelize.query(
+        'select SUM(cost) as totalCost, \
+            SUM(time_duration_min) as totalTime \
+        from hairdressers_services \
+        where id in (:servicesList)' ,
+        {
+            replacements: { 
+               servicesList: servicesList,
+            },
+            type: dbContext.sequelize.QueryTypes.SELECT
+        },
+    );
+    return totalCostAndTime ;
+}
+
+exports.getServicesListRequested = async(servicesList,workerID) => {
+    let servicesListActive = await dbContext.sequelize.query(
+            'select  hs.title,hs.id \
+            from hairdressers_services as hs \
+            left join workers on hs.hairdressing_salon_id = workers.hairdressing_salon_id \
+            where  workers.id = :workerID  \
+            and  hs.id in (:servicesList) \
+            and hs.is_active = true \
+            group by hs.id' ,
+        {
+            replacements: {
+                workerID: workerID, 
+               servicesList: servicesList,
+            },
+            type: dbContext.sequelize.QueryTypes.SELECT
+        },
+    );
+    return servicesListActive ;
 }

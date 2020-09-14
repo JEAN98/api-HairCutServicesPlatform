@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
     timeDuration: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        field: 'time_duration',    
+        field: 'time_duration_min',    
     },
     isActive: {
         type: Sequelize.BOOLEAN,
