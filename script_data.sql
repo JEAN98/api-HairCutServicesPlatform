@@ -54,4 +54,14 @@ select *
 	workerAuxTable.shift_starts < '2017-06-22 10:00:00'
 
 	or workerAuxTable.shift_ends < '2017-06-22 07:00:00' and 
-	workerAuxTable.shift_ends >= '2017-06-22 10:00:00' 
+	workerAuxTable.shift_ends >= '2017-06-22 10:00:00' ;
+
+
+/*In order to review the appoiment matches with schedule of the hairdressing salon*/
+
+select weekdays.weekday from
+schedules as sch
+inner join weekdays on sch.weekday_id = weekdays.id
+where extract(dow from date '2020-09-15') + 1  = sch.weekday_id
+and '2020-09-15 10:00:00' between sch.shift_starts and sch.shift_ends
+and '2020-09-15 11:00:00' between sch.shift_starts and sch.shift_ends;
