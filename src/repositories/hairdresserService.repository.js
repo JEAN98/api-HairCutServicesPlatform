@@ -22,8 +22,8 @@ exports.create = async(newService) => {
 
 exports.getTotalCostAndTimeByServicesResquested = async(servicesList) => {
     let totalCostAndTime = await dbContext.sequelize.query(
-        'select SUM(cost) as totalCost, \
-            SUM(time_duration_min) as totalTime \
+        'select SUM(cost) as total_cost, \
+            SUM(time_duration_min) as total_time \
         from hairdressers_services \
         where id in (:servicesList)' ,
         {
