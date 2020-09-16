@@ -11,7 +11,7 @@ exports.createAppoiment = async(reqBody) => {
         let servicesList = reqBody.servicesList;
         let workerID = reqBody.workerID;
         let shiftStarts = reqBody.shiftStarts;
-        let clientID = reqBody.clientID;
+        let clientID = reqBody.clientID; //TODO: The clientID needs to be taken from the JWT
 
         verifyTheShiftStartsOnFuture(shiftStarts);
 
