@@ -3,7 +3,7 @@ const haidresserServiceRepository = require('../repositories/hairdresserService.
 const appoimentRepository = require('../repositories/appoiment.repository');
 const {BadRequest} = require('../middleware/error/error');
 const  { format } = require('date-fns');
-const moment = require('moment');
+const { DateTime } = require("luxon");
 
 exports.createAppoiment = async(reqBody) => {
     try {
@@ -45,13 +45,16 @@ In order to verify the new appoiment has at least 15 min as anticipation to be c
 Level 0
 */
 const verifyTheShiftStartsOnFuture =  (shiftStarts) => {
-    shiftStarts = new Date(shiftStarts);
-    let currentDateTime = moment();
+    var currentDateTime = DateTime.local().setZone("utc-6");
+
+    shiftStarts = DateTime.fromFormat(shiftStarts,"yyyy-MM-dd HH:mm:ss");
     if(shiftStarts < currentDateTime)
     {
         throw new BadRequest("The shiftStarts cannot be a past time!")
     }
-    currentDateTime.set({minute:currentDateTime.minute() + 15 });
+
+    currentDateTime = currentDateTime.plus({minute: 15})
+    //console.log(currentDateTime)
     if(shiftStarts < currentDateTime)
     {
         throw new BadRequest("An appointment needs to be scheduled with 15 min as anticipation!")
@@ -93,7 +96,7 @@ Level 3
 */
 const calculateShiftEnds = (shiftStarts,totalTimeMinutes) => {
     var shiftEnds = new Date(shiftStarts);
-    console.log(shiftEnds,totalTimeMinutes)
+    //console.log(shiftEnds,totalTimeMinutes)
     shiftEnds.setMinutes(shiftEnds.getMinutes() + parseInt(totalTimeMinutes))
     var string_date = format(shiftEnds, 'yyyy-MM-dd hh:mm:ss').toString()
     return string_date;
