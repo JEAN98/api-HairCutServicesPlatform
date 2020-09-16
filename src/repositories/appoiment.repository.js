@@ -1,6 +1,13 @@
 'use strict';
 const dbContext       = require('../config/db.config');
 const Appoiment = dbContext.appoiment;
+const cleanHelper = require('../utils/cleanEntity.helper');
+const attributesToBeRemoved = [,'createdAt','updatedAt'];
+
+exports.create = async(appoiment) => {
+    let newAppoiment = await Appoiment.create(appoiment);
+    return cleanHelper.cleanEntity(newAppoiment,attributesToBeRemoved);
+}
 
 exports.verifyAppoimentAvailability = async(workerID, shiftStarts,shiftEnds) => {
     let availability = await dbContext.sequelize.query(
@@ -33,3 +40,5 @@ exports.verifyAppoimentAvailability = async(workerID, shiftStarts,shiftEnds) => 
          );
      return availability ;
  }
+
+

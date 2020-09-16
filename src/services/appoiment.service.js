@@ -1,7 +1,8 @@
 const scheduleRepository = require('../repositories/schedule.repository');
 const haidresserServiceRepository = require('../repositories/hairdresserService.repository');
 const appoimentRepository = require('../repositories/appoiment.repository');
-const {BadRequest} = require('../middleware/error/error');
+const appoimentServiceRepository =  require('../repositories/appoimentService.repository');
+const {BadRequest, GeneralError} = require('../middleware/error/error');
 const  { format } = require('date-fns');
 const { DateTime } = require("luxon");
 
@@ -31,13 +32,33 @@ exports.createAppoiment = async(reqBody) => {
             clientID: clientID,
             totalTime: totalList.total_time,
             totalCost: totalList.total_cost
-        }
+        };
+        let appoimentCreated = await appoimentRepository.create(newAppoiment);
+       // console.log(appoimentCreated)
+        await createAppoimentServices(servicesList,appoimentCreated.id);
 
-        return {result:newAppoiment};
+        return appoimentCreated;
     } catch (error) {
         console.log(error)
         throw new BadRequest(error);
     }
+}
+
+
+const createAppoimentServices = async(servicesList,appoimentID) => {
+    let newList = [];
+    for (let index = 0; index < servicesList.length; index++) {
+        let appoimentService = {
+            appoimentID: appoimentID,
+            serviceID: servicesList[index],
+        };
+        newList.push(appoimentService);     
+    }
+    if(newList.length == 0)
+    {
+        throw new GeneralError("The services list is empty and it cannot be used to create entries AppoimentServices");
+    }
+   await appoimentServiceRepository.create(newList);
 }
 
 /*
@@ -95,10 +116,12 @@ Calculate total shiftEnds
 Level 3
 */
 const calculateShiftEnds = (shiftStarts,totalTimeMinutes) => {
+
     var shiftEnds = new Date(shiftStarts);
     //console.log(shiftEnds,totalTimeMinutes)
-    shiftEnds.setMinutes(shiftEnds.getMinutes() + parseInt(totalTimeMinutes))
-    var string_date = format(shiftEnds, 'yyyy-MM-dd hh:mm:ss').toString()
+    shiftEnds.setMinutes(shiftEnds.getMinutes() + parseInt(totalTimeMinutes));
+    var string_date = format(shiftEnds, 'yyyy-MM-dd HH:mm:ss').toString();
+    console.log(string_date)
     return string_date;
 };
 

@@ -8,6 +8,15 @@ module.exports = (sequelize, Sequelize) => {
     isActive:{
         type: Sequelize.BOOLEAN,
         field: 'is_active',
+        defaultValue: true 
+    },
+    appoimentID:{
+      type: Sequelize.INTEGER,
+      field: 'appoiment_id',
+    },
+    serviceID:{
+      type: Sequelize.INTEGER,
+      field: 'service_id',
     },
     createdAt: {
       type: Sequelize.DATE,

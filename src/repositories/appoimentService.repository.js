@@ -7,3 +7,9 @@ exports.get = async() => {
     let res = await AppoimentService.findAll();
     return res;
 }
+
+
+exports.create = async(servicesList) => {
+    let newServicesCreated = await AppoimentService.bulkCreate(servicesList);
+    return cleanHelper.cleanEntityList(newServicesCreated,attributesToBeRemoved);
+}
