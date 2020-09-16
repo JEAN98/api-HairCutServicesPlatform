@@ -23,7 +23,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
  
 // parse application/json
 
-
+//Capture All 404 errors
+app.use(function (req,res,next){
+	res.status(404).send({ title:'Not found' ,message: 'Unable to find the requested resource!',status: 404});
+});
 
 // Enable CORS ()
 /*
