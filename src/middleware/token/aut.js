@@ -18,11 +18,12 @@ exports.autentication = function(req, res, next) {
             if (loadToken.exp <= moment().unix()) {
                 next( new Unauthorized({  message: "The token has expired" }))
             }
+
         } catch (exception) {
             console.log(exception);
             next( new Unauthorized({  message: "The token is not valid" }))
         }
-        req.token = loadToken;
+        req.token = loadToken; 
         next();
     }
 }

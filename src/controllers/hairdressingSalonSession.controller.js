@@ -5,7 +5,8 @@ const {JWTData} = require('../middleware/token/jwtData');
 const { password_key } = require('../config/env');
 const findByEmail = require('../repositories/hairdressingSalon.repository').findByEmail;
 const {GeneralError,BadRequestSequelizeError}  = require('../middleware/error/error');
-
+const cleanHelper = require('../utils/cleanEntity.helper');
+const attributesToBeRemoved = [,'createdAt','updatedAt','password','gender_id'];
 
 exports.createSession = async(req,res,next) => {
     try {
@@ -23,7 +24,6 @@ exports.createSession = async(req,res,next) => {
            next(new GeneralError("Internal server error"));  
      }
 }
-//TODO: Needs to be fixed in order to handle client credentials
 
 const checkCredentials = async(email,password) => {
     let response = {};
@@ -39,8 +39,8 @@ const checkCredentials = async(email,password) => {
         console.log('match*************',match)
         if(match) {
             let jwtData = new JWTData(hairdressingSalon.id,hairdressingSalon.email,hairdressingSalon.name,'HairdressingSalon');
+            response.message.hairdressingSalon = cleanHelper.cleanEntity(hairdressingSalonList[0],attributesToBeRemoved);
             response.message.token = JWT.createToken(jwtData);
-            response.message.entity = deleteHairdressingSalonAttributes(hairdressingSalon);
             response.statusCode = 201;
             return response;
         }
@@ -53,10 +53,3 @@ const checkCredentials = async(email,password) => {
 }
 
 
-const deleteHairdressingSalonAttributes = (hairdressingSalon) => {
-    delete hairdressingSalon.password;
-    delete hairdressingSalon.createdAt;
-    delete hairdressingSalon.updatedAt;
-    delete hairdressingSalon.gender_id; 
-    return hairdressingSalon;
-}

@@ -17,7 +17,7 @@ exports.verifyAvailability = async(workerID, shiftStarts,shiftEnds) => {
             left join workers on sch.hairdressing_salon_id = workers.hairdressing_salon_id \
             where workers.id = :workerID  and \
             extract(dow from date :shiftStarts) + 1  = sch.weekday_id \
-            and :shiftStarts between sch.shift_starts and sch.shift_ends \
+            and :shiftStarts betwe mnen sch.shift_starts and sch.shift_ends \
             and :shiftEnds between sch.shift_starts and sch.shift_ends;',
             {
                 replacements: { 

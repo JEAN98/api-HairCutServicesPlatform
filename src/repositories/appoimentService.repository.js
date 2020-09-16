@@ -6,7 +6,7 @@ const attributesToBeRemoved = ['createdAt','updatedAt'];
 
 exports.getAppoimentServiceList = async(appoimentID,clientID) => {
     let appoimentServiceList= await dbContext.sequelize.query(
-        '  select ap.id as appoimentID, hs.title,hs.description,hs.cost,hs.time_duration_min \
+        '  select  hs.title,hs.description,hs.cost,hs.time_duration_min \
             from appoiment_services as apservices \
             left join hairdressers_services as hs  \
             on hs.id = apservices.service_id \

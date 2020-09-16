@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
           allowNull: false,
           field: 'shift_starts',    
     },
-    shiftEnds: {
+    shiftEnds: { 
         type: Sequelize.DATE,
         allowNull: false,
         field: 'shift_ends',    
