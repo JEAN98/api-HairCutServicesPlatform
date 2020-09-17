@@ -7,7 +7,7 @@ const  { format } = require('date-fns');
 const { DateTime } = require("luxon");
 
 exports.createAppoiment = async(reqBody) => {
-    try {
+    
         let servicesList = reqBody.servicesList;
         let workerID = reqBody.workerID;
         let shiftStarts = reqBody.shiftStarts;
@@ -38,10 +38,7 @@ exports.createAppoiment = async(reqBody) => {
         await createAppoimentServices(servicesList,appoimentCreated.id);
 
         return appoimentCreated;
-    } catch (error) {
-        console.log(error)
-        throw new BadRequest(error);
-    }
+    
 }
 
 
@@ -54,11 +51,14 @@ const createAppoimentServices = async(servicesList,appoimentID) => {
         };
         newList.push(appoimentService);     
     }
+    
     if(newList.length == 0)
     {
-        throw new GeneralError("The services list is empty and it cannot be used to create entries AppoimentServices");
+        throw new GeneralError("The services list is empty and it cannot be used to create entries AppoimentServices",500);
     }
-   await appoimentServiceRepository.create(newList);
+    else{
+        await appoimentServiceRepository.create(newList);
+    }
 }
 
 /*

@@ -2,6 +2,9 @@ const {  ValidationError } = require('express-validation');
 const { GeneralError } = require('./error');
 
 const errorHandler = (err, req, res, next) => {
+
+  //Errors needs to be added here
+  console.log(err,'errorhandler')
   if(err instanceof ValidationError)
   {
     return res.status(err.statusCode).json(err)

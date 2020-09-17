@@ -7,5 +7,4 @@ const {getAppoimentServices} = require('../middleware/validators/appoimentServic
 module.exports = function(app) {
     // Retrieve a single debit by Id
     app.get('/api/appoimentService/',auth.autentication , validate(getAppoimentServices, {}, {}),controller.getAppoimentServiceList);
-    
 }
