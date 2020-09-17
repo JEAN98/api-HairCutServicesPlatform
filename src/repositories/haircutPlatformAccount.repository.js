@@ -1,5 +1,6 @@
 'use strict';
-const HaircutPlatformAccount = require('../config/db.config').haircutPlatformAccount;
+const dbContext = require('../config/db.config');
+const HaircutPlatformAccount = dbContext.haircutPlatformAccount;
 const cleanHelper = require('../utils/cleanEntity.helper');
 const attributesToBeRemoved = ['createdAt','updatedAt','password'];
 
@@ -16,7 +17,11 @@ exports.findByID = async(accountID) => {
 
 exports.findByEmail = async(newEmail) => {
     let account = await HaircutPlatformAccount.findAll({
-        where: {email: newEmail}
+        where: {email: newEmail},
+        include: [{
+            model: dbContext.client,
+            // specifies how we want to be able to access our joined rows on the returned data
+          }]
     });
     return account;
 }

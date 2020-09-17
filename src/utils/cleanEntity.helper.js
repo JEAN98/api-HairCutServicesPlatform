@@ -1,5 +1,9 @@
 const cleanEntity = (entity,attributeList) => {
-    entity = entity.toJSON();
+    if(entity.toJSON)
+    {
+        entity = entity.toJSON();
+    }
+
     attributeList.forEach(attribute => {
         if(entity[attribute] !== undefined)
         {
