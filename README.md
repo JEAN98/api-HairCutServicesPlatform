@@ -9,6 +9,9 @@ npm install --save sequelize
  npm install --save pg pg-hstore # Postgres
 
 
+npm install dotenv --save  //Accessing Environment Variables with ‘process.env’
+
 
 
  FYI: The models files name must match with db.[property]
+

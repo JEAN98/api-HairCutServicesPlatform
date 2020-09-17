@@ -1,5 +1,8 @@
 'use strict'
 const express = require('express');
+// load all env variables from .env file into process.env object.
+const dotenv = require('dotenv');
+dotenv.config();
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/error/errrorHandler');
 const {getFilesName} = require('./utils/getFilesInDirectory');
@@ -49,11 +52,12 @@ if(config.MODE == 'development') {
 // error handler middleware
 app.use(errorHandler)
 
-
+console.log(process.env.DATABASE)
 
 // Create a Server
 //app.listen(3000)
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
 
 
 
