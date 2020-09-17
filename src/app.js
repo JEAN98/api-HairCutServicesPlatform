@@ -3,9 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/error/errrorHandler');
 const {getFilesName} = require('./utils/getFilesInDirectory');
-
+const PORT = process.env.PORT || 3000;
 const app = express();
 
+
+
+//BodyParser
 app.use(bodyParser.json())
 
 
@@ -17,11 +20,14 @@ routeList.forEach(fileData => {
    require(pathFileRoute )(app);
 });
 
+app.get('/', (req, res) => res.send('HaircutAPI'))
+
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
  
-// parse application/json
+
 
 //Capture All 404 errors
 app.use(function (req,res,next){
@@ -43,8 +49,12 @@ if(config.MODE == 'development') {
 // error handler middleware
 app.use(errorHandler)
 
+
+
 // Create a Server
-app.listen(3000)
+//app.listen(3000)
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+
 
 
 //module.exports = app;
