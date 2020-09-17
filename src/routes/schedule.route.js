@@ -6,6 +6,6 @@ const createSchedule = require('../middleware/validators/schedule.validator');
 
 module.exports = function(app) {
 
-  app.post('/api/schedule', validate(createSchedule, {}, {}),controller.create)
+  app.post('/api/schedule', auth.autentication,validate(createSchedule, {}, {}),controller.create)
  // app.get('/api/hairdressingSalon/', auth.autentication ,controller.findAll);
 }
