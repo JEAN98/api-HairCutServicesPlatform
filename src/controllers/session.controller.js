@@ -13,12 +13,14 @@ const clientMapper = require('../utils/clientMapper');
 
 
 exports.createHairdressingSalonSession = async(req,res,next) => {
-    try {
+    try 
+    {
         let body = req.body;
         let response = await checkHairdressingSalonCredentials(body.email,body.password);
-        
         res.status(response.statusCode).json(response.message);
-    }  catch (error) {
+    }  
+    catch (error) 
+    {
         if (error.constructor.prototype instanceof Sequelize.BaseError)
         {
            next(new BadRequestSequelizeError(error));  

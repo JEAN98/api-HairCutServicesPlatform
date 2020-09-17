@@ -12,7 +12,7 @@ exports.autentication = function(req, res, next) {
     } else {
         //var currentToken = req.headers.authorization.replace(/['"]+/g, '');
         var currentToken = req.headers.authorization.split(" ")[1];
-        console.log(currentToken)
+        //console.log(currentToken)
         try {
             var loadToken = token.decode(currentToken, secretKey, false, "HS512");
             if (loadToken.exp <= moment().unix()) {
@@ -20,7 +20,7 @@ exports.autentication = function(req, res, next) {
             }
 
         } catch (exception) {
-            console.log(exception);
+            //console.log(exception);
             next( new Unauthorized({  message: "The token is not valid" }))
         }
         req.token = loadToken; 
