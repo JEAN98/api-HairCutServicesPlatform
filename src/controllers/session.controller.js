@@ -16,6 +16,7 @@ exports.createHairdressingSalonSession = async(req,res,next) => {
     try {
         let body = req.body;
         let response = await checkHairdressingSalonCredentials(body.email,body.password);
+        
         res.status(response.statusCode).json(response.message);
     }  catch (error) {
         if (error.constructor.prototype instanceof Sequelize.BaseError)
@@ -81,7 +82,7 @@ const checkHaircutPlatformAccountCredentials = async(email,password) => {
     let response = {};
     response.message = {};
     let accountList = await haircutPlatformAccountfindByEmail(email);
-    
+
     if(accountList.length > 0 )
     {
         let account = accountList[0].toJSON();
