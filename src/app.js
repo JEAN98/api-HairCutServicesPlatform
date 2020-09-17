@@ -23,7 +23,7 @@ routeList.forEach(fileData => {
    require(pathFileRoute )(app);
 });
 
-app.get('/', (req, res) => res.send('HaircutAPI'))
+app.get('/', (req, res) => res.send(process.env.API_NAME))
 
 
 
