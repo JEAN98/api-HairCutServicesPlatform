@@ -4,7 +4,7 @@ const AppoimentService = dbContext.appoimentService;
 const cleanHelper = require('../utils/cleanEntity.helper');
 const attributesToBeRemoved = ['createdAt','updatedAt'];
 
-exports.getAppoimentServiceList = async(appoimentID,clientID) => {
+exports.getAppoimentServiceList = async(appoimentID) => {
     let appoimentServiceList= await dbContext.sequelize.query(
         '  select  hs.title,hs.description,hs.cost,hs.time_duration_min \
             from appoiment_services as apservices \
@@ -12,11 +12,10 @@ exports.getAppoimentServiceList = async(appoimentID,clientID) => {
             on hs.id = apservices.service_id \
             left join appoiments as ap \
             on ap.id = apservices.appoiment_id \
-            where ap.id = :appoimentID  and ap.client_id = :clientID ',
+            where ap.id = :appoimentID',
         {
             replacements: { 
-                appoimentID: appoimentID,
-                clientID: clientID,
+                appoimentID: appoimentID
             },
             type: dbContext.sequelize.QueryTypes.SELECT
         },

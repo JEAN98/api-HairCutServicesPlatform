@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 
 exports.getAppoimentServiceList = async(req, res,next) => {
    try {
-        let data = await repository.getAppoimentServiceList(req.body.appoimentID,req.body.clientID);
+        let data = await repository.getAppoimentServiceList(req.query.appoimentID);
         res.status(200).send(data);
      } catch (error) {
       console.log(error)
