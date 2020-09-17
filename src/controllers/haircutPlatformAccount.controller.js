@@ -31,13 +31,15 @@ exports.create = async(req, res,next) => {
     } 
     catch(error) 
     {
+        /*
         //console.log(error)
         if (error.constructor.prototype instanceof Sequelize.BaseError)
         {
             next(new BadRequestSequelizeError(error));  
         }
         else
-            next(new GeneralError("Internal server error"));  
+            next(new GeneralError("Internal server error"));  */
+        next(error)
     }
 };
 

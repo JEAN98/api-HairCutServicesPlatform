@@ -1,6 +1,4 @@
 const repository = require('../repositories/worker.repository');
-const {GeneralError,BadRequestSequelizeError,BadRequest,Unauthorized}  = require('../middleware/error/error');
-const Sequelize = require('sequelize');
 const {checkPermissionLevel} = require('../utils/checkAccess.helper');
 
 exports.findByHairDressingSalon = async(req, res,next) => {
@@ -9,9 +7,9 @@ exports.findByHairDressingSalon = async(req, res,next) => {
         let data = await repository.getWorkersByHairdressingSalon( req.query);
         res.status(200).send(data);
      } 
-     catch(e) 
+     catch(error) 
      {
-      next( new GeneralError("Internal server error"));
+      next(error);
     }
 };
 
@@ -25,15 +23,6 @@ exports.create = async(req,res,next) => {
       res.status(200).send(data);
    } 
    catch (error) {
-      if(error instanceof Unauthorized)
-      {
-          next(error)
-      }
-      if (error.constructor.prototype instanceof Sequelize.BaseError)
-      {
-         next(new BadRequestSequelizeError(error));  
-      }
-      else
-         next(new GeneralError("Internal server error",500));  
+      next(error);
    }
 }

@@ -1,11 +1,9 @@
 const bcrypt = require('bcrypt');
-const Sequelize = require('sequelize');
 const JWT = require('../middleware/token/jwt');
 const {JWTData} = require('../middleware/token/jwtData');
 const { password_key } = require('../config/env');
 const hairdressingSalonfindByEmail = require('../repositories/hairdressingSalon.repository').findByEmail;
 const haircutPlatformAccountfindByEmail = require('../repositories/haircutPlatformAccount.repository').findByEmail;
-const {GeneralError,BadRequestSequelizeError}  = require('../middleware/error/error');
 const cleanHelper = require('../utils/cleanEntity.helper');
 const attributesToBeRemovedHS = [,'createdAt','updatedAt','password','gender_id'];
 const attributesToBeRemovedCP = [,'createdAt','updatedAt','password','client','client_id'];
@@ -21,13 +19,8 @@ exports.createHairdressingSalonSession = async(req,res,next) => {
     }  
     catch (error) 
     {
-        if (error.constructor.prototype instanceof Sequelize.BaseError)
-        {
-           next(new BadRequestSequelizeError(error));  
-        }
-        else
-           next(new GeneralError("Internal server error"));  
-     }
+        next(error)
+    }
 }
 
 const checkHairdressingSalonCredentials = async(email,password) => {
@@ -71,12 +64,7 @@ exports.createHaircutPlatformAccountSession = async(req,res,next) => {
 
         res.status(response.statusCode).json(response.message);
     }  catch (error) {
-        if (error.constructor.prototype instanceof Sequelize.BaseError)
-        {
-           next(new BadRequestSequelizeError(error));  
-        }
-        else
-           next(new GeneralError("Internal server error"));  
+        next(error)
      }
 }
 

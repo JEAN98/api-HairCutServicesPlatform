@@ -8,12 +8,14 @@ exports.findAll = async(req, res,next) => {
       let data = await repository.get();
       res.status(200).send(data);
   } 
-   catch(e) {
-   if (error.constructor.prototype instanceof Sequelize.BaseError)
+   catch(error) {
+   /*if (error.constructor.prototype instanceof Sequelize.BaseError)
    {
       next(new BadRequestSequelizeError(error));  
    }
    else
-      next(new GeneralError("Internal server error"));  
+      next(new GeneralError("Internal server error"));  */
+
+      next(error)
    }
 };

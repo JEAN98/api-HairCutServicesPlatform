@@ -54,7 +54,7 @@ const createAppoimentServices = async(servicesList,appoimentID) => {
     
     if(newList.length == 0)
     {
-        throw new GeneralError("The services list is empty and it cannot be used to create entries AppoimentServices",500);
+        throw new BadRequest("The services list is empty and it cannot be used to create entries AppoimentServices");
     }
     else{
         await appoimentServiceRepository.create(newList);

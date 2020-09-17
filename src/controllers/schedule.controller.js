@@ -11,15 +11,6 @@ exports.create = async (req,res,next) => {
        res.status(201).send(bodyResponse);
     } 
     catch (error) {
-      if(error instanceof Unauthorized)
-      {
-          next(error)
-      }
-       else if (error.constructor.prototype instanceof Sequelize.BaseError)
-       {
-          next(new BadRequestSequelizeError(error));  
-       }
-       else
-          next(new GeneralError("Internal server error",500));  
+         next(error)
     }
 }

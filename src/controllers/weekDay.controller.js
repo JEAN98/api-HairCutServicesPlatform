@@ -6,8 +6,8 @@ exports.findAll = async(req, res,next) => {
         let data = await repository.findAll();
         res.status(200).send(data);
     } 
-    catch(e) 
+    catch(error) 
     {
-       next( new GeneralError("Internal server error"));
+       next(error);
     }
 };

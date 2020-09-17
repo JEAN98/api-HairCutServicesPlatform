@@ -1,19 +1,37 @@
 const {  ValidationError } = require('express-validation');
-const { GeneralError } = require('./error');
+const {GeneralError,BadRequestSequelizeError,BadRequest,Unauthorized}  = require('./error');
+const {Sequelize} = require('sequelize');
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (error, req, res, next) => {
+    //TODO:IT COULD BE BETTER
+   console.log(error,'errorhandlerLog')
 
-  //Errors needs to be added here
-  console.log(err,'errorhandler')
-  if(err instanceof ValidationError)
+  if(error.name && (error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError'))
   {
-    return res.status(err.statusCode).json(err)
+    let sequelizeError = new BadRequestSequelizeError(error);
+      return res.status(sequelizeError.statusCode).json({
+        status: 'error',
+        details: sequelizeError.message
+      });
   }
-  else if(err instanceof GeneralError)
+ else if(error.constructor.prototype instanceof Sequelize.BaseError)
   {
-    return res.status(err.statusCode).json({
+      return res.status(500).json({
+        status: 'error',
+        details: 'Internal server error'
+      });
+  }
+ 
+  else if(error instanceof ValidationError)
+  {
+    return res.status(error.statusCode).json(error)
+  }
+  
+  else if(error instanceof GeneralError)
+  {
+    return res.status(error.statusCode).json({
       status: 'error',
-      details: err.message
+      details: error.message
     });
   }
 
