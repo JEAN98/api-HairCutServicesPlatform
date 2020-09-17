@@ -14,14 +14,14 @@ const app = express();
 //BodyParser
 app.use(bodyParser.json())
 
-
+/*
 //load routes
 let routeList = getFilesName('./src/routes/');
 routeList.forEach(fileData => {
   //console.log(pathModels +fileData.fileName)
   var pathFileRoute = './routes/' +fileData.fileName;
    require(pathFileRoute )(app);
-});
+}); */
 
 app.get('/', (req, res) => res.send(process.env.API_NAME))
 
@@ -52,7 +52,7 @@ if(config.MODE == 'development') {
 // error handler middleware
 app.use(errorHandler)
 
-console.log(process.env.DATABASE)
+console.log(process.env.API_NAME)
 
 // Create a Server
 //app.listen(3000)
