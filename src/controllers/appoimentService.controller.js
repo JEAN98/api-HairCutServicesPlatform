@@ -10,7 +10,6 @@ exports.getAppoimentServiceList = async(req, res,next) => {
       console.log(error)
       if (error.constructor.prototype instanceof Sequelize.BaseError)
       {
-        
          next(new BadRequestSequelizeError(error));  
       }
       else
