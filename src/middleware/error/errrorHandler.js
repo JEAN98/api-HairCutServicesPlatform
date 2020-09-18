@@ -5,8 +5,8 @@ const {Sequelize} = require('sequelize');
 const errorHandler = (error, req, res, next) => {
     //TODO:IT COULD BE BETTER
    console.log(error,'errorhandlerLog')
-
-  if(error.name && (error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError'))
+  //TODO: ForeignKeyConstraintError  NEEDS TO BE PART OF THE ERROR
+  if(error.name && (error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError' ))
   {
     let sequelizeError = new BadRequestSequelizeError(error);
       return res.status(sequelizeError.statusCode).json({
