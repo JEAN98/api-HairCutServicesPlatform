@@ -14,14 +14,14 @@ const app = express();
 //BodyParser
 app.use(bodyParser.json())
 
-/*
+
 //load routes
 let routeList = getFilesName('./src/routes/');
 routeList.forEach(fileData => {
   //console.log(pathModels +fileData.fileName)
   var pathFileRoute = './routes/' +fileData.fileName;
    require(pathFileRoute )(app);
-}); */
+});
 
 app.get('/', (req, res) => res.send(process.env.API_NAME))
 
