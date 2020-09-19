@@ -24,6 +24,7 @@ create table genders
 create table weekdays(
 	id serial primary key,
     weekday varchar(50) not null UNIQUE,
+	day_number int not null UNIQUE,
 	created_at timestamp,
     updated_at timestamp
 );

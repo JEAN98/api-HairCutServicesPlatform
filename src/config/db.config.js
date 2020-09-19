@@ -24,15 +24,17 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //Verify the conneciton works fine
-function dbConnectionTest() {
-    db.sequelize
-        .authenticate()
-        .then(() => {
-            console.log('Connection has been established successfully.');
-        })
-        .catch(err => {
-            console.error('Unable to connect to the database:', err);
-        });
+const dbConnectionTest = async() => {
+    try
+    {
+        await db.sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+    }
+    catch(error)
+    {
+        console.error('Unable to connect to the database:', err);
+    }
+   
 }
 
 dbConnectionTest();

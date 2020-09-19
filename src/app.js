@@ -23,7 +23,9 @@ routeList.forEach(fileData => {
    require(pathFileRoute )(app);
 });
 
-app.get('/', (req, res) => res.send(process.env.API_NAME))
+app.get("/", (req, res) => {
+    res.status(200).send(process.env.API_NAME);
+  });
 
 
 
@@ -56,9 +58,10 @@ console.log(process.env.API_NAME)
 
 // Create a Server
 //app.listen(3000)
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+//app.listen(PORT, () => //console.log(`Listening on ${ PORT }`))
+//
+app.listen(PORT)
 
 
 
-
-//module.exports = app;
+module.exports = app;

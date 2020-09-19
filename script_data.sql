@@ -3,9 +3,9 @@ insert into genders (population,letter) values ('Women','W');
 insert into genders (population,letter) values ('Both','B');
 
 
-insert into weekdays(weekday) 
-values ('Sunday'), ('Monday'), ('Tuesday'),
-('Wednesday'), ('Thursday'), ('Friday'),('Saturday');
+insert into weekdays(weekday,day_number) 
+values ('Sunday',0), ('Monday',1), ('Tuesday',2),
+('Wednesday',3), ('Thursday',4), ('Friday',5),('Saturday',6);
 
 
 
@@ -73,3 +73,65 @@ and '2020-09-15 11:00:00' between sch.shift_starts and sch.shift_ends;
 select SUM(cost) as totalCost, SUM(time_duration_min) as totalTime
 from hairdressers_services
 where id in (1,2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+ALTER TABLE weekdays
+ADD day_number int;
+
+ALTER TABLE weekdays
+ALTER COLUMN day_number SET not null;
+
+ALTER TABLE weekdays ADD UNIQUE (day_number);
+
+
+update weekdays
+set day_number = 0
+where weekday = 'Sunday';
+
+update weekdays
+set day_number = 1
+where weekday = 'Monday';
+
+
+update weekdays
+set day_number = 2
+where weekday = 'Tuesday';
+
+update weekdays
+set day_number = 3
+where weekday = 'Wednesday'; 
+
+update weekdays
+set day_number = 4
+where weekday = 'Thursday'; 
+
+update weekdays
+set day_number = 5
+where weekday = 'Friday'; 
+
+
+update weekdays
+set day_number = 6
+where weekday = 'Saturday'; 
+
+
+select * from weekdays;
+
+
+
+*/
