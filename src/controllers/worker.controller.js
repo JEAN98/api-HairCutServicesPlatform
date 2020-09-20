@@ -1,5 +1,6 @@
 const repository = require('../repositories/worker.repository');
 const {checkPermissionLevel} = require('../utils/checkAccess.helper');
+const {entitySelected} = require('../utils/entityType');
 
 exports.findByHairDressingSalon = async(req, res,next) => {
    try {
@@ -16,7 +17,7 @@ exports.findByHairDressingSalon = async(req, res,next) => {
 exports.create = async(req,res,next) => {
    try
    {
-      checkPermissionLevel(req.token.accountType,'HairdressingSalon');
+      checkPermissionLevel(req.token.accountType,entitySelected.HSalon);
 
       req.body.hairdressingSalonID = req.token.sub
       let data = await repository.create(req.body);
