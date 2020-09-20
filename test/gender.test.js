@@ -17,6 +17,7 @@ describe('Gender suites',()=>{
     .end( function(err,res){
       console.log(res.body)
       expect(res).to.have.status(200);
+      expect(res.body).to.be.an('array')
       expect(res.body).to.have.length(3);
       done();
     });
