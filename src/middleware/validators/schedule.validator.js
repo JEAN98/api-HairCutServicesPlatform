@@ -4,7 +4,6 @@ const {regexTimeValidation} = require('../../utils/validator.helper');
 
 const scheduleObject = Joi.object({
     weekDayID:  Joi.number().strict().integer().required(),
-    hairdressingSalonID: Joi.number().strict().integer().required(),
     shiftStarts: Joi.string().regex(regexTimeValidation).required(),
     shiftEnds: Joi.string().regex(regexTimeValidation).required(),
   }).required();

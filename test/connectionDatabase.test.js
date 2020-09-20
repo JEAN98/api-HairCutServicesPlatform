@@ -1,5 +1,3 @@
-
-
 const app     =  require("../src/app");
 
 test("TEST FOR EMAIL DELIVERY",  () => {
