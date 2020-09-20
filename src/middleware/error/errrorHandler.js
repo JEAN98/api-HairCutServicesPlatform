@@ -5,7 +5,6 @@ const {Sequelize} = require('sequelize');
 const errorHandler = (error, req, res, next) => {
     //TODO:IT COULD BE BETTER
    console.log(error,'errorhandlerLog')
-  //TODO: ForeignKeyConstraintError  NEEDS TO BE PART OF THE ERROR
   if(error.name && (error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError' || error.name === 'SequelizeForeignKeyConstraintError' ))
   {
     console.log('ErrorTriggeredBySequelize')
