@@ -7,7 +7,7 @@ const {entitySelected} = require('../utils/entityType');
 exports.create = async (req,res,next) => {
     try
     {
-       checkPermissionLevel(req.token.accountType,entitySelected.HSalon);  //TODO: The rest controller needs to have this enum as well
+       checkPermissionLevel(req.token.accountType,entitySelected.HSalon);  
        let bodyResponse = await repository.create(createScheduleList(req.body,req.token.sub));
        res.status(201).send(bodyResponse);
     } 
