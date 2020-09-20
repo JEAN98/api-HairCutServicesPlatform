@@ -28,3 +28,16 @@ function createScheduleList(scheduleList,hairdressingSalonID) {
         throw new BadRequest('The Schedule list cannot be empty');
     }
 }
+
+
+exports.getByHairdressingSalon = async(req,res,next) =>{
+    try
+    {
+        let scheduleList = await repository.getByHairdressingSalon(req.query.hairdressingSalonID);
+        res.status(200).send(scheduleList);
+    }
+    catch(error)
+    {
+        next(error);
+    }
+}

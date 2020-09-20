@@ -1,7 +1,7 @@
 'use strict';
 const Schedule = require('../config/db.config').schedule;
 const cleanHelper = require('../utils/cleanEntity.helper');
-const attributesToBeRemoved = ['createdAt','updatedAt'];
+const attributesToBeRemoved = ['createdAt','updatedAt','weekday_id','hairdressing_salon_id'];
 const dbContext       = require('../config/db.config');
 
 exports.create = async(scheduleData) => {
@@ -30,4 +30,31 @@ exports.verifyAvailability = async(workerID, shiftStarts,shiftEnds) => {
           
         );
     return availability ;
+}
+
+
+exports.getByHairdressingSalon = async(hairdressingSalonID) => {
+    let scheduleList = await Schedule.findAll({
+        where:{
+            hairdressing_salon_id:hairdressingSalonID,
+        },
+        include: [{
+            model: dbContext.weekDay,
+        }]
+    });
+    scheduleList = setWeekdayToScheduleList(scheduleList);
+
+    return cleanHelper.cleanEntityList(scheduleList,attributesToBeRemoved);
+}
+
+function setWeekdayToScheduleList(scheduleList) {
+    for (let index = 0; index < scheduleList.length; index++) {
+        let schedule = scheduleList[index].toJSON();
+        let weekDay = schedule.weekday.weekday;
+        delete schedule.weekday;
+
+        schedule.weekDay = weekDay;
+        scheduleList[index] =  schedule;
+    }
+    return scheduleList;
 }
