@@ -1,11 +1,13 @@
 const {GeneralError,BadRequestSequelizeError,BadRequest,Unauthorized}  = require('../middleware/error/error');
 const repository = require('../repositories/schedule.repository');
 const {checkPermissionLevel} = require('../utils/checkAccess.helper');
+const {entitySelected} = require('../utils/entityType');
+
 
 exports.create = async (req,res,next) => {
     try
     {
-       checkPermissionLevel(req.token.accountType,'HairdressingSalon');
+       checkPermissionLevel(req.token.accountType,entitySelected.HSalon);  //TODO: The rest controller needs to have this enum as well
        let bodyResponse = await repository.create(createScheduleList(req.body,req.token.sub));
        res.status(201).send(bodyResponse);
     } 
