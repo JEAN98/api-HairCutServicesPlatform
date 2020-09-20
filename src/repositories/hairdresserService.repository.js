@@ -2,7 +2,7 @@
 const dbContext = require('../config/db.config');
 const HairdressersService = dbContext.hairdressersService;
 const cleanHelper = require('../utils/cleanEntity.helper');
-const attributesToBeRemoved = ['createdAt','updatedAt'];
+const attributesToBeRemoved = ['createdAt','updatedAt','gender_id','hairdressing_salon_id'];
 
 exports.getByHairdressingSalon = async(params) => {
     let servicesList = await HairdressersService.findAll({
