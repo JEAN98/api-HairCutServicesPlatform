@@ -6,7 +6,7 @@ dotenv.config();
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/error/errrorHandler');
 const {getFilesName} = require('./utils/getFilesInDirectory');
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 const app = express();
 
 
@@ -54,13 +54,13 @@ if(config.MODE == 'development') {
 // error handler middleware
 app.use(errorHandler)
 
-console.log(process.env.API_NAME)
+
 
 // Create a Server
 //app.listen(3000)
 //app.listen(PORT, () => //console.log(`Listening on ${ PORT }`))
 //
-app.listen(PORT)
+//app.listen(PORT)
 
 
 
