@@ -92,5 +92,25 @@ module.exports = (db, sequelize, Sequelize) => {
       foreignKey: 'client_id'
     });
 
+    //Schedule
+    db.weekDay.hasMany(db.schedule, {
+      foreignKey: 'weekday_id'
+    });
+    db.hairdressingSalon.hasMany(db.schedule, {
+      foreignKey: 'hairdressing_salon_id'
+    });
+    
+    db.schedule.belongsTo(db.weekDay, {
+      foreignKey: 'weekday_id'
+    });
+    db.schedule.belongsTo(db.hairdressingSalon, {
+      foreignKey: 'hairdressing_salon_id'
+    });
+    
+
+
+
+    
+
   return db;
 }

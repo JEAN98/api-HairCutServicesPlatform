@@ -24,6 +24,7 @@ create table genders
 create table weekdays(
 	id serial primary key,
     weekday varchar(50) not null UNIQUE,
+	day_number int not null UNIQUE,
 	created_at timestamp,
     updated_at timestamp
 );
@@ -103,7 +104,7 @@ create table workers
 create table hairdressers_services
 (
 	id serial primary key,
-	title varchar(100) not null,
+	title varchar(100) not null UNIQUE,
 	code varchar(100) not null UNIQUE,
 	description varchar(250) not null,
 	cost double precision ,

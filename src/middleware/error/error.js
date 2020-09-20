@@ -20,6 +20,11 @@ class BadRequestSequelizeError extends GeneralError {
       delete message.errors[0].origin;
       message =  message.errors[0];
     }
+    else if(message.name  && message.name === 'SequelizeForeignKeyConstraintError')
+    {
+      message = undefined; 
+      message = { message :'Some of the constraints are not defined properly or they does not exist in the database'};
+    }
     super( message,400);
   }
 }

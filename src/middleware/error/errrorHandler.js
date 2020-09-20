@@ -5,9 +5,9 @@ const {Sequelize} = require('sequelize');
 const errorHandler = (error, req, res, next) => {
     //TODO:IT COULD BE BETTER
    console.log(error,'errorhandlerLog')
-  //TODO: ForeignKeyConstraintError  NEEDS TO BE PART OF THE ERROR
-  if(error.name && (error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError' ))
+  if(error.name && (error.name === 'SequelizeUniqueConstraintError' || error.name === 'ValidationError' || error.name === 'SequelizeForeignKeyConstraintError' ))
   {
+    console.log('ErrorTriggeredBySequelize')
     let sequelizeError = new BadRequestSequelizeError(error);
       return res.status(sequelizeError.statusCode).json({
         status: 'error',
@@ -16,6 +16,7 @@ const errorHandler = (error, req, res, next) => {
   }
  else if(error.constructor.prototype instanceof Sequelize.BaseError)
   {
+    console.log('ErrorTriggeredBySequelize. Unhandle error')
       return res.status(500).json({
         status: 'error',
         details: 'Internal server error'

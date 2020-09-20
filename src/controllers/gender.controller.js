@@ -9,13 +9,6 @@ exports.findAll = async(req, res,next) => {
       res.status(200).send(data);
   } 
    catch(error) {
-   /*if (error.constructor.prototype instanceof Sequelize.BaseError)
-   {
-      next(new BadRequestSequelizeError(error));  
-   }
-   else
-      next(new GeneralError("Internal server error"));  */
-
       next(error)
    }
 };

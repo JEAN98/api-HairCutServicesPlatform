@@ -10,8 +10,7 @@ exports.findAll = async(req, res,next) => {
         let data = await repository.get(req.query);
         res.status(200).send(data);
      } catch(e) {
-       console.log(e);
-       next(new GeneralError("Internal server error",500));
+       next(e);
    }
 };
 
@@ -21,7 +20,6 @@ exports.create = async(req, res,next) => {
        let emailExist = await isEmailExist(req.body.email);
        if(!emailExist.isEmailAccepted)
        {
-          console.log(emailExist);
           next(new BadRequest(emailExist));  
        }
        else{
@@ -37,12 +35,6 @@ exports.create = async(req, res,next) => {
       
    } 
    catch (error) {
-     if (error.constructor.prototype instanceof Sequelize.BaseError)
-      {
-         //FIXME: There should be a better way to hadle this error
-         next(new BadRequestSequelizeError(error));  
-      }
-      else
-         next(new GeneralError("Internal server error"));  
+     next(error);
    }
 }
