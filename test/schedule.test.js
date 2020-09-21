@@ -10,7 +10,7 @@ let hairdressingSalonID = 1;
 
 
 
-describe('Schedule suites for Get',()=>{
+describe('Schedule suites for Get/',()=>{
 
   it('should get the whole list of Schedules', (done) => {
   let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
@@ -18,7 +18,6 @@ describe('Schedule suites for Get',()=>{
   .get(schedulePath + query + hairdressingSalonID)
   .set('Authorization', `Bearer ${token}`)
     .end( function(err,res){
-      console.log(res.body)
       expect(res).to.have.status(200);
       expect(res.body[0].hairdressingSalonID).to.be.equals(hairdressingSalonID);
       done();
@@ -29,7 +28,6 @@ describe('Schedule suites for Get',()=>{
     chai.request(url)
     .get(schedulePath)
       .end( function(err,res){
-        console.log(res.body)
         expect(res).to.have.status(401);
         expect(res.body.details).to.be.equals('The request does not have the authentication header');
         done();
@@ -42,7 +40,6 @@ describe('Schedule suites for Get',()=>{
     .get(schedulePath)
     .set('Authorization', `Bearer ${invalidToken}`)
       .end( function(err,res){
-        console.log(res.body)
         expect(res).to.have.status(401);
         expect(res.body.details).to.be.equals('The token is not valid');
         done();
@@ -51,7 +48,7 @@ describe('Schedule suites for Get',()=>{
 });
 
 
-describe('Schedule suites for Post',()=>{
+describe('Schedule suites. Post/',()=>{
 
   it('should get a bad request error based on unique violation', (done) => {
   let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
@@ -68,7 +65,6 @@ describe('Schedule suites for Post',()=>{
     ]
   )
   .end( function(err,res){
-      console.log(res.body)
       expect(res).to.have.status(400);
       expect(res.body.details.message).to.be.equals('weekday_id must be unique');
       done();
@@ -91,7 +87,6 @@ describe('Schedule suites for Post',()=>{
       ]
     )
     .end( function(err,res){
-        console.log(res.body)
         expect(res).to.have.status(400);
         expect(res.body.details.message).to.be.equals('Some of the constraints are not defined properly or they does not exist in the database');
         done();
@@ -113,7 +108,6 @@ describe('Schedule suites for Post',()=>{
         ]
       )
       .end( function(err,res){
-          console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.details.name).to.be.equals('ValidationError');
           done();
@@ -135,7 +129,6 @@ describe('Schedule suites for Post',()=>{
           ]
         )
         .end( function(err,res){
-            console.log(res.body)
             expect(res).to.have.status(400);
             expect(res.body.details.name).to.be.equals('ValidationError');
             done();
