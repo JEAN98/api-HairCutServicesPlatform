@@ -19,7 +19,7 @@ describe('HairdressingSalon suites. Post/',()=>{
         genderID: 2
     };
 
-    it('should get a bad request error based on email already exists', (done) => {
+    it('should get a bad request error based on email already exists as HairdressingSalon', (done) => {
         chai.request(url)
         .post(hSalonPath)
         .send(          
@@ -28,6 +28,20 @@ describe('HairdressingSalon suites. Post/',()=>{
         .end( function(err,res){
             expect(res).to.have.status(400);
             expect(res.body.details.error).to.be.equals('The email already exists as HairdressingSalon');
+            done();
+          });
+    });
+
+    it('should get a bad request error based on email already exists as client', (done) => {
+        hairdressingSalon.email = "hcAccounts@qa.com";
+        chai.request(url)
+        .post(hSalonPath)
+        .send(          
+            hairdressingSalon
+        )
+        .end( function(err,res){
+            expect(res).to.have.status(400);
+            expect(res.body.details.error).to.be.equals('The email already exists as Client');
             done();
           });
     });

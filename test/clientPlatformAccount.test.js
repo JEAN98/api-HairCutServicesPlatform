@@ -33,7 +33,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
           });
     });
 
-    it('should get a bad request error based on email already exists', (done) => {
+    it('should get a bad request error based on email already exists as HairdressingSalon', (done) => {
         haircutPlatformAccount.email = "salonTest@gmail.com";
         chai.request(url)
         .post(hSalonPath)
@@ -43,6 +43,20 @@ describe('haircutPlatformAccount suites. Post/',()=>{
         .end( function(err,res){
             expect(res).to.have.status(400);
             expect(res.body.details.error).to.be.equals('The email already exists as HairdressingSalon');
+            done();
+          });
+    });
+
+    it('should get a bad request error based on email already exists as client', (done) => {
+        haircutPlatformAccount.email = "hcAccounts@qa.com";
+        chai.request(url)
+        .post(hSalonPath)
+        .send(          
+            haircutPlatformAccount
+        )
+        .end( function(err,res){
+            expect(res).to.have.status(400);
+            expect(res.body.details.error).to.be.equals('The email already exists as Client');
             done();
           });
     });
