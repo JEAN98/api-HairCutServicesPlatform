@@ -90,7 +90,19 @@ describe('Worker suites for Post/',()=> {
 
 });
 
-
+//TODO: GET workers tests are missing
 describe('Worker suites for Get/',()=> {
-
+    it('should get a list of workers using hsToken', (done) => {
+        chai.request(testHelper.baseURL)
+        .get(path)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .end( function(err,res){
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.be.gt(0);
+            expect(res.body[0].identificationCard).to.not.be.undefined;
+            expect(res.body[0].hairdressingSalonID).to.not.be.undefined;
+            done();
+        });
+    });
 });
