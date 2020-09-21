@@ -25,9 +25,7 @@ describe('Gender suites. Get/',()=>{
     chai.request(url)
     .get(genderPath)
       .end( function(err,res){
-        expect(res).to.have.status(401);
-        expect(res.body.details).to.be.equals('The request does not have the authentication header');
-        done();
+        testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
       });
     });
 
@@ -37,9 +35,7 @@ describe('Gender suites. Get/',()=>{
     .get(genderPath)
     .set('Authorization', `Bearer ${invalidToken}`)
       .end( function(err,res){
-        expect(res).to.have.status(401);
-        expect(res.body.details).to.be.equals('The token is not valid');
-        done();
+        testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid(res,done);
       });
     }); 
 });

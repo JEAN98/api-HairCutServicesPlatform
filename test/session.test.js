@@ -5,8 +5,10 @@ chai.use(chaiHttp);
 let url= 'http://localhost:3000/api/';
 let hsSession = 'hairdressingSalon/session';
 let hcPlatformSession = 'clientPlatformAccount/session';
+const testHelper = require('./test.helper');
 
-describe('Sesion HairdressingSalon suites. Post/',()=>{
+
+describe('Sesion HairdressingSalon suite. Post/',()=>{
     it('should get a valid session', (done) => {
         let email = 'salonTest@gmail.com';
         chai.request(url)
@@ -74,11 +76,10 @@ describe('Sesion HairdressingSalon suites. Post/',()=>{
             }
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
+            testHelper.expectedBadRequestErrorBasedOnAMissingField(res);
             expect(res.body.token).to.be.undefined;
             expect(res.body.hairdressingSalon).to.be.undefined;
             expect(res.body.title).to.be.undefined;
-            expect(res.body.details.name).to.be.equals('ValidationError');
             done();
         });
     });
@@ -93,11 +94,10 @@ describe('Sesion HairdressingSalon suites. Post/',()=>{
             }
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
+            testHelper.expectedBadRequestErrorBasedOnInvalidField(res);
             expect(res.body.token).to.be.undefined;
             expect(res.body.hairdressingSalon).to.be.undefined;
             expect(res.body.title).to.be.undefined;
-            expect(res.body.details.name).to.be.equals('ValidationError');
             done();
         });
     });
@@ -172,11 +172,10 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
             }
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
+            testHelper.expectedBadRequestErrorBasedOnAMissingField(res);
             expect(res.body.token).to.be.undefined;
             expect(res.body.hairdressingSalon).to.be.undefined;
             expect(res.body.title).to.be.undefined;
-            expect(res.body.details.name).to.be.equals('ValidationError');
             done();
         });
     });
@@ -191,11 +190,10 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
             }
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
+            testHelper.expectedBadRequestErrorBasedOnInvalidField(res);
             expect(res.body.token).to.be.undefined;
             expect(res.body.hairdressingSalon).to.be.undefined;
             expect(res.body.title).to.be.undefined;
-            expect(res.body.details.name).to.be.equals('ValidationError');
             done();
         });
     });

@@ -3,6 +3,7 @@ const expect = require('chai').expect;
 let url= 'http://localhost:3000/api/';
 let hSalonPath = 'haircutPlatformAccount';
 var randomEmail = require('random-email');
+const testHelper = require('./test.helper');
 
 describe('haircutPlatformAccount suites. Post/',()=>{
     
@@ -72,9 +73,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
             currentPA
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
-            expect(res.body.details.message).to.be.equals('Some of the constraints are not defined properly or they does not exist in the database');
-            done();
+            testHelper.expectedBadRequestErrorBasedOnInvalidConstraints(res,done);
           });
     });
 
@@ -88,9 +87,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
             }
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
-            expect(res.body.details.name).to.be.equals('ValidationError');
-            done();
+            testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
           });
     });
 
@@ -105,10 +102,8 @@ describe('haircutPlatformAccount suites. Post/',()=>{
             currentPA
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
-            expect(res.body.details.name).to.be.equals('ValidationError');
-            done();
-          });
+            testHelper.expectedBadRequestErrorBasedOnInvalidField(res,done);    
+        });
     });
 
 });

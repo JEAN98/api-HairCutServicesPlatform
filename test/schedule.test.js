@@ -29,7 +29,7 @@ describe('Schedule suites for Get/',()=>{
     chai.request(url)
     .get(schedulePath)
       .end( function(err,res){
-        testHelper.reviewUnauthorizedErrorWhenThereISNotToken(res,done);
+        testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
       });
     });
 
@@ -39,9 +39,7 @@ describe('Schedule suites for Get/',()=>{
     .get(schedulePath)
     .set('Authorization', `Bearer ${invalidToken}`)
       .end( function(err,res){
-        expect(res).to.have.status(401);
-        expect(res.body.details).to.be.equals('The token is not valid');
-        done();
+        testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid(res,done);
       });
     }); 
 });
@@ -63,7 +61,7 @@ describe('Schedule suites. Post/',()=>{
     ]
   )
   .end( function(err,res){
-      expect(res).to.have.status(400);
+      testHelper.expectedBadRequestErrorBasedOnUniqueViolation(res);
       expect(res.body.details.message).to.be.equals('weekday_id must be unique');
       done();
     });
@@ -84,9 +82,7 @@ describe('Schedule suites. Post/',()=>{
       ]
     )
     .end( function(err,res){
-        expect(res).to.have.status(400);
-        expect(res.body.details.message).to.be.equals('Some of the constraints are not defined properly or they does not exist in the database');
-        done();
+        testHelper.expectedBadRequestErrorBasedOnInvalidConstraints(res,done);
       });
     });
 
@@ -104,9 +100,7 @@ describe('Schedule suites. Post/',()=>{
         ]
       )
       .end( function(err,res){
-          expect(res).to.have.status(400);
-          expect(res.body.details.name).to.be.equals('ValidationError');
-          done();
+          testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
         });
       }); 
 
@@ -124,10 +118,7 @@ describe('Schedule suites. Post/',()=>{
           ]
         )
         .end( function(err,res){
-            expect(res).to.have.status(400);
-            expect(res.body.details.name).to.be.equals('ValidationError');
-            done();
+          testHelper.expectedBadRequestErrorBasedOnInvalidField(res,done);
           });
-        }); 
-  
+      }); 
 });

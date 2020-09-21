@@ -106,7 +106,7 @@ describe('HairdressingSalon suites. Get/',()=>{
         chai.request(url)
         .get(hSalonPath)
           .end( function(err,res){
-            testHelper.reviewUnauthorizedErrorWhenThereISNotToken(res,done);
+            testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
             });
     });
 
