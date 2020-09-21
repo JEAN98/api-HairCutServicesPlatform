@@ -10,7 +10,7 @@ const env = {
     host: process.env.DATABASE_HOST ,
     env: process.env.CURRENT_ENV ,
     port: process.env.PORT ,
-    dialect: process.env.DIALECT,
+    dialect: 'postgres',
     pool: {
         max: 5,
         min: 0,
