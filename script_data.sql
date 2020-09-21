@@ -1,3 +1,4 @@
+
 insert into genders (population,letter) values ('Men','M');
 insert into genders (population,letter) values ('Women','W');
 insert into genders (population,letter) values ('Both','B');
@@ -32,7 +33,8 @@ values('hcAccounts@qa.com','$2b$12$0we0L5kMWEYJ.uyYVLtEPOlZb8viA6/Bz7ns/ouk90YSP
 
 
 INSERT INTO hairdressers_services(title,code,description,cost,time_duration_min,is_active,hairdressing_salon_id,gender_id,is_measurable) 
-VALUES ('Sacar las cejas','Service001','Es un proceso para sacar las cejas',1000,15,true);
+VALUES ('Sacar las cejas','Service001','Es un proceso para sacar las cejas',1000,15,true,1,1,true);
+
 
 select * from genders;
 select * from weekdays;
