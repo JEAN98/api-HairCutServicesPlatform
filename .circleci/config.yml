@@ -33,6 +33,7 @@ jobs:
 
       - run: npm install
       - run: 
+        name: Start server
         command: npm start
         background: true
 
