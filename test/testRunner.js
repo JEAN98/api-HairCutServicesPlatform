@@ -7,3 +7,4 @@ require('./schedule.test');
 require('./hairdressingSalon.test');
 require('./gender.test');
 require('./clientPlatformAccount.test');
+require('./session.test');
