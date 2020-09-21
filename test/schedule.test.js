@@ -121,4 +121,23 @@ describe('Schedule suites. Post/',()=>{
           testHelper.expectedBadRequestErrorBasedOnInvalidField(res,done);
           });
       }); 
+
+
+      it('should get an Unauthorized Error based on invalid permissions', (done) => {
+        chai.request(url)
+        .post(schedulePath + query + hairdressingSalonID)
+        .set('Authorization', `Bearer ${testHelper.clientToken}`)
+        .send(
+          [
+            {
+              'weekDayID': 1,
+              'shiftStarts': '10:00:00',
+              'shiftEnds': '17:00:00'
+            }
+          ]
+        )
+        .end( function(err,res){
+          testHelper.expectedUnauthorizedErrorBasedOnInvalidPermissions(res,done);
+          });
+      }); 
 });

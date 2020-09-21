@@ -11,14 +11,23 @@ function isTestCompleted(done) {
         done();
 }
 
+testHelper.expectedUnauthorizedErrorBasedOnInvalidPermissions = (response,done) => {
+    expect(response).to.have.status(401);
+    expect(response.body.status).to.be.equals('error');
+    expect(response.body.details).to.be.equals('Invalid permissions to this resource');
+    isTestCompleted(done);
+}
+
 testHelper.expectedUnauthorizedErrorWhenThereISNotToken = (response,done) => {
     expect(response).to.have.status(401);
+    expect(response.body.status).to.be.equals('error');
     expect(response.body.details).to.be.equals('The request does not have the authentication header');
     isTestCompleted(done);
 }
 
 testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid = (response,done) => {
     expect(response).to.have.status(401);
+    expect(response.body.status).to.be.equals('error');
     expect(response.body.details).to.be.equals('The token is not valid');
     isTestCompleted(done);
 }
@@ -26,6 +35,7 @@ testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid = (response,done) => {
 testHelper.expectedBadRequestErrorBasedOnUniqueViolation = (response,done) => {
     expect(response).to.have.status(400);
     expect(response.body.details).to.not.be.undefined;
+    expect(response.body.details.type).to.be.equals('unique violation');
     expect(response.body.details.message).to.not.be.undefined;
     isTestCompleted(done);
 }

@@ -61,6 +61,18 @@ describe('HairdresserServices suite. Post/',()=>{
         });
     });
 
+    it('should get an Unauthorized Error based on invalid permissions', (done) => {
+        chai.request(url)
+        .post(path)
+        .set('Authorization', `Bearer ${testHelper.clientToken}`)
+        .send(
+            service
+        )
+        .end( function(err,res){
+           testHelper.expectedUnauthorizedErrorBasedOnInvalidPermissions(res,done);
+        });
+    });
+
     it('should get a bad request error based on a missing fields', (done) => {
         chai.request(url)
         .post(path)
