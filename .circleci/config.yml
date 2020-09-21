@@ -7,19 +7,19 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: hcsp
-          
+
       - image: node:11.10.1
         environment:
-         SECRET_KEY = hdsp_token-advbc3
-         PASSWORD_KEY = key-hdsp-123@
-         DATABASE_NAME = hcsp
-         DATABASE_USERNAME = postgres
-         DATABASE_PASSWORD = postgres
-         DATABASE_HOST = localhost
-         DATABASE_HOST_PORT = 5432
-         CURRENT_ENV = Dev
-         DIALECT = postgres
-         API_NAME = APIHairCutServicesPlatformDev
+          SECRET_KEY: hdsp_token-advbc3
+          PASSWORD_KEY: key-hdsp-123@
+          DATABASE_NAME: hcsp
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_HOST: localhost
+          DATABASE_HOST_PORT: 5432
+          CURRENT_ENV: Dev
+          DIALECT: postgres
+          API_NAME: APIHairCutServicesPlatformDev
 
     steps:
       - checkout
