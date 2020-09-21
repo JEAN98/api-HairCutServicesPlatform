@@ -32,7 +32,7 @@ const dbConnectionTest = async() => {
     }
     catch(error)
     {
-        console.error('Unable to connect to the database:', err);
+        console.error('Unable to connect to the database:', error);
     }
    
 }
