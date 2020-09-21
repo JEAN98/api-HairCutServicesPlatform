@@ -27,6 +27,7 @@ db.sequelize = sequelize;
 const dbConnectionTest = async() => {
     try
     {
+        console.log(env.host, 'host');
         await db.sequelize.authenticate();
         console.log('Connection has been established successfully.');
     }
