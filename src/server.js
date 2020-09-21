@@ -3,10 +3,11 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = require('./app');
 
+
+console.log(process.env.PORT);
 //Run server
 app.listen(PORT);
 
-console.log(process.env.API_NAME);
 
 
 module.exports = app;
