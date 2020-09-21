@@ -32,7 +32,9 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
-      - run: npm start
+      - run: 
+        command: npm start
+        background: true
 
       - save_cache:
           paths:
