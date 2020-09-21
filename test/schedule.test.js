@@ -1,7 +1,9 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
+const { response } = require('../src/app');
 const expect = require('chai').expect;
 chai.use(chaiHttp);
+const testHelper = require('./test.helper');
 
 let url= 'http://localhost:3000/api/';
 let schedulePath = 'schedule';
@@ -13,10 +15,9 @@ let hairdressingSalonID = 1;
 describe('Schedule suites for Get/',()=>{
 
   it('should get the whole list of Schedules', (done) => {
-  let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
   chai.request(url)
   .get(schedulePath + query + hairdressingSalonID)
-  .set('Authorization', `Bearer ${token}`)
+  .set('Authorization', `Bearer ${testHelper.hsToken}`)
     .end( function(err,res){
       expect(res).to.have.status(200);
       expect(res.body[0].hairdressingSalonID).to.be.equals(hairdressingSalonID);
@@ -28,9 +29,7 @@ describe('Schedule suites for Get/',()=>{
     chai.request(url)
     .get(schedulePath)
       .end( function(err,res){
-        expect(res).to.have.status(401);
-        expect(res.body.details).to.be.equals('The request does not have the authentication header');
-        done();
+        testHelper.reviewUnauthorizedErrorWhenThereISNotToken(res,done);
       });
     });
 
@@ -51,10 +50,9 @@ describe('Schedule suites for Get/',()=>{
 describe('Schedule suites. Post/',()=>{
 
   it('should get a bad request error based on unique violation', (done) => {
-  let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
   chai.request(url)
   .post(schedulePath + query + hairdressingSalonID)
-  .set('Authorization', `Bearer ${token}`)
+  .set('Authorization', `Bearer ${testHelper.hsToken}`)
   .send(
     [
       {
@@ -73,10 +71,9 @@ describe('Schedule suites. Post/',()=>{
 
 
   it('should get a bad request error based on invalid weekDay', (done) => {
-    let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
     chai.request(url)
     .post(schedulePath + query + hairdressingSalonID)
-    .set('Authorization', `Bearer ${token}`)
+    .set('Authorization', `Bearer ${testHelper.hsToken}`)
     .send(
       [
         {
@@ -95,10 +92,9 @@ describe('Schedule suites. Post/',()=>{
 
 
     it('should get a bad request error based on a missing field', (done) => {
-      let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
       chai.request(url)
       .post(schedulePath + query + hairdressingSalonID)
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${testHelper.hsToken}`)
       .send(
         [
           {
@@ -115,10 +111,9 @@ describe('Schedule suites. Post/',()=>{
       }); 
 
       it('should get a bad request error based on invalid field', (done) => {
-        let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
         chai.request(url)
         .post(schedulePath + query + hairdressingSalonID)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .send(
           [
             {

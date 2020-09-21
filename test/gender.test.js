@@ -3,17 +3,16 @@ let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 let url= 'http://localhost:3000/api/';
 let genderPath = 'gender';
-
+const testHelper = require('./test.helper');
 chai.use(chaiHttp);
 
 
 describe('Gender suites. Get/',()=>{
 
   it('should get the whole gendersList', (done) => {
-  let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MiwiZW1haWwiOiJqZWFuRGV2VGVzdEBnbWFpbC5jb20iLCJuYW1lIjoiQmFyYmVyU2hvLUV4dHJlbWUiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNjI1MTgxLCJleHAiOjE2MDA3MTE1ODF9.5y-HZJouOrY-Qy8B_hkWp_1uI4fMVGBLdEcQExz4O4Q8Cctsvj5K1XTkqfI1SrhaVG4nmOKUoQu2Jgi5jA-T4Q';
   chai.request(url)
   .get(genderPath)
-  .set('Authorization', `Bearer ${token}`)
+  .set('Authorization', `Bearer ${testHelper.hsToken}`)
     .end( function(err,res){
       expect(res).to.have.status(200);
       expect(res.body).to.be.an('array');
