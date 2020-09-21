@@ -85,7 +85,6 @@ describe('HairdresserServices suite. Post/',()=>{
             testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
         });
     });
-    
 });
 
 
@@ -131,5 +130,32 @@ describe('HairdresserServices suite. Get/',()=>{
             testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid(res,done);
         });
     });
+
+    it('should get an Unauthorized error when there is not token', (done) => {
+        chai.request(url)
+        .get(path + query + hsID)
+        .end( function(err,res){
+           testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
+        });
+    });
+    
+
+    it('should get a bad request error based on invalid field', (done) => {
+        chai.request(url)
+        .get(path + query + 'invalidID')
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .end( function(err,res){
+          testHelper.expectedBadRequestErrorBasedOnInvalidField(res,done);
+          });
+    }); 
+
+    it('should get a bad request error based on missing fields', (done) => {
+        chai.request(url)
+        .get(path)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .end( function(err,res){
+          testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
+          });
+    }); 
 
 });
