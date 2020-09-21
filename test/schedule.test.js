@@ -34,10 +34,9 @@ describe('Schedule suites for Get/',()=>{
     });
 
   it('should get an Unauthorized error when token is invalid', (done) => {
-    let invalidToken = 'invalidToken@$3%.asdfasdf.332dff';
     chai.request(url)
     .get(schedulePath)
-    .set('Authorization', `Bearer ${invalidToken}`)
+    .set('Authorization', `Bearer ${testHelper.invalidToken}`)
       .end( function(err,res){
         testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid(res,done);
       });

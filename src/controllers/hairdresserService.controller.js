@@ -16,7 +16,7 @@ exports.findByHairdressingSalon = async(req, res,next) => {
  exports.create = async(req, res,next) => {
     try {
         //console.log(req.token)
-        checkPermissionLevel(req.token.accountType,entitySelected.HSalon);   //TODO:Unique code needs to be handle by framework(title must be unique and code as well)
+        checkPermissionLevel(req.token.accountType,entitySelected.HSalon);   
         req.body.hairdressingSalonID = req.token.sub; 
         let result = await repository.create(req.body);
         res.status(201).send(result);

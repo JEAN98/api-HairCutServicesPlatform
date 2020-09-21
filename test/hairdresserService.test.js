@@ -38,10 +38,9 @@ describe('HairdresserServices suite. Post/',()=>{
 
 
     it('should get an Unauthorized error when token is invalid', (done) => {
-        let token = 'InvalidToken';
         chai.request(url)
         .post(path)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${testHelper.invalidToken}`)
         .send(
             service
         )
@@ -87,4 +86,50 @@ describe('HairdresserServices suite. Post/',()=>{
         });
     });
     
+});
+
+
+
+describe('HairdresserServices suite. Get/',()=>{
+    let query = '?hairdressingSalonID=';
+    let hsID = 1;
+
+    it('should get a list of services using hsToken', (done) => {
+        chai.request(url)
+        .get(path + query + hsID)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .end( function(err,res){
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.be.gt(0);
+            expect(res.body[0].title).to.not.be.undefined;
+            expect(res.body[0].hairdressingSalonID).to.be.equals(hsID);
+            done();
+        });
+    });
+
+    it('should get a list of services using clientToken', (done) => {
+        chai.request(url)
+        .get(path + query + hsID)
+        .set('Authorization', `Bearer ${testHelper.clientToken}`)
+        .end( function(err,res){
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.be.gt(0);
+            expect(res.body[0].title).to.not.be.undefined;
+            expect(res.body[0].hairdressingSalonID).to.be.equals(hsID);
+            done();
+        });
+    });
+
+
+    it('should get an Unauthorize error when token is invalid', (done) => {
+        chai.request(url)
+        .get(path + query + hsID)
+        .set('Authorization', `Bearer ${testHelper.invalidToken}`)
+        .end( function(err,res){
+            testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid(res,done);
+        });
+    });
+
 });

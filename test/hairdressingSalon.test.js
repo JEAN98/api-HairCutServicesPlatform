@@ -112,10 +112,9 @@ describe('HairdressingSalon suites. Get/',()=>{
 
 
     it('should get an Unauthorized error when token is invalid', (done) => {
-        let invalidToken = 'invalidToken@$3%.asdfasdf.332dff';
         chai.request(url)
         .get(hSalonPath)
-        .set('Authorization', `Bearer ${invalidToken}`)
+        .set('Authorization', `Bearer ${testHelper.invalidToken}`)
           .end( function(err,res){
             expect(res).to.have.status(401);
             expect(res.body.details).to.be.equals('The token is not valid');
