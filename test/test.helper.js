@@ -7,6 +7,7 @@ testHelper.clientToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ
 testHelper.hsToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJIYWlyQ3V0U2VydmljZXNQbGF0Zm9ybSIsInN1YiI6MSwiZW1haWwiOiJzYWxvblRlc3RAZ21haWwuY29tIiwibmFtZSI6IlNhbG9uIFRlc3QiLCJhY2NvdW50VHlwZSI6IkhhaXJkcmVzc2luZ1NhbG9uIiwiaWF0IjoxNjAwNzA5OTc4LCJleHAiOjE2MDA3OTYzNzh9.tXm90VxiL7CiUPwyD3BvuF9nLxey5-ZBkfejaJIbjQqZGvYEHmyLEsV78rRAdWZpp9YRy0mxYCy80bnYcyViEQ';
 testHelper.invalidToken = 'invalidToken@$3%.asdfasdf.332dff';
 testHelper.tokenExpired = '';
+testHelper.baseURL = 'http://localhost:3000/api/';
 
 function isTestCompleted(done) {
     if(done !== undefined)

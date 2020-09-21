@@ -2,7 +2,6 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 chai.use(chaiHttp);
-let url= 'http://localhost:3000/api/';
 let hsSession = 'hairdressingSalon/session';
 let hcPlatformSession = 'clientPlatformAccount/session';
 const testHelper = require('./test.helper');
@@ -11,7 +10,7 @@ const testHelper = require('./test.helper');
 describe('Sesion HairdressingSalon suite. Post/',()=>{
     it('should get a valid session', (done) => {
         let email = 'salonTest@gmail.com';
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hsSession)
         .send(
             {
@@ -30,7 +29,7 @@ describe('Sesion HairdressingSalon suite. Post/',()=>{
     });
 
     it('should get an Unauthorized error based on invalid credentials', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hsSession)
         .send(
             {
@@ -49,7 +48,7 @@ describe('Sesion HairdressingSalon suite. Post/',()=>{
     });
 
     it('should get an Unauthorized error by client credentials', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hsSession)
         .send(
             {
@@ -68,7 +67,7 @@ describe('Sesion HairdressingSalon suite. Post/',()=>{
     });
 
     it('should get an Validation error based on missing fields', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hsSession)
         .send(
             {
@@ -85,7 +84,7 @@ describe('Sesion HairdressingSalon suite. Post/',()=>{
     });
 
     it('should get an Validation error based on invalid fields', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hsSession)
         .send(
             {
@@ -106,7 +105,7 @@ describe('Sesion HairdressingSalon suite. Post/',()=>{
 describe('Sesion clientPlatformAccount suites. Post/',()=>{
     it('should get a valid session', (done) => {
         let email = 'hcAccounts@qa.com';
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hcPlatformSession)
         .send(
             {
@@ -125,7 +124,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
     });
 
     it('should get an Unauthorized error based on invalid credentials', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hcPlatformSession)
         .send(
             {
@@ -145,7 +144,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
 
     it('should get an Unauthorized error by HairdressingSalon credentials', (done) => {
         let email = 'salonTest@gmail.com';
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hcPlatformSession)
         .send(
             {
@@ -164,7 +163,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
     });
 
     it('should get an Validation error based on missing fields', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hcPlatformSession)
         .send(
             {
@@ -181,7 +180,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
     });
 
     it('should get an Validation error based on invalid fields', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hcPlatformSession)
         .send(
             {

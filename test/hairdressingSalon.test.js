@@ -1,7 +1,6 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
-let url= 'http://localhost:3000/api/';
 let hSalonPath = 'hairdressingSalon';
 const testHelper = require('./test.helper');
 
@@ -21,7 +20,7 @@ describe('HairdressingSalon suites. Post/',()=>{
     };
 
     it('should get a bad request error based on email already exists as HairdressingSalon', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             hairdressingSalon
@@ -35,7 +34,7 @@ describe('HairdressingSalon suites. Post/',()=>{
 
     it('should get a bad request error based on email already exists as client', (done) => {
         hairdressingSalon.email = "hcAccounts@qa.com";
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             hairdressingSalon
@@ -52,7 +51,7 @@ describe('HairdressingSalon suites. Post/',()=>{
         currentHS.genderID = 50478;
         currentHS.email= 'email@qa.com';
 
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             currentHS
@@ -66,7 +65,7 @@ describe('HairdressingSalon suites. Post/',()=>{
 
 
     it('should get a bad request error based on a missing field', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             {
@@ -85,7 +84,7 @@ describe('HairdressingSalon suites. Post/',()=>{
         currentHS.lunchStarts = "xyz";
         currentHS.lunchEnds = "xyz";
 
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             currentHS
@@ -103,7 +102,7 @@ describe('HairdressingSalon suites. Post/',()=>{
 describe('HairdressingSalon suites. Get/',()=>{
 
     it('should get an Unauthorized error when there is not token', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(hSalonPath)
           .end( function(err,res){
             testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
@@ -112,7 +111,7 @@ describe('HairdressingSalon suites. Get/',()=>{
 
 
     it('should get an Unauthorized error when token is invalid', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(hSalonPath)
         .set('Authorization', `Bearer ${testHelper.invalidToken}`)
           .end( function(err,res){
@@ -124,7 +123,7 @@ describe('HairdressingSalon suites. Get/',()=>{
 
 
     it('should get a list of HairdressingSalon ', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(hSalonPath)
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
           .end( function(err,res){

@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 3000;
 const app = require('./app');
 
 
-console.log(process.env.PORT);
+console.log(process.env.API_NAME);
 //Run server
 app.listen(PORT);
 

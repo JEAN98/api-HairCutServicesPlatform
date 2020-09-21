@@ -4,7 +4,6 @@ let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 const testHelper = require('./test.helper');
 chai.use(chaiHttp);
-let url= 'http://localhost:3000/api/';
 let path = 'hairdresserService';
 
 describe('HairdresserServices suite. Post/',()=>{
@@ -20,7 +19,7 @@ describe('HairdresserServices suite. Post/',()=>{
     }
 
     it('should create a new service', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(path)
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .send(
@@ -38,7 +37,7 @@ describe('HairdresserServices suite. Post/',()=>{
 
 
     it('should get an Unauthorized error when token is invalid', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(path)
         .set('Authorization', `Bearer ${testHelper.invalidToken}`)
         .send(
@@ -50,7 +49,7 @@ describe('HairdresserServices suite. Post/',()=>{
     });
 
     it('should get an Unauthorized error when there is not token', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(path)
         .send(
             service
@@ -61,7 +60,7 @@ describe('HairdresserServices suite. Post/',()=>{
     });
 
     it('should get an Unauthorized Error based on invalid permissions', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(path)
         .set('Authorization', `Bearer ${testHelper.clientToken}`)
         .send(
@@ -73,7 +72,7 @@ describe('HairdresserServices suite. Post/',()=>{
     });
 
     it('should get a bad request error based on a missing fields', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(path)
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .send(
@@ -92,9 +91,9 @@ describe('HairdresserServices suite. Post/',()=>{
 describe('HairdresserServices suite. Get/',()=>{
     let query = '?hairdressingSalonID=';
     let hsID = 1;
-
+    console.log(testHelper.baseURL);
     it('should get a list of services using hsToken', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(path + query + hsID)
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .end( function(err,res){
@@ -108,7 +107,7 @@ describe('HairdresserServices suite. Get/',()=>{
     });
 
     it('should get a list of services using clientToken', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(path + query + hsID)
         .set('Authorization', `Bearer ${testHelper.clientToken}`)
         .end( function(err,res){
@@ -123,7 +122,7 @@ describe('HairdresserServices suite. Get/',()=>{
 
 
     it('should get an Unauthorize error when token is invalid', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(path + query + hsID)
         .set('Authorization', `Bearer ${testHelper.invalidToken}`)
         .end( function(err,res){
@@ -132,7 +131,7 @@ describe('HairdresserServices suite. Get/',()=>{
     });
 
     it('should get an Unauthorized error when there is not token', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(path + query + hsID)
         .end( function(err,res){
            testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
@@ -141,7 +140,7 @@ describe('HairdresserServices suite. Get/',()=>{
     
 
     it('should get a bad request error based on invalid field', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(path + query + 'invalidID')
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .end( function(err,res){
@@ -150,7 +149,7 @@ describe('HairdresserServices suite. Get/',()=>{
     }); 
 
     it('should get a bad request error based on missing fields', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .get(path)
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .end( function(err,res){

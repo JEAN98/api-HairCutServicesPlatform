@@ -1,7 +1,6 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
-let url= 'http://localhost:3000/api/';
 let genderPath = 'gender';
 const testHelper = require('./test.helper');
 chai.use(chaiHttp);
@@ -10,7 +9,7 @@ chai.use(chaiHttp);
 describe('Gender suites. Get/',()=>{
 
   it('should get the whole gendersList', (done) => {
-  chai.request(url)
+  chai.request(testHelper.baseURL)
   .get(genderPath)
   .set('Authorization', `Bearer ${testHelper.hsToken}`)
     .end( function(err,res){
@@ -22,7 +21,7 @@ describe('Gender suites. Get/',()=>{
   });
   
   it('should get an Unauthorized error when there is not token', (done) => {
-    chai.request(url)
+    chai.request(testHelper.baseURL)
     .get(genderPath)
       .end( function(err,res){
         testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
@@ -30,7 +29,7 @@ describe('Gender suites. Get/',()=>{
     });
 
   it('should get an Unauthorized error when token is invalid', (done) => {
-    chai.request(url)
+    chai.request(testHelper.baseURL)
     .get(genderPath)
     .set('Authorization', `Bearer ${testHelper.invalidToken}`)
       .end( function(err,res){

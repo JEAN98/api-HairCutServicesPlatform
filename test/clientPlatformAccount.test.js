@@ -1,6 +1,5 @@
 let chai = require('chai');
 const expect = require('chai').expect;
-let url= 'http://localhost:3000/api/';
 let hSalonPath = 'haircutPlatformAccount';
 var randomEmail = require('random-email');
 const testHelper = require('./test.helper');
@@ -19,7 +18,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
     it('should be able to create a new account', (done) => {
         let currentPA = haircutPlatformAccount;
         currentPA.email = randomEmail();
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             currentPA
@@ -36,7 +35,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
 
     it('should get a bad request error based on email already exists as HairdressingSalon', (done) => {
         haircutPlatformAccount.email = "salonTest@gmail.com";
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             haircutPlatformAccount
@@ -50,7 +49,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
 
     it('should get a bad request error based on email already exists as client', (done) => {
         haircutPlatformAccount.email = "hcAccounts@qa.com";
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             haircutPlatformAccount
@@ -67,7 +66,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
         currentPA.genderID = 50478;
         currentPA.email= 'email@qa.com';
 
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             currentPA
@@ -79,7 +78,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
 
 
     it('should get a bad request error based on a missing field', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             {
@@ -96,7 +95,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
         currentPA.password = 123;
         currentPA.lastName = 85;
 
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
             currentPA

@@ -5,7 +5,6 @@ const expect = require('chai').expect;
 chai.use(chaiHttp);
 const testHelper = require('./test.helper');
 
-let url= 'http://localhost:3000/api/';
 let schedulePath = 'schedule';
 let query = '?hairdressingSalonID=';
 let hairdressingSalonID = 1;
@@ -15,7 +14,7 @@ let hairdressingSalonID = 1;
 describe('Schedule suites for Get/',()=>{
 
   it('should get the whole list of Schedules', (done) => {
-  chai.request(url)
+  chai.request(testHelper.baseURL)
   .get(schedulePath + query + hairdressingSalonID)
   .set('Authorization', `Bearer ${testHelper.hsToken}`)
     .end( function(err,res){
@@ -26,7 +25,7 @@ describe('Schedule suites for Get/',()=>{
   });
   
   it('should get an Unauthorized error when there is not token', (done) => {
-    chai.request(url)
+    chai.request(testHelper.baseURL)
     .get(schedulePath)
       .end( function(err,res){
         testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
@@ -34,7 +33,7 @@ describe('Schedule suites for Get/',()=>{
     });
 
   it('should get an Unauthorized error when token is invalid', (done) => {
-    chai.request(url)
+    chai.request(testHelper.baseURL)
     .get(schedulePath)
     .set('Authorization', `Bearer ${testHelper.invalidToken}`)
       .end( function(err,res){
@@ -47,7 +46,7 @@ describe('Schedule suites for Get/',()=>{
 describe('Schedule suites. Post/',()=>{
 
   it('should get a bad request error based on unique violation', (done) => {
-  chai.request(url)
+  chai.request(testHelper.baseURL)
   .post(schedulePath + query + hairdressingSalonID)
   .set('Authorization', `Bearer ${testHelper.hsToken}`)
   .send(
@@ -68,7 +67,7 @@ describe('Schedule suites. Post/',()=>{
 
 
   it('should get a bad request error based on invalid weekDay', (done) => {
-    chai.request(url)
+    chai.request(testHelper.baseURL)
     .post(schedulePath + query + hairdressingSalonID)
     .set('Authorization', `Bearer ${testHelper.hsToken}`)
     .send(
@@ -87,7 +86,7 @@ describe('Schedule suites. Post/',()=>{
 
 
     it('should get a bad request error based on a missing field', (done) => {
-      chai.request(url)
+      chai.request(testHelper.baseURL)
       .post(schedulePath + query + hairdressingSalonID)
       .set('Authorization', `Bearer ${testHelper.hsToken}`)
       .send(
@@ -104,7 +103,7 @@ describe('Schedule suites. Post/',()=>{
       }); 
 
       it('should get a bad request error based on invalid field', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(schedulePath + query + hairdressingSalonID)
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .send(
@@ -123,7 +122,7 @@ describe('Schedule suites. Post/',()=>{
 
 
       it('should get an Unauthorized Error based on invalid permissions', (done) => {
-        chai.request(url)
+        chai.request(testHelper.baseURL)
         .post(schedulePath + query + hairdressingSalonID)
         .set('Authorization', `Bearer ${testHelper.clientToken}`)
         .send(
