@@ -1,13 +1,10 @@
 const repository         = require('../repositories/hairdresserService.repository');
-const {GeneralError,BadRequestSequelizeError,BadRequest,Unauthorized}  = require('../middleware/error/error');
-const Sequelize = require('sequelize');
 const {checkPermissionLevel} = require('../utils/checkAccess.helper');
 const {entitySelected} = require('../utils/entityType');
 
 
 exports.findByHairdressingSalon = async(req, res,next) => {
     try {
-        req.query.hairdressingSalonID = req.token.sub;
          let data = await repository.getByHairdressingSalon(req.query);
          res.status(200).send(data);
       } catch(error) {
