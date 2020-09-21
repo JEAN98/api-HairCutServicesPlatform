@@ -1,9 +1,8 @@
 let chai = require('chai');
-let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 let url= 'http://localhost:3000/api/';
 let hSalonPath = 'haircutPlatformAccount';
-
+var randomEmail = require('random-email');
 
 describe('haircutPlatformAccount suites. Post/',()=>{
     
@@ -16,7 +15,26 @@ describe('haircutPlatformAccount suites. Post/',()=>{
         genderID: 2
     };
 
+    it('should be able to create a new account', (done) => {
+        let currentPA = haircutPlatformAccount;
+        currentPA.email = randomEmail();
+        chai.request(url)
+        .post(hSalonPath)
+        .send(          
+            currentPA
+        )
+        .end( function(err,res){
+            expect(res).to.have.status(201);
+            expect(res.body.client).to.not.be.undefined;
+            expect(res.body.client.email).to.be.equals(currentPA.email);
+            expect(res.body.client.password).to.be.undefined;
+            expect(res.body.token).to.not.be.undefined;
+            done();
+          });
+    });
+
     it('should get a bad request error based on email already exists', (done) => {
+        haircutPlatformAccount.email = "salonTest@gmail.com";
         chai.request(url)
         .post(hSalonPath)
         .send(          

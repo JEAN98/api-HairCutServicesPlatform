@@ -21,7 +21,7 @@ exports.create = async(req,res,next) => {
 
       req.body.hairdressingSalonID = req.token.sub
       let data = await repository.create(req.body);
-      res.status(200).send(data);
+      res.status(201).send(data);
    } 
    catch (error) {
       next(error);

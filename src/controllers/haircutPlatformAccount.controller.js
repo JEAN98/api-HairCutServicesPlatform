@@ -26,7 +26,7 @@ exports.create = async(req, res,next) => {
             let jwtData = new JWTData(clientMapped.clientID,clientMapped.email,fullName,'ClientAccount');
             let token = JWT.createToken(jwtData);
 
-            res.status(200).send({client: clientMapped, token: token});
+            res.status(201).send({client: clientMapped, token: token});
         }
     } 
     catch(error) 
