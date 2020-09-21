@@ -1,5 +1,4 @@
 let chai = require('chai');
-const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
 let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 const testHelper = require('./test.helper');
@@ -7,7 +6,7 @@ chai.use(chaiHttp);
 let path = 'hairdresserService';
 
 describe('HairdresserServices suite. Post/',()=>{
-    let serviceTitle = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
+    let serviceTitle = testHelper.createRamdonName();
     let service = {
         title: serviceTitle,
         code: serviceTitle +"- servcie",
@@ -84,6 +83,20 @@ describe('HairdresserServices suite. Post/',()=>{
             testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
         });
     });
+
+    it('should get a bad request error based on invalid fields', (done) => {
+        let currentService = service;
+        currentService.hairdressingSalonID = 'invalidID';
+        chai.request(testHelper.baseURL)
+        .post(path)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .send(
+            currentService
+        )
+        .end( function(err,res){
+            testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
+        });
+    });
 });
 
 
@@ -139,7 +152,7 @@ describe('HairdresserServices suite. Get/',()=>{
     });
     
 
-    it('should get a bad request error based on invalid field', (done) => {
+    it('should get a bad request error based on invalid fields', (done) => {
         chai.request(testHelper.baseURL)
         .get(path + query + 'invalidID')
         .set('Authorization', `Bearer ${testHelper.hsToken}`)

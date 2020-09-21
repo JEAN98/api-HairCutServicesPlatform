@@ -3,12 +3,10 @@
 require('./cleantEntity.test');
 require('./checkPermissionLevel.test');
 require('./filesInDirectory.test');
-require('./server.test'); 
 require('./schedule.test');
-
 require('./hairdressingSalon.test');
 require('./gender.test');
-
 require('./clientPlatformAccount.test');
 require('./session.test');
 require('./hairdresserService.test');
+require('./worker.test');

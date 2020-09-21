@@ -1,5 +1,5 @@
-const { optional } = require('joi');
-
+var randomEmail = require('random-email');
+const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
 const expect = require('chai').expect;
 const testHelper = {};
 
@@ -12,6 +12,25 @@ testHelper.baseURL = 'http://localhost:3000/api/';
 function isTestCompleted(done) {
     if(done !== undefined)
         done();
+}
+
+
+testHelper.createRamdonIDCard = () => {
+    let card = '';
+    for (let index = 0; index < 9; index++) {
+        let number = Math.floor(Math.random() * Math.floor(9));
+        card += number.toString();
+    }
+    return card;
+}
+
+testHelper.createRamdonName =() => {
+    return uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
+}
+
+
+testHelper.createRamdonEmail =() => {
+   return randomEmail();
 }
 
 testHelper.expectedUnauthorizedErrorBasedOnInvalidPermissions = (response,done) => {

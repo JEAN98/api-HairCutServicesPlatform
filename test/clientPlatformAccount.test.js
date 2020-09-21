@@ -1,7 +1,6 @@
 let chai = require('chai');
 const expect = require('chai').expect;
 let hSalonPath = 'haircutPlatformAccount';
-var randomEmail = require('random-email');
 const testHelper = require('./test.helper');
 
 describe('haircutPlatformAccount suites. Post/',()=>{
@@ -17,7 +16,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
 
     it('should be able to create a new account', (done) => {
         let currentPA = haircutPlatformAccount;
-        currentPA.email = randomEmail();
+        currentPA.email = testHelper.createRamdonEmail();
         chai.request(testHelper.baseURL)
         .post(hSalonPath)
         .send(          
