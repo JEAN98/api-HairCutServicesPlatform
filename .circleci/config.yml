@@ -2,12 +2,6 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/postgres:11-alpine-ram
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: hcsp
-
       - image: node:11.10.1
         environment:
           SECRET_KEY: hdsp_token-advbc3
@@ -20,6 +14,11 @@ jobs:
           CURRENT_ENV: Dev
           DIALECT: postgres
           API_NAME: APIHairCutServicesPlatformDev
+      - image: circleci/postgres:11-alpine-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hcsp
 
     steps:
       - checkout
