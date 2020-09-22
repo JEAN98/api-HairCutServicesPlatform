@@ -94,7 +94,7 @@ describe('HairdresserServices suite. Post/',()=>{
             currentService
         )
         .end( function(err,res){
-            testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
+            testHelper.expectedBadRequestErrorBasedOnInvalidField(res,done);
         });
     });
 });
