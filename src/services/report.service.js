@@ -14,10 +14,17 @@ exports.getPercentageOfServicesByHSalon = async(hairdressingSalonID) => {
     console.log(appoimentServicesList,totalCount)
     for (let index = 0; index < appoimentServicesList.length; index++) {
         let service = appoimentServicesList[index];
-        service.percentage = (parseInt(service.count) * 100) / totalCount;
+        service.percentage = calculatePercentage(service.count,totalCount);
         service.serviceID = service.service_id;
         delete  service.service_id;  
         percentageOfServicesByHSalonList.push(service);
     }
     return percentageOfServicesByHSalonList;    
+}
+
+
+function calculatePercentage(count,totalCount) {
+    let percentage = ((parseInt(count) * 100) / totalCount).toPrecision(4);
+    
+    return parseFloat(percentage) ;
 }
