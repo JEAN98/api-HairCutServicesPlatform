@@ -1,6 +1,4 @@
 const repository = require('../repositories/appoimentService.repository');
-const {GeneralError,BadRequestSequelizeError}  = require('../middleware/error/error');
-const Sequelize = require('sequelize');
 
 exports.getAppoimentServiceList = async(req, res,next) => {
    try {
