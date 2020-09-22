@@ -90,7 +90,6 @@ describe('Worker suites for Post/',()=> {
 
 });
 
-//TODO: GET workers tests are missing
 describe('Worker suites for Get/',()=> {
     it('should get a list of workers using hsToken', (done) => {
         chai.request(testHelper.baseURL)
@@ -105,4 +104,50 @@ describe('Worker suites for Get/',()=> {
             done();
         });
     });
+
+    it('should get a list of workers using hsToken and the query', (done) => {
+        let query = '?isActive=true';
+        chai.request(testHelper.baseURL)
+        .get(path + query)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .end( function(err,res){
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.be.gt(0);
+            expect(res.body[0].identificationCard).to.not.be.undefined;
+            expect(res.body[0].isActive).to.be.equals(true);
+            expect(res.body[0].hairdressingSalonID).to.not.be.undefined;
+            done();
+        });
+    });
+
+    it('should get an Unauthorized error when token is invalid', (done) => {
+        chai.request(testHelper.baseURL)
+        .get(path)
+        .set('Authorization', `Bearer ${testHelper.invalidToken}`)
+        .end( function(err,res){
+           testHelper.expectedUnauthorizedErrorWhenTokenIsInvalid(res,done);
+        });
+    });
+
+    it('should get an Unauthorized error when there is not token', (done) => {
+        chai.request(testHelper.baseURL)
+        .get(path)
+        .end( function(err,res){
+           testHelper.expectedUnauthorizedErrorWhenThereISNotToken(res,done);
+        });
+    });
+
+
+    it('should get a bad request error based on invalid fields', (done) => {
+        let query = '?isActive=123456789';
+        chai.request(testHelper.baseURL)
+        .get(path+query)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .end( function(err,res){
+            testHelper.expectedBadRequestErrorBasedOnInvalidField(res,done);
+        });
+    });
+
+
 });
