@@ -5,6 +5,7 @@ const {entitySelected} = require('../utils/entityType');
 exports.createAppoiment = async(req, res,next) => {
    try 
    {
+      console.log(req.token.accountType)
       checkPermissionLevel(req.token.accountType,entitySelected.Client);
 
       req.body.clientID = req.token.sub;
