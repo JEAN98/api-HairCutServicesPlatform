@@ -10,6 +10,14 @@ const { DateTime } = require("luxon");
 exports.getAppoimentListBetweenDates = async(reqBody) => {
     if(reqBody.dateFrom !== undefined && reqBody.dateTo  !== undefined && reqBody.hairdressingSalonID)
     {
+        let firstDate = DateTime.fromFormat(reqBody.dateFrom,"yyyy-MM-dd HH:mm:ss"); //TODO: INVALID DATES MUST BE HANDLE, LIKE FEBRAURY 31
+        let secondDate = DateTime.fromFormat(reqBody.dateTo,"yyyy-MM-dd HH:mm:ss");
+        
+        if(firstDate > secondDate )
+        {
+            throw new BadRequest('The dateFrom should be lower than dateTo');
+        }
+
         let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqBody.hairdressingSalonID,
                                                                                 reqBody.dateFrom,reqBody.dateTo);
         return appoimentList;

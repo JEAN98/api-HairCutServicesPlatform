@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const {cleanEntity,cleanEntityList} = require('../src/utils/cleanEntity.helper');
+const {cleanEntity,cleanEntityList,underScoreToCamelCase} = require('../src/utils/cleanEntity.helper');
 
 
 describe('cleanEntity suite',()=>{
@@ -25,6 +25,19 @@ describe('cleanEntity suite',()=>{
             {id:22,name: 'Mary'},
             {id:20,name: 'Geronimo'}
         ]);
+    });
+
+
+    it('should get a new entityName for two words', () => {
+        let newName = underScoreToCamelCase('','test_abc');
+        console.log(newName)
+        expect(newName).to.be.equals('testAbc');
+    });
+
+    it('should get a new entityName for more than two words', () => {
+        let newName = underScoreToCamelCase('','mary_vega_bejarano');
+        console.log(newName)
+        expect(newName).to.be.equals('maryVegaBejarano');
     });
 });
 
