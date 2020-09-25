@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const {cleanEntity,cleanEntityList,underScoreToCamelCase} = require('../src/utils/cleanEntity.helper');
+const {cleanEntity,cleanEntityList,setCamelCaseStandard} = require('../src/utils/cleanEntity.helper');
 
 
 describe('cleanEntity suite',()=>{
@@ -28,16 +28,20 @@ describe('cleanEntity suite',()=>{
     });
 
 
-    it('should get a new entityName for two words', () => {
-        let newName = underScoreToCamelCase('','test_abc');
-        console.log(newName)
-        expect(newName).to.be.equals('testAbc');
-    });
-
-    it('should get a new entityName for more than two words', () => {
-        let newName = underScoreToCamelCase('','mary_vega_bejarano');
-        console.log(newName)
-        expect(newName).to.be.equals('maryVegaBejarano');
+    it('should get a new property names', () => {
+        let user = { 
+                    client_name : 'Mary Test',
+                    age: 12,
+                    venues_address_billing: 'Alajuela, San Carlos, Quesada'
+                };
+        let userUpdated = setCamelCaseStandard(user);
+        expect(userUpdated).to.eql(
+            { 
+                clientName : user.client_name,
+                age: user.age,
+                venuesAddressBilling: user.venues_address_billing
+            }
+        );
     });
 });
 
