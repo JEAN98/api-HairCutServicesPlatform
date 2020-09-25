@@ -1,4 +1,5 @@
 const scheduleRepository = require('../repositories/schedule.repository');
+const {setCamelCaseStandardInList} = require('../utils/cleanEntity.helper');
 const haidresserServiceRepository = require('../repositories/hairdresserService.repository');
 const appoimentRepository = require('../repositories/appoiment.repository');
 const appoimentServiceRepository =  require('../repositories/appoimentService.repository');
@@ -20,7 +21,7 @@ exports.getAppoimentListBetweenDates = async(reqBody) => {
 
         let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqBody.hairdressingSalonID,
                                                                                 reqBody.dateFrom,reqBody.dateTo);
-        return appoimentList;
+        return setCamelCaseStandardInList(appoimentList);
     }
     throw new BadRequest('The dateFrom or dateTo are undefined');
 }
