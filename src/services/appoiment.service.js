@@ -6,6 +6,17 @@ const {BadRequest, GeneralError} = require('../middleware/error/error');
 const  { format } = require('date-fns');
 const { DateTime } = require("luxon");
 
+
+exports.getAppoimentListBetweenDates = async(reqBody) => {
+    if(reqBody.dateFrom !== undefined && reqBody.dateTo  !== undefined && reqBody.hairdressingSalonID)
+    {
+        let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqBody.hairdressingSalonID,
+                                                                                reqBody.dateFrom,reqBody.dateTo);
+        return appoimentList;
+    }
+    throw new BadRequest('The dateFrom or dateTo are undefined');
+}
+
 exports.createAppoiment = async(reqBody) => {
     
         let servicesList = reqBody.servicesList;

@@ -18,3 +18,20 @@ exports.createAppoiment = async(req, res,next) => {
        next(error);  
     }
 };
+
+
+exports.getAppoimentListBetweenDates = async(req, res,next) =>{
+   try 
+   {
+      checkPermissionLevel(req.token.accountType,entitySelected.HSalon);
+      
+      req.body.hairdressingSalonID = req.token.sub;
+      let response = await service.getAppoimentListBetweenDates(req.body);
+
+      res.status(200).send(response);
+   } 
+   catch (error) 
+   {
+      next(error);
+   }
+}
