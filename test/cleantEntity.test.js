@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const {cleanEntity,cleanEntityList,setCamelCaseStandard} = require('../src/utils/cleanEntity.helper');
+const {cleanEntity,cleanEntityList,setCamelCaseStandard,setCamelCaseStandardInList} = require('../src/utils/cleanEntity.helper');
 
 
 describe('cleanEntity suite',()=>{
@@ -29,19 +29,23 @@ describe('cleanEntity suite',()=>{
 
 
     it('should get a new property names', () => {
-        let user = { 
+        let userList = [{ 
                     client_name : 'Mary Test',
                     age: 12,
                     venues_address_billing: 'Alajuela, San Carlos, Quesada'
-                };
-        let userUpdated = setCamelCaseStandard(user);
-        expect(userUpdated).to.eql(
-            { 
-                clientName : user.client_name,
-                age: user.age,
-                venuesAddressBilling: user.venues_address_billing
-            }
-        );
+                },{ 
+                    client_name : 'Mary Test',
+                    age: 12,
+                    venues_address_billing: 'Alajuela, San Carlos, Quesada'
+                }];
+        let userUpdated = setCamelCaseStandardInList(userList);
+
+        expect(userUpdated).to.be.an('array')
+        expect(userUpdated[0].clientName).not.be.undefined;
+        expect(userUpdated[0].age).not.be.undefined
+        expect(userUpdated[0].venuesAddressBilling).not.be.undefined;
+        expect(userUpdated[0].client_name).be.undefined;
+        expect(userUpdated[0].venues_address_billing).be.undefined;
     });
 });
 

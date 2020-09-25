@@ -21,7 +21,7 @@ const cleanEntityList = (entityList,attributeList) => {
 }
 
 
-const replaceUnderScoreStandardFromList = (entityList) => {
+const setCamelCaseStandardInList = (entityList) => {
     for (let index = 0; index < entityList.length; index++) {
         entityList[index] = setCamelCaseStandard(entityList[index]);
     }
@@ -35,6 +35,8 @@ const setCamelCaseStandard = (entity) =>{
         entity = entity.toJSON();
     }
     let entityAsString = JSON.stringify(entity);
+    
+
     for (const [key, value] of Object.entries(entity)) {
         //console.log(`${key}: ${value}`);
         entityAsString = entityAsString.replace(key,getNewPropertyName(key));
@@ -43,6 +45,7 @@ const setCamelCaseStandard = (entity) =>{
         entity[newPropertyName] = entity[key];
         delete entity[key];*/
     }
+    
     return JSON.parse(entityAsString);
 }
 
@@ -71,7 +74,7 @@ module.exports = {
     cleanEntity,
     cleanEntityList,
     setCamelCaseStandard,
-    replaceUnderScoreStandardFromList
+    setCamelCaseStandardInList
 }
 
 
