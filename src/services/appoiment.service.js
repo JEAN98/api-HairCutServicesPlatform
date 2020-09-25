@@ -6,6 +6,7 @@ const appoimentServiceRepository =  require('../repositories/appoimentService.re
 const {BadRequest, GeneralError} = require('../middleware/error/error');
 const  { format } = require('date-fns');
 const { DateTime } = require("luxon");
+const {} = require('../utils/cleanEntity.helper');
 
 
 exports.getAppoimentListBetweenDates = async(reqBody) => {

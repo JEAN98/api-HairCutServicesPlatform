@@ -1,7 +1,8 @@
 //Test Runner, the following test are going to be executed and based on the following order
 
-require('./cleantEntity.test');
+require('./getCostaRicaTime.test');
 /*
+require('./cleantEntity.test');
 require('./checkPermissionLevel.test');
 require('./filesInDirectory.test');
 require('./schedule.test');
