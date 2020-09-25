@@ -22,7 +22,7 @@ exports.getAppoimentListBetweenDates = async(reqBody) => {
         let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqBody.hairdressingSalonID,
                                                                                 reqBody.dateFrom,reqBody.dateTo);
         return setCamelCaseStandardInList(appoimentList);
-    }
+    } 
     throw new BadRequest('The dateFrom or dateTo are undefined');
 }
 

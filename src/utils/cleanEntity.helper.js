@@ -59,10 +59,22 @@ function getNewPropertyName(propertyName) {
         for (let index = 1; index < wordSplitOut.length; index++) {
             let subString = wordSplitOut[index];
             subString = setCharAt(subString,0,subString[0].toUpperCase());
-            newPropertyName += subString;
+            let finalSubString = isID(subString);
+
+            newPropertyName += finalSubString;
         }
     }
     return newPropertyName;
+}
+
+
+function isID(subString) {
+    //In oder to replace Id to ID
+   if(subString[0] === 'I' && subString.length == 2 && subString[1] === 'd')
+   {
+        return 'ID';
+   }
+   return subString;
 }
 
 function setCharAt(str,index,chr) {
