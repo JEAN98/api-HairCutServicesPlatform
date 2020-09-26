@@ -24,9 +24,8 @@ exports.getAppoimentListBetweenDates = async(req, res,next) =>{
    try 
    {
       checkPermissionLevel(req.token.accountType,entitySelected.HSalon);
-      
-      req.body.hairdressingSalonID = req.token.sub;
-      let response = await service.getAppoimentListBetweenDates(req.body);
+      req.query.hairdressingSalonID = req.token.sub;
+      let response = await service.getAppoimentListBetweenDates(req.query);
 
       res.status(200).send(response);
    } 

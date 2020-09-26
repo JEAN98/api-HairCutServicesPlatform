@@ -9,7 +9,7 @@ const createAppoiment = {
 }
 
 const getAppoimentList = {
-  body: Joi.object({
+  query: Joi.object({
     dateTo: Joi.date().required(),
     dateFrom: Joi.date().required()
   }),
