@@ -4,8 +4,7 @@ const {getCostaRicaTime} = require('../src/utils/getCostaRicaTime.helper');
 
 describe('GetFiles suite',()=>{
     it('should get a modelList', () => {
-        let newDate = getCostaRicaTime('2020-09-23T21:40:00.000Z');
-        console.log(newDate)
-        expect(0).to.be.equals(0);
+        let newDate = getCostaRicaTime('2020-09-25T18:40:00.000Z');
+        expect(newDate).to.be.equals('2020-09-25 12:40:00');
     });
 });
