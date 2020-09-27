@@ -69,3 +69,15 @@ exports.verifyAppoimentAvailability = async(workerID, shiftStarts,shiftEnds) => 
  }
 
 
+ exports.getAppointmentListByWorkerOnADate = async(workerID, date) => {
+    let appoimentList = await Appoiment.findAll({
+        where:[
+             {worker_id: workerID },
+             dbContext.sequelize.where(sequelize.fn('date', sequelize.col('shift_starts')), '=', date)
+        ],
+        order: [
+            ['shift_starts', 'ASC'],
+        ]
+    });
+     return appoimentList ;
+ }
