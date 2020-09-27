@@ -2,7 +2,7 @@ const {BadRequest, GeneralError} = require('../middleware/error/error');
 const timeSheet = require('../repositories/timeSheet.repository');
 const scheduleRepository = require('../repositories/schedule.repository');
 const {areValidDates} = require('../utils/dateTime.helper');
-const { DateTime } = require("luxon");
+const { DateTime,Duration } = require("luxon");
 const { getTime } = require('date-fns');
 
 
@@ -16,24 +16,33 @@ exports.getTimeSheetsAvailableByWorker = async(reqQuery) => {
 }
 
 calculateTimeSheetsAvailable = async(workerID,date) => {
-    let appoimentList = await timeSheet.getAppointmentListByWorkerOnADate(workerID,date);
+    //This list includes also the lunch_starts and lunch_ends
+    let appoimentList = await timeSheet.getAppointmentListByWorkerOnADate(workerID,date);   
     let hSScheduleByWokerOnADate = (await timeSheet.getHSScheduleByWokerOnADate(workerID,date))[0];
     let timeSheetsAvailableList = [];
-    //console.log(getHourMinSec(hSScheduleByWokerOnADate.shiftStarts));
+
     appoimentList.forEach(appoiment => {
 
+
     });
+    getDateTime("09:05:37.345597");
 
     return appoimentList;
 }
 
 
+getDateTime = (timeSelected) => {
+    let hourMinSec = getHourMinSec(timeSelected);
+    var date = DateTime.utc(2020, 01, 01, hourMinSec.hours, hourMinSec.minutes, hourMinSec.seconds);
+    return date;    
+}
+
 getHourMinSec = (timeSelected) => {
     let timeWithOutMilleSeconds = (timeSelected.split('.'))[0]
     let [hours, minutes, seconds] = timeWithOutMilleSeconds.split(':'); 
     return {
-        hours:hours,
-        minutes: minutes,
-        seconds: seconds
+        hours:parseInt(hours),
+        minutes:parseInt( minutes),
+        seconds:parseInt(seconds)
     }
 }
