@@ -6,6 +6,7 @@ const appoimentServiceRepository =  require('../repositories/appoimentService.re
 const {BadRequest, GeneralError} = require('../middleware/error/error');
 const  { format } = require('date-fns');
 const { DateTime } = require("luxon");
+const {areValidDates} = require('../utils/dateTime.helper');
 const {cleanEntity} = require('../utils/cleanEntity.helper');
 
 
@@ -16,9 +17,8 @@ exports.getAppoimentListBetweenDates = async(reqBody) => {
         let secondDate = DateTime.fromFormat(reqBody.dateTo,"yyyy-MM-dd HH:mm:ss");
         
         if(firstDate > secondDate )
-        {
             throw new BadRequest('The dateFrom should be lower than dateTo');
-        }
+        
 
         let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqBody.hairdressingSalonID,
                                                                                 reqBody.dateFrom,reqBody.dateTo);
@@ -34,6 +34,7 @@ exports.createAppoiment = async(reqBody) => {
         let shiftStarts = reqBody.shiftStarts;
         let clientID = reqBody.clientID; 
 
+      
         verifyTheShiftStartsOnFuture(shiftStarts);
 
         await areTheServicesActiveAndExist(servicesList,workerID);
