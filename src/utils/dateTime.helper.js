@@ -13,11 +13,19 @@ function getCostaRicaTime(dateAsString) {
         return date.toFormat('yyyy-MM-dd HH:mm:ss'); 
     }
     else
-        throw new BadRequest('Invalid Date');
-   
+        throw new BadRequest('One of the dates does not have a value assigned');
 }
 
+function isAValidDate(dateSelected) {
+    if(dateSelected === '')
+       throw new BadRequest('One of the dates does not have a value assigned');
+    
+    var date = DateTime.fromFormat(dateSelected,"yyyy-MM-dd");
+    if(!date.isValid)
+        throw new BadRequest('One of the dates selected does not have a correct value');
+}
 
 module.exports = {
-    getCostaRicaTime
+    getCostaRicaTime,
+    isAValidDate
 }
