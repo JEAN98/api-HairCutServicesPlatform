@@ -10,29 +10,31 @@ const {areValidDates} = require('../utils/dateTime.helper');
 const {cleanEntity} = require('../utils/cleanEntity.helper');
 
 
-exports.getAppoimentListBetweenDates = async(reqBody) => {
-    if(reqBody.dateFrom !== undefined && reqBody.dateTo  !== undefined && reqBody.hairdressingSalonID)
+exports.getAppoimentListBetweenDates = async(reqQuery) => {
+    if(reqQuery.dateFrom !== undefined && reqQuery.dateTo  !== undefined && reqQuery.hairdressingSalonID)
     {
-        let firstDate = DateTime.fromFormat(reqBody.dateFrom,"yyyy-MM-dd HH:mm:ss"); //TODO: INVALID DATES MUST BE HANDLE, LIKE FEBRAURY 31
-        let secondDate = DateTime.fromFormat(reqBody.dateTo,"yyyy-MM-dd HH:mm:ss");
-        
+        let firstDate = DateTime.fromFormat(reqQuery.dateFrom,"yyyy-MM-dd HH:mm:ss"); //TODO: INVALID DATES MUST BE HANDLE, LIKE FEBRAURY 31
+        let secondDate = DateTime.fromFormat(reqQuery.dateTo,"yyyy-MM-dd HH:mm:ss");
+
+        areValidDates([firstDate, secondDate])
+
         if(firstDate > secondDate )
             throw new BadRequest('The dateFrom should be lower than dateTo');
         
 
-        let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqBody.hairdressingSalonID,
-                                                                                reqBody.dateFrom,reqBody.dateTo);
+        let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqQuery.hairdressingSalonID,
+                                                                                reqQuery.dateFrom,reqQuery.dateTo);
         return setCamelCaseStandardInList(appoimentList);
     } 
     throw new BadRequest('The dateFrom or dateTo are undefined');
 }
 
-exports.createAppoiment = async(reqBody) => {
+exports.createAppoiment = async(reqQuery) => {
     
-        let servicesList = reqBody.servicesList;
-        let workerID = reqBody.workerID;
-        let shiftStarts = reqBody.shiftStarts;
-        let clientID = reqBody.clientID; 
+        let servicesList = reqQuery.servicesList;
+        let workerID = reqQuery.workerID;
+        let shiftStarts = reqQuery.shiftStarts;
+        let clientID = reqQuery.clientID; 
 
       
         verifyTheShiftStartsOnFuture(shiftStarts);
@@ -91,6 +93,8 @@ const verifyTheShiftStartsOnFuture =  (shiftStarts) => {
     var currentDateTime = DateTime.local().setZone("utc-6");
 
     shiftStarts = DateTime.fromFormat(shiftStarts,"yyyy-MM-dd HH:mm:ss");
+    areValidDates([shiftStarts]);
+    
     if(shiftStarts < currentDateTime)
     {
         throw new BadRequest("The shiftStarts cannot be a past time!")

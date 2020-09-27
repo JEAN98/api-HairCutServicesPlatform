@@ -17,6 +17,7 @@ function getCostaRicaTime(dateAsString) {
 }
 
 function areValidDates(dateList) {
+
     //The dates are using the luxon parser
     dateList.forEach(date => {
         if(date === '')

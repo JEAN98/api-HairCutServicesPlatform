@@ -4,5 +4,11 @@ const scheduleRepository = require('../repositories/schedule.repository');
 
 
 exports.getTimeSheetsAvailableByWorker = async(workerID,date) => {
-    let result = await appoimentRepository.getAppointmentListByWorkerOnADate(workerID,date);
+    if(workerID != undefined && date != undefined)
+    {
+        let result = await appoimentRepository.getAppointmentListByWorkerOnADate(workerID,date);
+    }
+    else{
+        throw new BadRequest('Any of the value is not defined');
+    }
 }
