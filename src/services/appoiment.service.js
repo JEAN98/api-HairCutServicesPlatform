@@ -13,7 +13,7 @@ const {cleanEntity} = require('../utils/cleanEntity.helper');
 exports.getAppoimentListBetweenDates = async(reqQuery) => {
     if(reqQuery.dateFrom !== undefined && reqQuery.dateTo  !== undefined && reqQuery.hairdressingSalonID)
     {
-        let firstDate = DateTime.fromFormat(reqQuery.dateFrom,"yyyy-MM-dd HH:mm:ss"); //TODO: INVALID DATES MUST BE HANDLE, LIKE FEBRAURY 31
+        let firstDate = DateTime.fromFormat(reqQuery.dateFrom,"yyyy-MM-dd HH:mm:ss"); 
         let secondDate = DateTime.fromFormat(reqQuery.dateTo,"yyyy-MM-dd HH:mm:ss");
 
         areValidDates([firstDate, secondDate])
@@ -94,7 +94,7 @@ const verifyTheShiftStartsOnFuture =  (shiftStarts) => {
 
     shiftStarts = DateTime.fromFormat(shiftStarts,"yyyy-MM-dd HH:mm:ss");
     areValidDates([shiftStarts]);
-    
+
     if(shiftStarts < currentDateTime)
     {
         throw new BadRequest("The shiftStarts cannot be a past time!")
