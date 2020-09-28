@@ -19,7 +19,10 @@ calculateTimeSheetsAvailable = async(workerID,date) => {
     //This list includes also the lunch_starts and lunch_ends
     let appoimentList = await timeSheet.getAppointmentListByWorkerOnADate(workerID,date);   
     let hSScheduleByWokerOnADate = (await timeSheet.getHSScheduleByWokerOnADate(workerID,date))[0];
-    console.log(hSScheduleByWokerOnADate);
+    if(hSScheduleByWokerOnADate === undefined)
+    {
+        throw new BadRequest('The date selected does not match with an exsiting schedule or the worker selected does not exist')
+    }
 
     let timeSheetsAvailableList = [];
     let lastTimeRequested = getHourMin(hSScheduleByWokerOnADate.shiftStarts);
@@ -28,8 +31,6 @@ calculateTimeSheetsAvailable = async(workerID,date) => {
         let substracionResult = currentTime - lastTimeRequested;
         if( substracionResult > 0)
         {
-            console.log(substracionResult,'subStractionResult')
-            //console.log(getDateTime(lastTimeRequested), getDateTime(lastTimeRequested + substracionResult))
             let from = getDateTime(lastTimeRequested);
             let to =  getDateTime(lastTimeRequested + substracionResult);
             timeSheetsAvailableList.push(
@@ -40,13 +41,15 @@ calculateTimeSheetsAvailable = async(workerID,date) => {
             );
         }
         lastTimeRequested = getHourMin(appoiment.shiftEnds);
-        //  let appoimentStarts =  getDateTime(appoiment.shiftStarts);
     });
-    let lastIndex = appoimentList.length - 1;
 
-    let finalTimeSheetAvialables = calculateFinalTime(hSScheduleByWokerOnADate.shiftEnds,appoimentList[lastIndex],timeSheetsAvailableList);
-    console.log(finalTimeSheetAvialables);
-    return appoimentList;
+    if(appoimentList.length - 1 >= 0)
+    {
+        let lastIndex = appoimentList.length - 1;
+        timeSheetsAvailableList = calculateFinalTime(hSScheduleByWokerOnADate.shiftEnds,appoimentList[lastIndex],timeSheetsAvailableList);
+    }
+    console.log(appoimentList)
+    return timeSheetsAvailableList;
 }
 
 calculateFinalTime = (shiftEnds, lastAppoiment,timeSheetsAvailableList) => {
