@@ -8,7 +8,6 @@ describe('haircutPlatformAccount suites. Post/',()=>{
     let haircutPlatformAccount = {
         firstName: "Andrew",
         lastName: "Vega",
-        birthday: "1998/07/22",
         email:"salonTest@gmail.com",
         password:"Admin@123",
         genderID: 2
