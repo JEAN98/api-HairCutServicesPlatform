@@ -10,6 +10,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
         lastName: "Vega",
         email:"salonTest@gmail.com",
         password:"Admin@123",
+        age: 18,
         genderID: 2
     };
 
@@ -24,6 +25,7 @@ describe('haircutPlatformAccount suites. Post/',()=>{
         .end( function(err,res){
             expect(res).to.have.status(201);
             expect(res.body.client).to.not.be.undefined;
+            expect(res.body.client.age).to.be.equals(currentPA.age)
             expect(res.body.client.email).to.be.equals(currentPA.email);
             expect(res.body.client.password).to.be.undefined;
             expect(res.body.token).to.not.be.undefined;

@@ -15,6 +15,10 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         field: 'last_name'    
     },
+    age:{
+      type: Sequelize.INTEGER,
+      allowNull: true,
+    },
     isSoccialAccount: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
