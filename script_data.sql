@@ -1,3 +1,4 @@
+
 insert into genders (population,letter) values ('Men','M');
 insert into genders (population,letter) values ('Women','W');
 insert into genders (population,letter) values ('Both','B');
@@ -21,6 +22,18 @@ select * from workers;
 
 
 insert into schedules(weekday_id,hairdressing_salon_id,shift_starts,shift_ends) values (2,1,'10:00:00','17:00:00');
+
+
+insert into clients(first_name,last_name,birthday,is_soccial_account,gender_id)
+values('Geronimo','Vega','1998/01/22',false,1);
+
+
+insert into haircut_platform_accounts(email,password,client_id)
+values('hcAccounts@qa.com','$2b$12$0we0L5kMWEYJ.uyYVLtEPOlZb8viA6/Bz7ns/ouk90YSPuIgXlFuu',1);
+
+
+INSERT INTO hairdressers_services(title,code,description,cost,time_duration_min,is_active,hairdressing_salon_id,gender_id,is_measurable) 
+VALUES ('Sacar las cejas','Service001','Es un proceso para sacar las cejas',1000,15,true,1,1,true);
 
 
 select * from genders;

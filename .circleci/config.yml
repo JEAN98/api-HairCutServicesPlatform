@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:11.10.1
+        environment:
+          SECRET_KEY: hdsp_token-advbc3
+          PASSWORD_KEY: key-hdsp-123@
+          DATABASE_NAME: hcsp
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_HOST: localhost
+          DATABASE_HOST_PORT: 5432
+          CURRENT_ENV: Dev
+          DIALECT: postgres
+          API_NAME: APIHairCutServicesPlatformDev
+          PORT: 3000
+      - image: circleci/postgres:11-alpine-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hcsp
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      #- restore_cache:
+       #   keys:
+        #    - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+         #   - v1-dependencies-
+
+      - run: npm install
+      - run: 
+          name: Start server
+          command: npm start
+          background: true
+
+     # - save_cache:
+      #    paths:
+       #     - node_modules
+        #  key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: npm test

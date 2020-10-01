@@ -1,5 +1,5 @@
 exports.entitySelected = {
     HSalon: "HairdressingSalon",
-    Client: "Client",
+    Client: "ClientAccount",
 };
 

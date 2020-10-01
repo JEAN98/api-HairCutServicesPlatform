@@ -10,8 +10,11 @@ exports.autentication = function(req, res, next) {
     if (!req.headers.authorization) {
         next( new Unauthorized("The request does not have the authentication header"))
     } else {
-        //var currentToken = req.headers.authorization.replace(/['"]+/g, '');
-        var currentToken = req.headers.authorization.split(" ")[1];
+        var currentToken = '';
+        if(req.headers.authorization.split(" ")[1])
+            currentToken = req.headers.authorization.split(" ")[1]; //Postman
+        else
+           currentToken = req.headers.authorization.replace(/['"]+/g, ''); // Web
         //console.log(currentToken)
         try {
             var loadToken = token.decode(currentToken, secretKey, false, "HS512");

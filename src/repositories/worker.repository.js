@@ -1,7 +1,7 @@
 'use strict';
 const Worker = require('../config/db.config').worker;
 const cleanHelper = require('../utils/cleanEntity.helper');
-const attributesToBeRemoved = ['createdAt','updatedAt','gender_id'];
+const attributesToBeRemoved = ['createdAt','updatedAt','gender_id','hairdressing_salon_id'];
 
 exports.getWorkersByHairdressingSalon = async(query) => {
     let workerList = await Worker.findAll(

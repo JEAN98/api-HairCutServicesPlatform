@@ -7,7 +7,7 @@ const attributesToBeRemoved = ['createdAt','updatedAt','password'];
 
 exports.get = async(params) => {
     let list = await HairdressingSalon.findAll({
-        attributes: {exclude: ['genderID','password','createdAt','updatedAt']},
+        attributes: {exclude: ['gender_id','password','createdAt','updatedAt']},
         where: {is_active: params.isActive == undefined ? true : params.isActive}
     });
     return list;

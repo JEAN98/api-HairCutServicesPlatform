@@ -8,4 +8,14 @@ const createAppoiment = {
     }),
 }
 
-module.exports = createAppoiment;
+const getAppoimentList = {
+  query: Joi.object({
+    dateTo: Joi.date().required(),
+    dateFrom: Joi.date().required()
+  }),
+}
+
+module.exports = {
+  createAppoiment,
+  getAppoimentList
+};

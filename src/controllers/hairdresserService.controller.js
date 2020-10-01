@@ -1,13 +1,10 @@
 const repository         = require('../repositories/hairdresserService.repository');
-const {GeneralError,BadRequestSequelizeError,BadRequest,Unauthorized}  = require('../middleware/error/error');
-const Sequelize = require('sequelize');
 const {checkPermissionLevel} = require('../utils/checkAccess.helper');
 const {entitySelected} = require('../utils/entityType');
 
 
 exports.findByHairdressingSalon = async(req, res,next) => {
     try {
-        req.query.hairdressingSalonID = req.token.sub;
          let data = await repository.getByHairdressingSalon(req.query);
          res.status(200).send(data);
       } catch(error) {
@@ -15,14 +12,14 @@ exports.findByHairdressingSalon = async(req, res,next) => {
     }
  };
  
- 
+ //TODO: TITLE AND CODE MUST BE UNIQUE ONLY BY HSALON, and not in a global level
  exports.create = async(req, res,next) => {
     try {
         //console.log(req.token)
-        checkPermissionLevel(req.token.accountType,entitySelected.HSalon);   //TODO:Unique code needs to be handle by framework(title must be unique and code as well)
+        checkPermissionLevel(req.token.accountType,entitySelected.HSalon);   
         req.body.hairdressingSalonID = req.token.sub; 
         let result = await repository.create(req.body);
-        res.status(200).send(result);
+        res.status(201).send(result);
     } 
     catch (error) {
          next(error);

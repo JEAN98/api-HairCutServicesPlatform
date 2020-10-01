@@ -6,7 +6,7 @@ dotenv.config();
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/error/errrorHandler');
 const {getFilesName} = require('./utils/getFilesInDirectory');
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 const app = express();
 
 
@@ -40,27 +40,24 @@ app.use(function (req,res,next){
 });
 
 // Enable CORS ()
-/*
-if(config.MODE == 'development') {
-    app.use(function (req, res, next) {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-access-token');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        next();
-    });
-} */
+
+if(process.env.CURRENT_ENV == 'Dev') {
+  console.log('CorsEnable in Dev env')
+  var cors = require('cors')
+  app.use(cors())
+} 
 
 
 // error handler middleware
 app.use(errorHandler)
 
-console.log(process.env.API_NAME)
+
 
 // Create a Server
 //app.listen(3000)
 //app.listen(PORT, () => //console.log(`Listening on ${ PORT }`))
 //
-app.listen(PORT)
+//app.listen(PORT)
 
 
 

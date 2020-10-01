@@ -15,9 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         field: 'last_name'    
     },
-    birthday: {
-        type: Sequelize.DATE,
-        allowNull: false,
+    age:{
+      type: Sequelize.INTEGER,
+      allowNull: true,
     },
     isSoccialAccount: {
       type: Sequelize.BOOLEAN,

@@ -33,7 +33,8 @@ function createScheduleList(scheduleList,hairdressingSalonID) {
 exports.getByHairdressingSalon = async(req,res,next) =>{
     try
     {
-        let scheduleList = await repository.getByHairdressingSalon(req.query.hairdressingSalonID);
+        checkPermissionLevel(req.token.accountType,entitySelected.HSalon);  
+        let scheduleList = await repository.getByHairdressingSalon(req.token.sub);
         res.status(200).send(scheduleList);
     }
     catch(error)
