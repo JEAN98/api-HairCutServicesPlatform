@@ -25,6 +25,7 @@ const errorHandler = (error, req, res, next) => {
  
   else if(error instanceof ValidationError)
   {
+    console.log(req.body, 'Body Request');
     return res.status(error.statusCode).json(error)
   }
   
