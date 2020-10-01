@@ -133,6 +133,7 @@ create table clients
 	id serial primary key,
 	first_name varchar(100) not null,
 	last_name varchar(100) not null,
+	age int not null,
 	is_soccial_account boolean not null,
 	gender_id int not null,
     created_at timestamp,
