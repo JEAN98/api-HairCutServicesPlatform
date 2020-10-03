@@ -133,7 +133,7 @@ create table clients
 	id serial primary key,
 	first_name varchar(100) not null,
 	last_name varchar(100) not null,
-	age int not null,
+	age int ,
 	is_soccial_account boolean not null,
 	gender_id int not null,
     created_at timestamp,
@@ -161,7 +161,6 @@ create table facebook_accounts
 (
 	id serial primary key,
 	email varchar(100) not null,
-	token varchar(100) not null,
 	facebook_id int not null,
 	client_id int not null,
 	created_at timestamp,

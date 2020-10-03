@@ -1,17 +1,18 @@
 let chai = require('chai');
 const expect = require('chai').expect;
-let hSalonPath = 'haircutPlatformAccount';
+let hSalonPath = 'facebookAccount';
 const testHelper = require('./test.helper');
 
-describe('haircutPlatformAccount suites. Post/',()=>{
+describe('facebookAccount suites. Post/',()=>{
     
     let haircutPlatformAccount = {
-        firstName: "Andrew",
-        lastName: "Vega",
-        email:"salonTest@gmail.com",
-        password:"Admin@123",
+        firstName: "Facebook",
+        facebookID: 123123,
+        lastName: "Test",
+        email:"facebook@gmail.com",
+        token: "AV2BJ34NGOI402NASDF546>?145434!==W3NR4IG2ASDFASDF=4JNGKASD;?43GASDF=",
         age: 18,
-        genderID: 2
+        genderID: 1
     };
 
     it('should be able to create a new account', (done) => {

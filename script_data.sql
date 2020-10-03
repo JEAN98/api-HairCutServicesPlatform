@@ -5,8 +5,8 @@ insert into genders (population,letter) values ('Both','B');
 
 
 insert into weekdays(weekday,day_number) 
-values ('Sunday',0), ('Monday',1), ('Tuesday',2),
-('Wednesday',3), ('Thursday',4), ('Friday',5),('Saturday',6);
+values ('Domingo',0), ('Lunes',1), ('Martes',2),
+('Miércoles',3), ('Jueves',4), ('Viernes',5),('Sábado',6);
 
 
 
@@ -24,8 +24,8 @@ select * from workers;
 insert into schedules(weekday_id,hairdressing_salon_id,shift_starts,shift_ends) values (2,1,'10:00:00','17:00:00');
 
 
-insert into clients(first_name,last_name,birthday,is_soccial_account,gender_id)
-values('Geronimo','Vega','1998/01/22',false,1);
+insert into clients(first_name,last_name,age,is_soccial_account,gender_id)
+values('Geronimo','Vega',18,false,1);
 
 
 insert into haircut_platform_accounts(email,password,client_id)
@@ -91,6 +91,7 @@ where id in (1,2)
 
 
 
+/*ALTER TABLE clients ALTER COLUMN age DROP NOT NULL;*/
 
 
 
