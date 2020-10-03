@@ -1,7 +1,7 @@
 const dbContext = require('../config/db.config');
 const FacebookAccount = dbContext.facebookAccount;
 const cleanHelper = require('../utils/cleanEntity.helper');
-const attributesToBeRemoved = ['createdAt','updatedAt'];
+const attributesToBeRemoved = ['createdAt','updatedAt','facebookID','token'];
 
 exports.create = async(newAccount) => {
     let account = await FacebookAccount.create(newAccount);

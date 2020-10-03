@@ -1,6 +1,6 @@
 let chai = require('chai');
 const expect = require('chai').expect;
-let hSalonPath = 'facebookAccount';
+let facebookAccountPath = 'facebookAccount';
 const testHelper = require('./test.helper');
 
 describe('facebookAccount suites. Post/',() => 
@@ -20,7 +20,7 @@ describe('facebookAccount suites. Post/',() =>
         let currentPA = haircutPlatformAccount;
         currentPA.email = testHelper.createRamdonEmail();
         chai.request(testHelper.baseURL)
-        .post(hSalonPath)
+        .post(facebookAccountPath)
         .send(          
             currentPA
         )
@@ -29,7 +29,8 @@ describe('facebookAccount suites. Post/',() =>
             expect(res.body.client).to.not.be.undefined;
             expect(res.body.client.age).to.be.equals(currentPA.age)
             expect(res.body.client.email).to.be.equals(currentPA.email);
-            expect(res.body.client.password).to.be.undefined;
+            expect(res.body.client.facebookID).to.be.undefined;
+            expect(res.body.client.token).to.be.undefined;
             expect(res.body.token).to.not.be.undefined;
             done();
           });
@@ -38,7 +39,7 @@ describe('facebookAccount suites. Post/',() =>
     it('should get a bad request error based on email already exists hs', (done) => {
         haircutPlatformAccount.email = "salonTest@gmail.com";
         chai.request(testHelper.baseURL)
-        .post(hSalonPath)
+        .post(facebookAccountPath)
         .send(          
             haircutPlatformAccount
         )
@@ -52,7 +53,7 @@ describe('facebookAccount suites. Post/',() =>
     it('should get a bad request error based on email already exists as client', (done) => {
         haircutPlatformAccount.email = "hcAccounts@qa.com";
         chai.request(testHelper.baseURL)
-        .post(hSalonPath)
+        .post(facebookAccountPath)
         .send(          
             haircutPlatformAccount
         )
@@ -69,7 +70,7 @@ describe('facebookAccount suites. Post/',() =>
         currentPA.email= 'email@qa.com';
 
         chai.request(testHelper.baseURL)
-        .post(hSalonPath)
+        .post(facebookAccountPath)
         .send(          
             currentPA
         )
@@ -81,7 +82,7 @@ describe('facebookAccount suites. Post/',() =>
 
     it('should get a bad request error based on a missing field', (done) => {
         chai.request(testHelper.baseURL)
-        .post(hSalonPath)
+        .post(facebookAccountPath)
         .send(          
             {
                 firstName: "Mirella"
@@ -98,7 +99,7 @@ describe('facebookAccount suites. Post/',() =>
         currentPA.lastName = 85;
 
         chai.request(testHelper.baseURL)
-        .post(hSalonPath)
+        .post(facebookAccountPath)
         .send(          
             currentPA
         )
