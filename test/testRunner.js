@@ -11,3 +11,4 @@ require('./clientPlatformAccount.test');
 require('./session.test');
 require('./hairdresserService.test');
 require('./worker.test');
+require('./facebookAccount.test');

@@ -1,5 +1,3 @@
-const hairdressingSalonRepository = require('../repositories/hairdressingSalon.repository');
-const haircutPlatformClient = require('../repositories/haircutPlatformAccount.repository');
 const {getEmailList} = require('../repositories/isEmalExits.repository');
 
 exports.isEmailExist = async (newEmail) => {

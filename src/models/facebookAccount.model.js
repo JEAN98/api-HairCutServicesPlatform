@@ -14,6 +14,10 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         field: 'facebook_id',
     },
+    token:{
+      type: Sequelize.STRING,
+        allowNull: false
+    },
     clientID: {
         type: Sequelize.INTEGER,
         allowNull: false,

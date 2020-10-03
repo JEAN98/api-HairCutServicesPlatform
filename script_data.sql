@@ -91,6 +91,7 @@ where id in (1,2)
 
 
 
+/*ALTER TABLE clients ALTER COLUMN age DROP NOT NULL;*/
 
 
 
