@@ -240,4 +240,39 @@ describe('Sesion facebookAccount suites. Post/',()=>
             done();
         });
     });
+
+    it('should get an Validation error based on invalid fields', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(facebookSession)
+        .send(
+            {
+              'email': 123456789,
+              'id': 123456789
+            }
+        )
+        .end( function(err,res){
+            testHelper.expectedBadRequestErrorBasedOnInvalidField(res);
+            expect(res.body.token).to.be.undefined;
+            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.title).to.be.undefined;
+            done();
+        });
+    });
+
+    it('should get an Validation error based on missing fields', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(hcPlatformSession)
+        .send(
+            {
+              'id': 'Admin@123'
+            }
+        )
+        .end( function(err,res){
+            testHelper.expectedBadRequestErrorBasedOnAMissingField(res);
+            expect(res.body.token).to.be.undefined;
+            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.title).to.be.undefined;
+            done();
+        });
+    });
 });
