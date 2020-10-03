@@ -1,24 +1,25 @@
-const haircutPlatformAccountRepository = require('../repositories/haircutPlatformAccount.repository');
+const repository = require('../repositories/facebookAccount.repository');
 const {GeneralError,BadRequestSequelizeError,BadRequest}  = require('../middleware/error/error');
-const {createClientRerefence,getMappedAccountWithClient} = require('../utils/clientMapper');
 const {isEmailExist} = require('../utils/verifyEmailExist');
+const {createClientRerefence,getMappedAccountWithClient} = require('../utils/clientMapper');
 const {JWTData} = require('../middleware/token/jwtData')
 const JWT = require('../middleware/token/jwt');
 
 exports.create = async(req, res,next) => {
    try 
-    { 
+   {
         let emailExist = await isEmailExist(req.body.email);
         if(!emailExist.isEmailAccepted)
         {
             next(new BadRequest(emailExist));  
         }
-        else{
+        else
+        {
             let newAccount = req.body;
-            let client = await createClientRerefence(newAccount,false);
+            let client = await createClientRerefence(newAccount,true);
             newAccount.clientID = client.id;
-  
-            accountCreated = await haircutPlatformAccountRepository.create(newAccount);
+
+            accountCreated = await repository.create(newAccount);
             
             let clientMapped = getMappedAccountWithClient(client,accountCreated);
             let fullName = clientMapped.firstName +" " + clientMapped.lastName;
@@ -28,14 +29,8 @@ exports.create = async(req, res,next) => {
             res.status(201).send({client: clientMapped, token: token});
         }
     } 
-    catch(error) 
+    catch (error) 
     {
-        next(error)
+       next(error)
     }
 };
-
-
-
-
-
-

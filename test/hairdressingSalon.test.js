@@ -27,7 +27,7 @@ describe('HairdressingSalon suites. Post/',()=>{
         )
         .end( function(err,res){
             expect(res).to.have.status(400);
-            expect(res.body.details.error).to.be.equals('The email already exists as HairdressingSalon');
+            expect(res.body.details.error).to.be.equals('The email already exists');
             done();
           });
     });
@@ -41,7 +41,7 @@ describe('HairdressingSalon suites. Post/',()=>{
         )
         .end( function(err,res){
             expect(res).to.have.status(400);
-            expect(res.body.details.error).to.be.equals('The email already exists as Client');
+            expect(res.body.details.error).to.be.equals('The email already exists');
             done();
           });
     });

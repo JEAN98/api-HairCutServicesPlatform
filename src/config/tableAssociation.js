@@ -92,6 +92,16 @@ module.exports = (db, sequelize, Sequelize) => {
       foreignKey: 'client_id'
     });
 
+    
+    //FacebookAccount
+    db.client.hasMany(db.facebookAccount, {
+      foreignKey: 'client_id'
+    });
+  
+    db.facebookAccount.belongsTo(db.client, {
+      foreignKey: 'client_id'
+    });
+
     //Schedule
     db.weekDay.hasMany(db.schedule, {
       foreignKey: 'weekday_id'
@@ -107,8 +117,6 @@ module.exports = (db, sequelize, Sequelize) => {
       foreignKey: 'hairdressing_salon_id'
     });
     
-
-
 
     
 
