@@ -3,6 +3,7 @@ let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 chai.use(chaiHttp);
 let hsSession = 'hairdressingSalon/session';
+let facebookSession = 'facebookAccount/session';
 let hcPlatformSession = 'clientPlatformAccount/session';
 const testHelper = require('./test.helper');
 
@@ -199,3 +200,44 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
 });
 
 
+describe('Sesion facebookAccount suites. Post/',()=>
+{
+    let email = 'facebook@gmail.com';
+    it('should get a valid session', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(facebookSession)
+        .send(
+            {
+                "email": email,
+                "id": "123123f4frfv"
+            }
+        )
+        .end( function(err,res){
+            expect(res).to.have.status(201);
+            expect(res.body.token).to.not.be.undefined;
+            expect(res.body.client).to.not.be.undefined;
+            expect(res.body.client.password).to.be.undefined;
+            expect(res.body.client.email).to.be.equals(email);
+            done();
+        });
+    });
+
+    it('should get an Unauthorized error based on invalid credentials', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(facebookSession)
+        .send(
+            {
+              'email': email,
+              'id': 'invalidID'
+            }
+        )
+        .end( function(err,res){
+            expect(res).to.have.status(401);
+            expect(res.body.token).to.be.undefined;
+            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.title).to.be.equals('Failed to create session');
+            expect(res.body.error).to.be.equals('The email or password are invalid');
+            done();
+        });
+    });
+});
