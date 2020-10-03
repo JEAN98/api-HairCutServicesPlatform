@@ -91,7 +91,10 @@ where id in (1,2)
 
 
 
-/*ALTER TABLE clients ALTER COLUMN age DROP NOT NULL;*/
+/*ALTER TABLE clients ALTER COLUMN age DROP NOT NULL;
+
+ALTER TABLE facebook_accounts ALTER COLUMN facebook_id TYPE varchar(500);
+*/
 
 
 

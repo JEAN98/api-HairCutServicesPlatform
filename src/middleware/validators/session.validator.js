@@ -7,7 +7,16 @@ const createJWTPlatformAccounts = {
     }),
 }
 
+const createJWTFacebookAccounts = {
+    body: Joi.object({
+        email: Joi.string().email().required(),
+        id: Joi.string().required(),
+    }),
+}
+
+
 module.exports = 
 {
-    createJWTPlatformAccounts
+    createJWTPlatformAccounts,
+    createJWTFacebookAccounts
 };

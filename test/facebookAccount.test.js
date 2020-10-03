@@ -3,11 +3,12 @@ const expect = require('chai').expect;
 let hSalonPath = 'facebookAccount';
 const testHelper = require('./test.helper');
 
-describe('facebookAccount suites. Post/',()=>{
+describe('facebookAccount suites. Post/',() => 
+{
     
     let haircutPlatformAccount = {
         firstName: "Facebook",
-        facebookID: 123123,
+        facebookID: "123123f4frfv",
         lastName: "Test",
         email:"facebook@gmail.com",
         token: "AV2BJ34NGOI402NASDF546>?145434!==W3NR4IG2ASDFASDF=4JNGKASD;?43GASDF=",

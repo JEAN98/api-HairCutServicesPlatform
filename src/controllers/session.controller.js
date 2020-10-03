@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const JWT = require('../middleware/token/jwt');
 const {JWTData} = require('../middleware/token/jwtData');
 const { password_key } = require('../config/env');
+const facebookAccountfindByEmail = require('../repositories/facebookAccount.repository').findByEmail;
 const hairdressingSalonfindByEmail = require('../repositories/hairdressingSalon.repository').findByEmail;
 const haircutPlatformAccountfindByEmail = require('../repositories/haircutPlatformAccount.repository').findByEmail;
 const cleanHelper = require('../utils/cleanEntity.helper');
@@ -79,18 +80,52 @@ const checkHaircutPlatformAccountCredentials = async(email,password) => {
         match = bcrypt.compareSync(password_key+password, account.password);
         if(match) {
 
-            let fullName = account.client.firstName + ' ' + account.client.lastName;
-            let jwtData = new JWTData(account.clientID,account.email,fullName,'ClientAccount');
-
-            account = clientMapper.getMappedAccountWithClient(account.client, account);
-
-            response.message.client = cleanHelper.cleanEntity(account,attributesToBeRemovedCP)
-            response.message.token = JWT.createToken(jwtData);
-            response.statusCode = 201;
-
-            return response;
+            return buildClientCrendetials(account,response);
         }
     }
     return buildErrorMessage();
 }
 
+const buildClientCrendetials = (account,response) => {
+    let fullName = account.client.firstName + ' ' + account.client.lastName;
+    let jwtData = new JWTData(account.clientID,account.email,fullName,'ClientAccount');
+
+    account = clientMapper.getMappedAccountWithClient(account.client, account);
+
+    response.message.client = cleanHelper.cleanEntity(account,attributesToBeRemovedCP)
+    response.message.token = JWT.createToken(jwtData);
+    response.statusCode = 201;
+
+    return response;
+}
+
+
+exports.createFacebookAccountSession = async(req,res,next) =>
+{
+    try {
+        let body = req.body;
+        let response = await checkSocialCredentials(body.email,body.id);
+
+        res.status(response.statusCode).json(response.message);
+    }  catch (error) {
+        next(error)
+     }
+}
+
+const checkSocialCredentials = async(email,id) => 
+{
+    //id => facebookID
+    let response = {};
+    response.message = {};
+    let accountList = await facebookAccountfindByEmail(email);
+
+    if(accountList.length > 0 )
+    {
+        let account = accountList[0].toJSON();
+        if(account.facebookID == id) 
+        {
+            return buildClientCrendetials(account,response);
+        }
+    }
+    return buildErrorMessage();
+}

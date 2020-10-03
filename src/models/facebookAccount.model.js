@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
           allowNull: false    
     },
     facebookID: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         field: 'facebook_id',
     },

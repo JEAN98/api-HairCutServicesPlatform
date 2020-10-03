@@ -4,7 +4,7 @@ const createFacebookAccount = {
     body: Joi.object({
     firstName: Joi.string().max(100).required(),
     token: Joi.string().max(300).required(),
-    facebookID: Joi.number().strict().integer().required(),
+    facebookID: Joi.string().max(500).required(),
     lastName: Joi.string().max(100).required(),
     email: Joi.string().email().required(),
     age: Joi.number().strict().integer().required(),
