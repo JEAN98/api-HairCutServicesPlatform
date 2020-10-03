@@ -6,8 +6,8 @@ const facebookAccountfindByEmail = require('../repositories/facebookAccount.repo
 const hairdressingSalonfindByEmail = require('../repositories/hairdressingSalon.repository').findByEmail;
 const haircutPlatformAccountfindByEmail = require('../repositories/haircutPlatformAccount.repository').findByEmail;
 const cleanHelper = require('../utils/cleanEntity.helper');
-const attributesToBeRemovedHS = [,'createdAt','updatedAt','password','gender_id'];
-const attributesToBeRemovedCP = [,'createdAt','updatedAt','password','client','client_id'];
+const attributesToBeRemovedHS = ['createdAt','updatedAt','password','gender_id'];
+const attributesToBeRemovedClient = ['createdAt','updatedAt','password','client','client_id','facebookID','token'];
 const clientMapper = require('../utils/clientMapper');
 
 
@@ -92,7 +92,7 @@ const buildClientCrendetials = (account,response) => {
 
     account = clientMapper.getMappedAccountWithClient(account.client, account);
 
-    response.message.client = cleanHelper.cleanEntity(account,attributesToBeRemovedCP)
+    response.message.client = cleanHelper.cleanEntity(account,attributesToBeRemovedClient)
     response.message.token = JWT.createToken(jwtData);
     response.statusCode = 201;
 
