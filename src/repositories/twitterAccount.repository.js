@@ -17,6 +17,10 @@ exports.findByID = async(accountID) => {
 exports.findBytwitterID = async(twitterID) => {
     let account = await TwitterAccount.findAll({
         where: {twitterID: twitterID},
+        include: [{
+            model: dbContext.client,
+            // specifies how we want to be able to access our joined rows on the returned data
+          }]
     });
     return account;
 }

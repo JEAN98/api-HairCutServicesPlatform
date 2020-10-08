@@ -14,9 +14,16 @@ const createJWTFacebookAccounts = {
     }),
 }
 
+const createJWTTwitterAccounts = {
+    body: Joi.object({
+        username: Joi.string().required(),
+        twitterID: Joi.string().required(),
+    }),
+}
 
 module.exports = 
 {
     createJWTPlatformAccounts,
-    createJWTFacebookAccounts
+    createJWTFacebookAccounts,
+    createJWTTwitterAccounts
 };
