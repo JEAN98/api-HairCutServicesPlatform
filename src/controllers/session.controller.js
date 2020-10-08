@@ -104,7 +104,8 @@ exports.createFacebookAccountSession = async(req,res,next) =>
 {
     try {
         let body = req.body;
-        let response = await checkSocialCredentials(body.email,body.id);
+        let accountList =  await facebookAccountfindByEmail(body.email)
+        let response = await checkSocialCredentials(body.id,accountList);
 
         res.status(response.statusCode).json(response.message);
     }  catch (error) {
@@ -112,12 +113,11 @@ exports.createFacebookAccountSession = async(req,res,next) =>
      }
 }
 
-const checkSocialCredentials = async(email,id) => 
+const checkSocialCredentials = async(id,accountList) => 
 {
     //id => facebookID
     let response = {};
     response.message = {};
-    let accountList = await facebookAccountfindByEmail(email);
 
     if(accountList.length > 0 )
     {

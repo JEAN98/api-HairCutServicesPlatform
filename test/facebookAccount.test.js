@@ -6,7 +6,7 @@ const testHelper = require('./test.helper');
 describe('facebookAccount suites. Post/',() => 
 {
     
-    let haircutPlatformAccount = {
+    let facebookAccount = {
         firstName: "Facebook",
         facebookID: "123123f4frfv",
         lastName: "Test",
@@ -17,7 +17,7 @@ describe('facebookAccount suites. Post/',() =>
     };
 
     it('should be able to create a new account', (done) => {
-        let currentPA = haircutPlatformAccount;
+        let currentPA = facebookAccount;
         currentPA.email = testHelper.createRamdonEmail();
         chai.request(testHelper.baseURL)
         .post(facebookAccountPath)
@@ -37,11 +37,11 @@ describe('facebookAccount suites. Post/',() =>
     });
 
     it('should get a bad request error based on email already exists hs', (done) => {
-        haircutPlatformAccount.email = "salonTest@gmail.com";
+        facebookAccount.email = "salonTest@gmail.com";
         chai.request(testHelper.baseURL)
         .post(facebookAccountPath)
         .send(          
-            haircutPlatformAccount
+            facebookAccount
         )
         .end( function(err,res){
             expect(res).to.have.status(400);
@@ -51,11 +51,11 @@ describe('facebookAccount suites. Post/',() =>
     });
 
     it('should get a bad request error based on email already exists as client', (done) => {
-        haircutPlatformAccount.email = "hcAccounts@qa.com";
+        facebookAccount.email = "hcAccounts@qa.com";
         chai.request(testHelper.baseURL)
         .post(facebookAccountPath)
         .send(          
-            haircutPlatformAccount
+            facebookAccount
         )
         .end( function(err,res){
             expect(res).to.have.status(400);
@@ -65,7 +65,7 @@ describe('facebookAccount suites. Post/',() =>
     });
 
     it('should get a bad request error based on invalid genderID', (done) => {
-        let currentPA = haircutPlatformAccount;
+        let currentPA = facebookAccount;
         currentPA.genderID = 50478;
         currentPA.email= 'email@qa.com';
 
@@ -94,7 +94,7 @@ describe('facebookAccount suites. Post/',() =>
     });
 
     it('should get a bad request error based on an invalid field', (done) => {
-        let currentPA = haircutPlatformAccount;
+        let currentPA = facebookAccount;
         currentPA.password = 123;
         currentPA.lastName = 85;
 

@@ -10,7 +10,7 @@ exports.create = async(req, res,next) => {
         let twitterIDExist = await repository.findBytwitterID(req.body.twitterID);
         if(twitterIDExist.length > 0)
         {
-            next(new BadRequest('twitterID already exists'));  
+            next(new BadRequest( {error:'twitterID already exists'}));  
         }
         else
         {
