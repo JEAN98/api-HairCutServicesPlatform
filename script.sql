@@ -162,6 +162,7 @@ create table facebook_accounts
 	id serial primary key,
 	email varchar(100) not null,
 	facebook_id varchar(500) not null,
+	token varchar(500) not null,
 	client_id int not null,
 	created_at timestamp,
     updated_at timestamp,
@@ -171,12 +172,12 @@ create table facebook_accounts
 	  REFERENCES clients(id)
 );
 
-create table google_accounts
+create table twitter_accounts
 (
 	id serial primary key,
-	email varchar(100) not null,
-	token varchar(100) not null,
-	google_id int not null,
+	username varchar(250) not null,
+	twitter_id varchar(250) not null,
+	token varchar(500) not null,
 	client_id int not null,
 	created_at timestamp,
     updated_at timestamp,
