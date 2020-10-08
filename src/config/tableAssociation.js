@@ -102,6 +102,16 @@ module.exports = (db, sequelize, Sequelize) => {
       foreignKey: 'client_id'
     });
 
+
+     //TwitterAccount
+     db.client.hasMany(db.twitterAccount, {
+      foreignKey: 'client_id'
+    });
+  
+    db.twitterAccount.belongsTo(db.client, {
+      foreignKey: 'client_id'
+    });
+
     //Schedule
     db.weekDay.hasMany(db.schedule, {
       foreignKey: 'weekday_id'

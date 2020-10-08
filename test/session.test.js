@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 chai.use(chaiHttp);
 let hsSession = 'hairdressingSalon/session';
 let facebookSession = 'facebookAccount/session';
+let twitterSession = 'twitterAccount/session';
 let hcPlatformSession = 'clientPlatformAccount/session';
 const testHelper = require('./test.helper');
 
@@ -136,7 +137,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
         .end( function(err,res){
             expect(res).to.have.status(401);
             expect(res.body.token).to.be.undefined;
-            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
             expect(res.body.title).to.be.equals('Failed to create session');
             expect(res.body.error).to.be.equals('The email or password are invalid');
             done();
@@ -156,7 +157,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
         .end( function(err,res){
             expect(res).to.have.status(401);
             expect(res.body.token).to.be.undefined;
-            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
             expect(res.body.title).to.be.equals('Failed to create session');
             expect(res.body.error).to.be.equals('The email or password are invalid');
             done();
@@ -174,7 +175,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
         .end( function(err,res){
             testHelper.expectedBadRequestErrorBasedOnAMissingField(res);
             expect(res.body.token).to.be.undefined;
-            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
             expect(res.body.title).to.be.undefined;
             done();
         });
@@ -192,7 +193,7 @@ describe('Sesion clientPlatformAccount suites. Post/',()=>{
         .end( function(err,res){
             testHelper.expectedBadRequestErrorBasedOnInvalidField(res);
             expect(res.body.token).to.be.undefined;
-            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
             expect(res.body.title).to.be.undefined;
             done();
         });
@@ -234,7 +235,7 @@ describe('Sesion facebookAccount suites. Post/',()=>
         .end( function(err,res){
             expect(res).to.have.status(401);
             expect(res.body.token).to.be.undefined;
-            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
             expect(res.body.title).to.be.equals('Failed to create session');
             expect(res.body.error).to.be.equals('The email or password are invalid');
             done();
@@ -253,7 +254,7 @@ describe('Sesion facebookAccount suites. Post/',()=>
         .end( function(err,res){
             testHelper.expectedBadRequestErrorBasedOnInvalidField(res);
             expect(res.body.token).to.be.undefined;
-            expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
             expect(res.body.title).to.be.undefined;
             done();
         });
@@ -261,7 +262,7 @@ describe('Sesion facebookAccount suites. Post/',()=>
 
     it('should get an Validation error based on missing fields', (done) => {
         chai.request(testHelper.baseURL)
-        .post(hcPlatformSession)
+        .post(facebookSession)
         .send(
             {
               'id': 'Admin@123'
@@ -271,6 +272,85 @@ describe('Sesion facebookAccount suites. Post/',()=>
             testHelper.expectedBadRequestErrorBasedOnAMissingField(res);
             expect(res.body.token).to.be.undefined;
             expect(res.body.hairdressingSalon).to.be.undefined;
+            expect(res.body.title).to.be.undefined;
+            done();
+        });
+    });
+});
+
+
+describe('Sesion TwitterAccount suites. Post/',()=>
+{
+    let username = 'jeanvega';
+    it('should get a valid session', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(twitterSession)
+        .send(
+            {
+                "username": username,
+                "twitterID": "1234578493gasfdnbe34h4e5n"
+            }
+        )
+        .end( function(err,res){
+            expect(res).to.have.status(201);
+            expect(res.body.token).to.not.be.undefined;
+            expect(res.body.client.twitterID).to.be.undefined;
+            expect(res.body.client).to.not.be.undefined;
+            expect(res.body.client.password).to.be.undefined;
+            expect(res.body.client.username).to.be.equals(username);
+            done();
+        });
+    });
+
+    it('should get an Unauthorized error based on invalid credentials', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(twitterSession)
+        .send(
+            {
+              'username': username,
+              'twitterID': 'invalidID'
+            }
+        )
+        .end( function(err,res){
+            expect(res).to.have.status(401);
+            expect(res.body.token).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
+            expect(res.body.title).to.be.equals('Failed to create session');
+            expect(res.body.error).to.be.equals('The username or twitterID are invalid or does not exist');
+            done();
+        });
+    });
+
+    it('should get an Validation error based on invalid fields', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(twitterSession)
+        .send(
+            {
+              'username': 123456789,
+              'twitterID': 123456789
+            }
+        )
+        .end( function(err,res){
+            testHelper.expectedBadRequestErrorBasedOnInvalidField(res);
+            expect(res.body.token).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
+            expect(res.body.title).to.be.undefined;
+            done();
+        });
+    });
+
+    it('should get an Validation error based on missing fields', (done) => {
+        chai.request(testHelper.baseURL)
+        .post(twitterSession)
+        .send(
+            {
+              'username': 'Admin@123'
+            }
+        )
+        .end( function(err,res){
+            testHelper.expectedBadRequestErrorBasedOnAMissingField(res);
+            expect(res.body.token).to.be.undefined;
+            expect(res.body.client).to.be.undefined;
             expect(res.body.title).to.be.undefined;
             done();
         });

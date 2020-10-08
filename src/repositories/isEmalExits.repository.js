@@ -13,11 +13,7 @@ exports.getEmailList = async(email) =>
         union  \
         select email \
             from facebook_accounts \
-            where email = :email\
-        union  \
-        select email \
-            from google_accounts \
-            where email = :email',
+            where email = :email ',
         {
             replacements: { 
                 email: email
