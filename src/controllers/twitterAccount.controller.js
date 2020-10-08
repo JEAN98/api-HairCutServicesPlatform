@@ -16,8 +16,8 @@ exports.create = async(req, res,next) => {
         {
             let newAccount = req.body;
             //FIXME: Needs to be improved
-            newAccount.firstName = 'TwitterName';
-            newAccount.lastName = 'TwitterLastName';
+            newAccount.firstName = req.body.username;
+            newAccount.lastName = '';
             newAccount.genderID = 1;
             let client = await createClientRerefence(newAccount,true);
             newAccount.clientID = client.id;

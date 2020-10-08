@@ -297,7 +297,7 @@ describe('Sesion TwitterAccount suites. Post/',()=>
             expect(res.body.client.twitterID).to.be.undefined;
             expect(res.body.client).to.not.be.undefined;
             expect(res.body.client.password).to.be.undefined;
-            expect(res.body.client.username).to.be.equals(username);
+            expect(res.body.client.username).to.be.undefined;
             done();
         });
     });

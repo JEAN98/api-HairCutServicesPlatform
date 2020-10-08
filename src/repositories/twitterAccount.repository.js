@@ -1,7 +1,7 @@
 const dbContext = require('../config/db.config');
 const TwitterAccount = dbContext.twitterAccount;
 const cleanHelper = require('../utils/cleanEntity.helper');
-const attributesToBeRemoved = ['createdAt','updatedAt','twitter_id','token'];
+const attributesToBeRemoved = ['createdAt','updatedAt','twitter_id','token','username'];
 
 exports.create = async(newAccount) => {
     
