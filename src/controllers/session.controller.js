@@ -8,7 +8,7 @@ const hairdressingSalonfindByEmail = require('../repositories/hairdressingSalon.
 const haircutPlatformAccountfindByEmail = require('../repositories/haircutPlatformAccount.repository').findByEmail;
 const cleanHelper = require('../utils/cleanEntity.helper');
 const attributesToBeRemovedHS = ['createdAt','updatedAt','password','gender_id'];
-const attributesToBeRemovedClient = ['createdAt','updatedAt','password','client','client_id','facebookID','token','twitterID'];
+const attributesToBeRemovedClient = ['createdAt','updatedAt','password','client','client_id','facebookID','token','twitterID','username'];
 const clientMapper = require('../utils/clientMapper');
 
 
