@@ -1,3 +1,4 @@
+const { BadRequest } = require('../middleware/error/error');
 const repository         = require('../repositories/hairdresserService.repository');
 const {checkPermissionLevel} = require('../utils/checkAccess.helper');
 const {entitySelected} = require('../utils/entityType');
@@ -5,6 +6,15 @@ const {entitySelected} = require('../utils/entityType');
 
 exports.findByHairdressingSalon = async(req, res,next) => {
     try {
+
+        if(req.token.accountType === entitySelected.HSalon)
+        {
+            req.query.hairdressingSalonID = req.token.sub;   
+        }
+        else{
+            if( req.query.hairdressingSalonID == null)
+                throw new BadRequest('HairdressingSalonID needs to be selected for clients');
+        }
          let data = await repository.getByHairdressingSalon(req.query);
          res.status(200).send(data);
       } catch(error) {
