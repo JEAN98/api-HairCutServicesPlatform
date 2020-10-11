@@ -15,6 +15,6 @@ exports.createValidator = {
 exports.getServicesByHairdressingSalonValidator = {
     query:Joi.object({
         isActive:  Joi.boolean().optional(),
-        hairdressingSalonID:  Joi.number().required()
+        hairdressingSalonID:  Joi.number().integer().optional()
     }),
 }

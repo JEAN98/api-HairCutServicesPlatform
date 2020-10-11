@@ -107,7 +107,7 @@ describe('HairdresserServices suite. Get/',()=>{
     console.log(testHelper.baseURL);
     it('should get a list of services using hsToken', (done) => {
         chai.request(testHelper.baseURL)
-        .get(path + query + hsID)
+        .get(path)
         .set('Authorization', `Bearer ${testHelper.hsToken}`)
         .end( function(err,res){
             expect(res).to.have.status(200);
@@ -164,9 +164,10 @@ describe('HairdresserServices suite. Get/',()=>{
     it('should get a bad request error based on missing fields', (done) => {
         chai.request(testHelper.baseURL)
         .get(path)
-        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .set('Authorization', `Bearer ${testHelper.clientToken}`)
         .end( function(err,res){
-          testHelper.expectedBadRequestErrorBasedOnAMissingField(res,done);
+            expect(res).to.have.status(400);
+            done();
           });
     }); 
 
