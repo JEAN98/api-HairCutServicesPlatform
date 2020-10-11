@@ -12,7 +12,7 @@ exports.findByHairdressingSalon = async(req, res,next) => {
     }
  };
  
- //TODO: TITLE AND CODE MUST BE UNIQUE ONLY BY HSALON, and not in a global level
+ //TODO: HighPriority TITLE AND CODE MUST BE UNIQUE ONLY BY HSALON, and not in a global level
  exports.create = async(req, res,next) => {
     try {
         //console.log(req.token)
