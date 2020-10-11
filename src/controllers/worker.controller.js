@@ -4,7 +4,10 @@ const {entitySelected} = require('../utils/entityType');
 
 exports.findByHairDressingSalon = async(req, res,next) => {
    try {
-        req.query.hairdressingSalonID = req.token.sub;
+        if(req.token.accountType === entitySelected.HSalon)
+        {
+            req.query.hairdressingSalonID = req.token.sub;   
+        }
         let data = await repository.getWorkersByHairdressingSalon( req.query);
         res.status(200).send(data);
      } 

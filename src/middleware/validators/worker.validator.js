@@ -11,7 +11,8 @@ exports.createWorker = {
 
 exports.getWorkersByHairdressingSalon = {
   query: Joi.object({
-    isActive:  Joi.boolean().optional()
+    isActive:  Joi.boolean().optional(),
+    hairdressingSalonID: Joi.number().integer().optional()
   }),
 }
 
