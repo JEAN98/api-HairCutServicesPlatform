@@ -33,7 +33,7 @@ values('hcAccounts@qa.com','$2b$12$0we0L5kMWEYJ.uyYVLtEPOlZb8viA6/Bz7ns/ouk90YSP
 
 
 INSERT INTO hairdressers_services(title,code,description,cost,time_duration_min,is_active,hairdressing_salon_id,gender_id,is_measurable) 
-VALUES ('Sacar las cejas','Service001','Es un proceso para sacar las cejas',1000,15,true,1,1,true);
+VALUES ('Sacar las cejas','Service001','Usando nuestro equipo procedemos a sacar las cejas',1000,15,true,1,1,true);
 
 
 select * from genders;
@@ -88,15 +88,19 @@ from hairdressers_services
 where id in (1,2)
 
 
-
-
+select hds.* 
+from hairdressers_services as hds 
+inner join hairdressing_salons as hs on hs.id = hds.hairdressing_salon_id
+inner join workers as wk on wk.hairdressing_salon_id = hs.id
+where  wk.id  = 2
 
 /*ALTER TABLE clients ALTER COLUMN age DROP NOT NULL;
 
 ALTER TABLE facebook_accounts ALTER COLUMN facebook_id TYPE varchar(500);
 */
 
-
+to_timestamp(concat(DATE('2020-10-22 10:00:00'),' ',to_char(lunch_starts,'HH24:MI:SS')),'YYYY-MM-DD HH24:MI:SS') as shift_starts 
+				,to_timestamp(concat(DATE('2020-10-22 10:00:00'),' ',to_char(lunch_ends,'HH24:MI:SS')),'YYYY-MM-DD HH24:MI:SS')  as shift_ends 
 
 
 

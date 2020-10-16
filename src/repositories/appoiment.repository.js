@@ -36,6 +36,36 @@ exports.getAppoimentListBetweenDates = async(hairdressingSalonID,dateFrom,dateTo
     return appoimentList;
 }
 
+exports.verifyConfilctWithLunch = async(workerID, shiftStarts,shiftEnds) => {
+    let conflictLunch = await dbContext.sequelize.query('Select  * \
+        from \
+        ( \
+            select * from \
+            hairdressing_salons as hs\
+            inner join workers as wk on wk.hairdressing_salon_id = hs.id \
+            where wk.id = :workerID \
+        ) as auxTable \
+        where \
+        :shiftStarts >= auxTable.lunch_starts and  \
+        :shiftStarts < auxTable.lunch_ends \
+                    or :shiftEnds   < auxTable.lunch_starts and \
+                    :shiftEnds  >= auxTable.lunch_ends \
+                    or auxTable.lunch_starts >=  :shiftStarts and   \
+                    auxTable.lunch_starts < :shiftEnds  \
+                    or auxTable.lunch_ends <  :shiftStarts and   \
+                    auxTable.lunch_ends >= :shiftEnds' ,
+            {
+                replacements: { 
+                    workerID: workerID,
+                    shiftStarts: shiftStarts,
+                    shiftEnds: shiftEnds
+                },
+                type: dbContext.sequelize.QueryTypes.SELECT
+            },
+        );
+    return conflictLunch;
+} 
+
 exports.verifyAppoimentAvailability = async(workerID, shiftStarts,shiftEnds) => {
     let availability = await dbContext.sequelize.query(
              'select * \
