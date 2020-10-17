@@ -48,7 +48,8 @@ calculateTimeSheetsAvailable = async(workerID,date) => {
         let lastIndex = appoimentList.length - 1;
         timeSheetsAvailableList = calculateFinalTime(hSScheduleByWokerOnADate.shiftEnds,appoimentList[lastIndex],timeSheetsAvailableList);
     }
-    console.log(appoimentList)
+    console.log(appoimentList,'List of Shift Appoiments Created');
+    console.log(timeSheetsAvailableList,'timeSheetsAvailableList');
     return timeSheetsAvailableList;
 }
 
@@ -72,11 +73,16 @@ calculateFinalTime = (shiftEnds, lastAppoiment,timeSheetsAvailableList) => {
 
 
 setTimeFormat = (date) => {
-    let minute = date.minute;
-    if( minute.toString().length == 1)
-        minute = '0'+date.minute.toString();
+    let minute = date.minute.toString();
+    let hour = date.hour.toString();
     
-    return date.hour + ':' + minute;
+    if( minute.length == 1)
+        minute = '0'+date.minute.toString();
+
+    if( hour.length == 1)
+        hour = '0'+date.hour.toString();
+
+    return hour + ':' + minute;
 }
 
 getDateTime = (newTime) => {

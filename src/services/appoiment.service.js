@@ -170,7 +170,7 @@ const verifyAvailabityAccordingToSchedule = async(workerID,shiftStarts,shiftEnds
         return;
     }
      //throw new BadRequest('The time requested does not match with the schedule of HairdressingSalon. Please refer to a new time');
-     throw new BadRequest('La fecha o tiempo solicitado no coinciden con alguno de los horarios del establecimiento. Por favor intentarlo con alguna otra fecha u horario');
+     throw new BadRequest('La fecha o tiempo solicitado no coinciden con alguno de los horarios del establecimiento. Puede que el establecimiento no haya creado horarios. Por favor intentarlo con alguna otra fecha u horario');
 }
 
 
