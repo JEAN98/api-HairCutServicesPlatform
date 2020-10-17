@@ -104,7 +104,14 @@ to_timestamp(concat(DATE('2020-10-22 10:00:00'),' ',to_char(lunch_starts,'HH24:M
 
 
 
+/*
+SET TIMEZONE='America/Costa_Rica';
 
+SHOW TIMEZONE;
+
+current => CST6
+
+*/
 
 
 /*
