@@ -5,11 +5,14 @@ const cleanHelper           = require('../utils/cleanEntity.helper');
 const attributesToBeRemoved = [,'createdAt','updatedAt'];
 
 exports.create = async(appoiment) => {
+    let shiftStarts = appoiment.shiftStarts;
+   //console.log(await new Date(require('pg').types.setTypeParser(1114 ),'+0000'));
     let newAppoiment = await Appoiment.create(appoiment);
     return cleanHelper.cleanEntity(newAppoiment,attributesToBeRemoved);
 }
 
 exports.getAppoimentListBetweenDates = async(hairdressingSalonID,dateFrom,dateTo) => {
+ 
     let appoimentList = await dbContext.sequelize.query(
         'select ap.id as appoiment_id,ap.shift_starts,ap.shift_ends, \
         ap.total_time,ap.total_cost, \
