@@ -152,7 +152,7 @@ const getTotalTimeAndCost = async(servicesList) => {
         /*
         throw new BadRequest('Not able to calculate the total time and cost, since \
         some of the services requested does not exist or they aren\'t active for the HairdressingSalon selected' );*/
-        throw new BadRequest('No se pudo calcular el tiempo total y el costo, debido a que algunos de los servicios solicitados no existén o no están activos' );
+        throw new BadRequest('No se pudo calcular el tiempo total y el costo, debido a que algunos de los servicios solicitados no existen o no están activos' );
     }
     return totalTimeAndCostList[0];
  };
@@ -182,7 +182,7 @@ const verifyAvailabityAccordingToSchedule = async(workerID,shiftStarts,shiftEnds
         return;
     }
      //throw new BadRequest('The time requested does not match with the schedule of HairdressingSalon. Please refer to a new time');
-     throw new BadRequest('La fecha o tiempo solicitado no coinciden con alguno de los horarios del establecimiento. Puede que el establecimiento no haya creado horarios. Por favor intentarlo con alguna otra fecha u horario');
+     throw new BadRequest('La fecha o tiempo solicitado no coinciden con alguno de los horarios del establecimiento. Por favor intentarlo con alguna otra fecha u horario');
 }
 
 
@@ -208,6 +208,6 @@ const verifyNewAppointmentDoesNotAffectExistingOnes = async(workerID,shiftStarts
     if(matchList.length > 0)
     {
        // throw new BadRequest('The total time requested matches with an existing appoiment. Please refer to a new time or a new date');
-       throw new BadRequest('El total de tiempo solicitado conicide con una cita existente. Por favor intentarlo con un horario o fecha diferente');
+       throw new BadRequest('El total de tiempo solicitado coincide con una cita existente. Por favor intentarlo con un horario o fecha diferente');
     }
 }
