@@ -13,7 +13,7 @@ function getCostaRicaTime(dateAsString) {
         return date.toFormat('yyyy-MM-dd HH:mm:ss'); 
     }
     else
-        throw new BadRequest('One of the dates does not have a value assigned');
+        throw new BadRequest('Alguna de las fechas no tiene un valor asignado');
 }
 
 function areValidDates(dateList) {
@@ -21,9 +21,9 @@ function areValidDates(dateList) {
     //The dates are using the luxon parser
     dateList.forEach(date => {
         if(date === '')
-            throw new BadRequest('One of the dates does not have a value assigned');
+            throw new BadRequest('Alguna de las fechas no tiene un valor asignado');
         if(!date.isValid)
-            throw new BadRequest('One of the dates selected does not have a correct value');
+            throw new BadRequest('Alguna de las fechas no tiene un valor válido');
     });
 }
 
