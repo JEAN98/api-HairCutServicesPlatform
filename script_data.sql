@@ -109,6 +109,8 @@ SET TIMEZONE='America/Costa_Rica';
 
 SHOW TIMEZONE;
 
+
+SET TIMEZONE='CST6';
 current => CST6
 
 */
