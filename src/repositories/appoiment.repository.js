@@ -5,8 +5,8 @@ const cleanHelper           = require('../utils/cleanEntity.helper');
 const attributesToBeRemoved = [,'createdAt','updatedAt'];
 
 exports.create = async(appoiment) => {
-    let shiftStarts = appoiment.shiftStarts;
-   //console.log(await new Date(require('pg').types.setTypeParser(1114 ),'+0000'));
+    //appoiment.shiftStarts = '2017-03-11T11:30:00';
+    console.log(appoiment,'Appoiment object before to be stored');
     let newAppoiment = await Appoiment.create(appoiment);
     return cleanHelper.cleanEntity(newAppoiment,attributesToBeRemoved);
 }
