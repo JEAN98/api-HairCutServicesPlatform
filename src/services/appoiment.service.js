@@ -53,7 +53,7 @@ exports.createAppoiment = async(reqQuery) => {
         await verifyNewAppointmentDoesNotAffectTheLunchTime(workerID,shiftStarts,shiftEnds);
 
         await verifyNewAppointmentDoesNotAffectExistingOnes(workerID,shiftStarts,shiftEnds);
-
+          
         let newAppoiment = {
             servicesList:servicesList,
             workerID: workerID,
@@ -64,20 +64,12 @@ exports.createAppoiment = async(reqQuery) => {
             totalCost: totalList.total_cost
         };
         let appoimentCreated = await appoimentRepository.create(newAppoiment);
-       // console.log(appoimentCreated)
+       
         await createAppoimentServices(servicesList,appoimentCreated.id);
         
-        appoimentCreated.shiftStarts = applyDateFormat(appoimentCreated.shiftStarts);
-        appoimentCreated.shiftEnds = applyDateFormat(appoimentCreated.shiftEnds);
-     
-        return appoimentCreated;
+        return createAppoimentBodyResponse(appoimentCreated);
 }
 
-const applyDateFormat = (date) =>{
-    var dateFormated = DateTime.fromJSDate(date).toFormat('yyyy-MM-dd HH:mm:ss');
-    console.log(dateFormated,'DateFormated');
-    return dateFormated;
-}
 
 
 const createAppoimentServices = async(servicesList,appoimentID) => {
@@ -152,7 +144,7 @@ const getTotalTimeAndCost = async(servicesList) => {
         /*
         throw new BadRequest('Not able to calculate the total time and cost, since \
         some of the services requested does not exist or they aren\'t active for the HairdressingSalon selected' );*/
-        throw new BadRequest('No se pudo calcular el tiempo total y el costo, debido a que algunos de los servicios solicitados no existén o no están activos' );
+        throw new BadRequest('No se pudo calcular el tiempo total y el costo, debido a que algunos de los servicios solicitados no existen o no están activos' );
     }
     return totalTimeAndCostList[0];
  };
@@ -182,7 +174,7 @@ const verifyAvailabityAccordingToSchedule = async(workerID,shiftStarts,shiftEnds
         return;
     }
      //throw new BadRequest('The time requested does not match with the schedule of HairdressingSalon. Please refer to a new time');
-     throw new BadRequest('La fecha o tiempo solicitado no coinciden con alguno de los horarios del establecimiento. Puede que el establecimiento no haya creado horarios. Por favor intentarlo con alguna otra fecha u horario');
+     throw new BadRequest('La fecha o tiempo solicitado no coinciden con alguno de los horarios del establecimiento. Por favor intentarlo con alguna otra fecha u horario');
 }
 
 
@@ -208,6 +200,67 @@ const verifyNewAppointmentDoesNotAffectExistingOnes = async(workerID,shiftStarts
     if(matchList.length > 0)
     {
        // throw new BadRequest('The total time requested matches with an existing appoiment. Please refer to a new time or a new date');
-       throw new BadRequest('El total de tiempo solicitado conicide con una cita existente. Por favor intentarlo con un horario o fecha diferente');
+       throw new BadRequest('El total de tiempo solicitado coincide con una cita existente. Por favor intentarlo con un horario o fecha diferente');
     }
+}
+
+
+/*
+Apply Custom date Format
+ Level 7
+*/
+const createAppoimentBodyResponse = async (newAppoiment) => {
+    newAppoiment = await setNamesToHSANDWorker(newAppoiment);
+
+    newAppoiment.shiftStarts = applyDateFormat(newAppoiment.shiftStarts);
+    newAppoiment.shiftEnds = applyDateFormat(newAppoiment.shiftEnds);
+    
+    newAppoiment.servicesList = await getAppoimentServicesNames(newAppoiment.id);
+    
+    return newAppoiment;
+}
+
+
+/*
+ Apply custom date format
+*/
+const applyDateFormat = (date) =>{
+    var dateFormated = DateTime.fromJSDate(date).toFormat('yyyy-MM-dd HH:mm:ss');
+    console.log(dateFormated,'DateFormated');
+    return dateFormated;
+}
+
+/*
+Set names to hairdresssing salons and worker
+*/
+const setNamesToHSANDWorker = async(appoimentCreated) => {
+    let nameList = await appoimentRepository.getHSANDWokerNames(appoimentCreated.workerID);
+    console.log(nameList, 'NameList');
+    if(nameList.length == 0)
+    {
+        throw new BadRequest('Los nombres de la babería y el establecimiento no se pudieron establecer, por favor intentarlo de nuevo');
+    }
+    appoimentCreated.hsName = nameList[0].hairdressing_salon_name;
+    appoimentCreated.workerName = nameList[0].worker_name;
+    return appoimentCreated;
+}
+
+
+/*
+Read the services name selected for the new appoiment
+*/
+const getAppoimentServicesNames = async(appoimentID)=>{
+    let servicesNameList = [];
+    const appoimentServicesList = await appoimentServiceRepository.getAppoimentServiceList(appoimentID);
+    console.log(appoimentServicesList, 'appoimentServicesList');
+    if(appoimentServicesList.length == 0)
+    {
+        throw new BadRequest('Se presentaron problemas a la hora de leer los nombres de los servicios, por favor intentarlo de nuevo');
+    }
+
+    for (let index = 0; index < appoimentServicesList.length; index++) {
+        servicesNameList.push(appoimentServicesList[index].title);
+    }
+    console.log(servicesNameList, 'servicesNameList created');
+    return servicesNameList;
 }

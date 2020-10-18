@@ -39,6 +39,24 @@ exports.getAppoimentListBetweenDates = async(hairdressingSalonID,dateFrom,dateTo
     return appoimentList;
 }
 
+exports.getHSANDWokerNames = async(workerID) => 
+{
+    let names = await dbContext.sequelize.query(
+        'select hs.name as hairdressing_salon_name , \
+        CONCAT(wk.first_name,\' \',wk.last_name) as worker_name \
+        from  hairdressing_salons as hs \
+        inner join workers as wk on wk.hairdressing_salon_id = hs.id \
+        where wk.id = :workerID '  ,
+        {
+            replacements: { 
+                workerID: workerID,
+            },
+            type: dbContext.sequelize.QueryTypes.SELECT
+        },
+    );
+    return names;
+}
+
 exports.verifyConfilctWithLunch = async(workerID, shiftStarts,shiftEnds) => {
     let conflictLunch = await dbContext.sequelize.query('Select  * \
         from \
