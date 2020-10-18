@@ -13,7 +13,7 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
         idle: env.pool.idle
     },
     dialectOptions: {
-        useUTC: true, // for reading from database , this the default value
+        useUTC: false, // for reading from database , this the default value
       },
       timezone: 'America/Costa_Rica', // for writing to database, // -6 of UTC
 });

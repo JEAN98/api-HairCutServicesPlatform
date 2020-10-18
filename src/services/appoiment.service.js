@@ -19,14 +19,18 @@ exports.getAppoimentListBetweenDates = async(reqQuery) => {
         areValidDates([firstDate, secondDate])
 
         if(firstDate > secondDate )
-            throw new BadRequest('The dateFrom should be lower than dateTo');
+        {
+            //throw new BadRequest('The dateFrom should be lower than dateTo');
+            throw new BadRequest('La fecha de inicio debe ser menor a la final final');
+        }
+            
         
-
         let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqQuery.hairdressingSalonID,
                                                                                 reqQuery.dateFrom,reqQuery.dateTo);
         return setCamelCaseStandardInList(appoimentList);
     } 
-    throw new BadRequest('The dateFrom or dateTo are undefined');
+    //throw new BadRequest('The dateFrom or dateTo are undefined');
+    throw new BadRequest('Alguna de las fechas no se encuentra definida');
 }
 
 exports.createAppoiment = async(reqQuery) => {
@@ -62,9 +66,17 @@ exports.createAppoiment = async(reqQuery) => {
         let appoimentCreated = await appoimentRepository.create(newAppoiment);
        // console.log(appoimentCreated)
         await createAppoimentServices(servicesList,appoimentCreated.id);
-
+        
+        appoimentCreated.shiftStarts = applyDateFormat(appoimentCreated.shiftStarts);
+        appoimentCreated.shiftEnds = applyDateFormat(appoimentCreated.shiftEnds);
+     
         return appoimentCreated;
-    
+}
+
+const applyDateFormat = (date) =>{
+    var dateFormated = DateTime.fromJSDate(date).toFormat('yyyy-MM-dd HH:mm:ss');
+    console.log(dateFormated,'DateFormated');
+    return dateFormated;
 }
 
 
