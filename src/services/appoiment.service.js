@@ -33,6 +33,21 @@ exports.getAppoimentListBetweenDates = async(reqQuery) => {
     throw new BadRequest('Alguna de las fechas no se encuentra definida');
 }
 
+
+exports.getAppoimentsByClient = async(clientID)=> {
+    let appoimentsList = await appoimentRepository.getAppoimentsByClient(clientID);
+    console.log(appoimentsList, 'AppoimentListByClient');
+    for (let index = 0; index < appoimentsList.length; index++) {
+
+        //FIXME: This could be tackle by one single query
+        appoimentsList[index] = await createAppoimentBodyResponse(appoimentsList[index]);        
+    }
+
+    console.log(appoimentsList,'AppoimentListByClientResponse');
+    return appoimentsList;
+}
+
+
 exports.createAppoiment = async(reqQuery) => {
     
         let servicesList = reqQuery.servicesList;
@@ -217,7 +232,6 @@ const createAppoimentBodyResponse = async (newAppoiment) => {
     
     newAppoiment.servicesList = await getAppoimentServicesNames(newAppoiment.id);
     
-    console.log(newAppoiment,'AppoimentBodyResponse');
     return newAppoiment;
 }
 
@@ -227,7 +241,7 @@ const createAppoimentBodyResponse = async (newAppoiment) => {
 */
 const applyDateFormat = (date) =>{
     var dateFormated = DateTime.fromJSDate(date).toFormat('yyyy-MM-dd HH:mm:ss');
-    console.log(dateFormated,'DateFormated');
+    //console.log(dateFormated,'DateFormated');
     return dateFormated;
 }
 
@@ -236,7 +250,7 @@ Set names to hairdresssing salons and worker
 */
 const setAppoimentEstablishmentData = async(appoimentCreated) => {
     let appoimentEstablishmentData = await appoimentRepository.getAppoimentEstablishmentData(appoimentCreated.workerID);
-    console.log(appoimentEstablishmentData, 'NameList');
+    //console.log(appoimentEstablishmentData, 'NameList');
     if(appoimentEstablishmentData.length == 0)
     {
         throw new BadRequest('Los nombres de la babería y el establecimiento no se pudieron establecer, por favor intentarlo de nuevo');
@@ -260,7 +274,7 @@ Read the services name selected for the new appoiment
 const getAppoimentServicesNames = async(appoimentID)=>{
     let servicesNameList = [];
     const appoimentServicesList = await appoimentServiceRepository.getAppoimentServiceList(appoimentID);
-    console.log(appoimentServicesList, 'appoimentServicesList');
+    //console.log(appoimentServicesList, 'appoimentServicesList');
     if(appoimentServicesList.length == 0)
     {
         throw new BadRequest('Se presentaron problemas a la hora de leer los nombres de los servicios, por favor intentarlo de nuevo');
@@ -269,6 +283,6 @@ const getAppoimentServicesNames = async(appoimentID)=>{
     for (let index = 0; index < appoimentServicesList.length; index++) {
         servicesNameList.push(appoimentServicesList[index].title);
     }
-    console.log(servicesNameList, 'servicesNameList created');
+    //console.log(servicesNameList, 'servicesNameList created');
     return servicesNameList;
 }
