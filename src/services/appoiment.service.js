@@ -210,13 +210,14 @@ Apply Custom date Format
  Level 7
 */
 const createAppoimentBodyResponse = async (newAppoiment) => {
-    newAppoiment = await setNamesToHSANDWorker(newAppoiment);
+    newAppoiment = await setAppoimentEstablishmentData(newAppoiment);
 
     newAppoiment.shiftStarts = applyDateFormat(newAppoiment.shiftStarts);
     newAppoiment.shiftEnds = applyDateFormat(newAppoiment.shiftEnds);
     
     newAppoiment.servicesList = await getAppoimentServicesNames(newAppoiment.id);
     
+    console.log(newAppoiment,'AppoimentBodyResponse');
     return newAppoiment;
 }
 
@@ -233,15 +234,22 @@ const applyDateFormat = (date) =>{
 /*
 Set names to hairdresssing salons and worker
 */
-const setNamesToHSANDWorker = async(appoimentCreated) => {
-    let nameList = await appoimentRepository.getHSANDWokerNames(appoimentCreated.workerID);
-    console.log(nameList, 'NameList');
-    if(nameList.length == 0)
+const setAppoimentEstablishmentData = async(appoimentCreated) => {
+    let appoimentEstablishmentData = await appoimentRepository.getAppoimentEstablishmentData(appoimentCreated.workerID);
+    console.log(appoimentEstablishmentData, 'NameList');
+    if(appoimentEstablishmentData.length == 0)
     {
         throw new BadRequest('Los nombres de la babería y el establecimiento no se pudieron establecer, por favor intentarlo de nuevo');
     }
-    appoimentCreated.hsName = nameList[0].hairdressing_salon_name;
-    appoimentCreated.workerName = nameList[0].worker_name;
+   
+
+    appoimentCreated.appoimentEstablishmentData = {
+        hsName: appoimentEstablishmentData[0].hairdressing_salon_name,
+        workerName: appoimentEstablishmentData[0].worker_name,
+        latitud:appoimentEstablishmentData[0].latitud,
+        longitud: appoimentEstablishmentData[0].longitud
+    }
+
     return appoimentCreated;
 }
 
