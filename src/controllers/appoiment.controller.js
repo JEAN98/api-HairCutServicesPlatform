@@ -34,3 +34,19 @@ exports.getAppoimentListBetweenDates = async(req, res,next) =>{
       next(error);
    }
 }
+
+
+exports.getAppoimentsByClient = async(req, res,next) => {
+   try 
+   {
+      checkPermissionLevel(req.token.accountType,entitySelected.Client);
+      let clientID = req.token.sub;
+      let response = await service.getAppoimentsByClient(clientID);
+
+      res.status(200).send(response);
+   } 
+   catch (error) 
+   {
+      next(error);
+   }
+}

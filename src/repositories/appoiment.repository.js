@@ -87,6 +87,16 @@ exports.verifyConfilctWithLunch = async(workerID, shiftStarts,shiftEnds) => {
     return conflictLunch;
 } 
 
+exports.getAppoimentsByClient = async(clientID) =>{
+    let appoimentList = await Appoiment.findAll({
+        where:{
+            client_id:clientID,
+        },
+    });
+
+    return cleanHelper.cleanEntityList(appoimentList,attributesToBeRemoved);
+}
+
 exports.verifyAppoimentAvailability = async(workerID, shiftStarts,shiftEnds) => {
     let availability = await dbContext.sequelize.query(
              'select * \

@@ -8,5 +8,7 @@ module.exports = function(app) {
     // Retrieve a single debit by Id
     app.post('/api/appoiment/' ,auth.autentication, validate(createAppoiment, {}, {}), controller.createAppoiment);
 
-    app.get('/api/appoiment/' ,auth.autentication, validate(getAppoimentList, {}, {}), controller.getAppoimentListBetweenDates);
+    app.get('/api/appoiment/hairdressingSalon' ,auth.autentication, validate(getAppoimentList, {}, {}), controller.getAppoimentListBetweenDates);
+
+    app.get('/api/appoiment/client' ,auth.autentication, controller.getAppoimentsByClient);
 }
