@@ -39,10 +39,10 @@ exports.getAppoimentListBetweenDates = async(hairdressingSalonID,dateFrom,dateTo
     return appoimentList;
 }
 
-exports.getHSANDWokerNames = async(workerID) => 
+exports.getAppoimentEstablishmentData = async(workerID) => 
 {
     let names = await dbContext.sequelize.query(
-        'select hs.name as hairdressing_salon_name , \
+        'select hs.name as hairdressing_salon_name , hs.latitud, hs.longitud, \
         CONCAT(wk.first_name,\' \',wk.last_name) as worker_name \
         from  hairdressing_salons as hs \
         inner join workers as wk on wk.hairdressing_salon_id = hs.id \
