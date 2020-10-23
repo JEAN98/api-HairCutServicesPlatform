@@ -1,4 +1,5 @@
 const repository = require('../repositories/hairdressingSalon.repository');
+const scheduleRepository = require('../repositories/schedule.repository');
 const {isEmailExist} = require('../utils/verifyEmailExist');
 const JWT = require('../middleware/token/jwt');
 const {JWTData} = require('../middleware/token/jwtData');
@@ -21,6 +22,7 @@ exports.findByID = async(req, res,next) => {
       checkPermissionLevel(req.token.accountType,entitySelected.Client);   
       console.log(req.params.id)
        let data = await repository.findHsalonByID(req.params.id);
+       data.scheduleList = await scheduleRepository.getByHairdressingSalon(req.params.id);
        res.status(200).send(data);
     } catch(e) {
       next(e);
