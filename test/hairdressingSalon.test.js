@@ -137,4 +137,18 @@ describe('HairdressingSalon suites. Get/',()=>{
             done();
           });
     }); 
+
+    it('should get a HairdressingSalon ', (done) => {
+        chai.request(testHelper.baseURL)
+        .get(hSalonPath+'/1')
+        .set('Authorization', `Bearer ${testHelper.clientToken}`)
+          .end( function(err,res){
+            expect(res).to.have.status(200);
+            expect(res.body.email).to.not.be.undefined;
+            expect(res.body.genderID).to.not.be.undefined;
+            expect(res.body.password).to.be.undefined;
+            expect(res.body.gender_id).to.be.undefined;
+            done();
+          });
+    }); 
 });

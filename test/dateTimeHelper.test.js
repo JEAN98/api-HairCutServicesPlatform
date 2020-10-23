@@ -13,7 +13,7 @@ describe('dateTimeHelper suite',()=>{
     });
 
    
-    let invalidDateMessage = 'One of the dates selected does not have a correct value';
+    let invalidDateMessage = 'Alguna de las fechas no tiene un valor válido';
 
     it('should get an error based on invalid date', () => {
         let dateList = [];
@@ -40,6 +40,6 @@ describe('dateTimeHelper suite',()=>{
 
         expect(function() {
             areValidDates(dateList)
-        }).to.throw(BadRequest, 'One of the dates does not have a value assigned');
+        }).to.throw(BadRequest, 'Alguna de las fechas no tiene un valor asignado');
     });
 });
