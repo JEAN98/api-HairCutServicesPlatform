@@ -1,4 +1,6 @@
 //Test Runner, the following test are going to be executed and based on the following order
+//require('./appoiment.test');
+
 
 require('./dateTimeHelper.test');
 require('./cleantEntity.test');
@@ -13,3 +15,4 @@ require('./hairdresserService.test');
 require('./worker.test');
 require('./facebookAccount.test');
 require('./twitterAccount.test');
+require('./appoiment.test');

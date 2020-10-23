@@ -261,7 +261,8 @@ const setAppoimentEstablishmentData = async(appoimentCreated) => {
         hsName: appoimentEstablishmentData[0].hairdressing_salon_name,
         workerName: appoimentEstablishmentData[0].worker_name,
         latitud:appoimentEstablishmentData[0].latitud,
-        longitud: appoimentEstablishmentData[0].longitud
+        longitud: appoimentEstablishmentData[0].longitud,
+        hairdressingSalonID: appoimentEstablishmentData[0].id
     }
 
     return appoimentCreated;
