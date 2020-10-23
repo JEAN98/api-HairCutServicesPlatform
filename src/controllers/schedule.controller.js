@@ -42,3 +42,17 @@ exports.getByHairdressingSalon = async(req,res,next) =>{
         next(error);
     }
 }
+
+
+exports.getSchedulesByHairdressingSalon = async(req,res,next) =>{
+    try
+    {
+        checkPermissionLevel(req.token.accountType,entitySelected.Client);  
+        let scheduleList = await repository.getByHairdressingSalon(req.params.id);
+        res.status(200).send(scheduleList);
+    }
+    catch(error)
+    {
+        next(error);
+    }
+}
