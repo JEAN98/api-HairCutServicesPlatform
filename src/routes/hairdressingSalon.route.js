@@ -8,4 +8,5 @@ module.exports = function(app) {
 
   app.post('/api/hairdressingSalon', validate(hairdressinSalonValidator, {}, {}),controller.create)
   app.get('/api/hairdressingSalon/', auth.autentication ,controller.findAll);
+  app.get('/api/hairdressingSalon/:id', auth.autentication ,controller.findByID);
 }

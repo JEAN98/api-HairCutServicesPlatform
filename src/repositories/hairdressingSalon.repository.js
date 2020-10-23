@@ -2,7 +2,7 @@
 const HairdressingSalon = require('../config/db.config').hairdressingSalon;
 const {BadRequestSequelizeError}  = require('../middleware/error/error');
 const cleanHelper = require('../utils/cleanEntity.helper');
-const attributesToBeRemoved = ['createdAt','updatedAt','password'];
+const attributesToBeRemoved = ['createdAt','updatedAt','password','gender_id'];
 
 
 exports.get = async(params) => {
@@ -11,6 +11,14 @@ exports.get = async(params) => {
         where: {is_active: params.isActive == undefined ? true : params.isActive}
     });
     return list;
+}
+
+exports.findHsalonByID = async(hairdressingSalonID) =>{
+    let hsalon = await HairdressingSalon.findOne({
+        where: { id: hairdressingSalonID, }
+      })
+      ;
+    return cleanHelper.cleanEntity(hsalon,attributesToBeRemoved);
 }
 
 exports.create = async(newHairdressingSalon) => {
