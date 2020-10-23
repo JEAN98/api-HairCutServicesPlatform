@@ -5,7 +5,7 @@ const testHelper = require('./test.helper');
 
 
 
-describe('Appoiment suites. Post/',()=>{
+describe('Appoiment suites Create. Post/',()=>{
     
     let existingAppoiment = {
         shiftStarts: "2020-10-26 15:00:00",
@@ -81,6 +81,43 @@ describe('Appoiment suites. Post/',()=>{
         });
     });
 
-  
+});
+
+
+describe('Appoiment suites list. Get/',()=>{
+     let appoimentPathClient = appoimentPath + '/client'; 
+
+    it('should get an list of appoiments', (done) => {
+        chai.request(testHelper.baseURL)
+        .get(appoimentPathClient)
+        .set('Authorization', `Bearer ${testHelper.clientToken}`)
+        .end( function(err,res){
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).to.be.gt(0);
+            expect(res.body[0].id).to.not.be.undefined;
+            expect(res.body[0]).to.deep.equal({
+                id: 1,
+                shiftStarts: "2020-10-26 15:50:00",
+                shiftEnds: "2020-10-26 16:10:00",
+                totalTime: 20,
+                totalCost: 1000,
+                clientID: 22,
+                workerID: 2,
+                appoimentEstablishmentData: {
+                    hsName: "Salon Test",
+                    workerName: "Andres Ramos",
+                    latitud: -488.15,
+                    longitud: 8441.58,
+                    hairdressingSalonID: 1
+                },
+                servicesList: [
+                    "premier_violet_tick"
+                ]
+            });
+            done();
+          });
+    });
+
 
 });
