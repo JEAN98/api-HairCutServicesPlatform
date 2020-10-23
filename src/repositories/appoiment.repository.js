@@ -2,7 +2,7 @@
 const dbContext             = require('../config/db.config');
 const Appoiment             = dbContext.appoiment;
 const cleanHelper           = require('../utils/cleanEntity.helper');
-const attributesToBeRemoved = [,'createdAt','updatedAt'];
+const attributesToBeRemoved = [,'createdAt','updatedAt','client_id','worker_id'];
 
 exports.create = async(appoiment) => {
     //appoiment.shiftStarts = '2017-03-11T11:30:00';
@@ -42,7 +42,7 @@ exports.getAppoimentListBetweenDates = async(hairdressingSalonID,dateFrom,dateTo
 exports.getAppoimentEstablishmentData = async(workerID) => 
 {
     let names = await dbContext.sequelize.query(
-        'select hs.name as hairdressing_salon_name , hs.latitud, hs.longitud, \
+        'select hs.name as hairdressing_salon_name , hs.latitud, hs.longitud, hs.id, \
         CONCAT(wk.first_name,\' \',wk.last_name) as worker_name \
         from  hairdressing_salons as hs \
         inner join workers as wk on wk.hairdressing_salon_id = hs.id \
