@@ -56,7 +56,6 @@ exports.getAppoimentsByClient = async(req, res,next) => {
 exports.deleteAppoiment = async(req,res,next) => {
    try {
       checkPermissionLevel(req.token.accountType,entitySelected.Client);
-      var id = parseInt(req.params.id );
       if(isNaN(req.params.id ))
       {
          throw new BadRequest('El id de la cita debe ser un número entero');
