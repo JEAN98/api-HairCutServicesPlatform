@@ -287,3 +287,14 @@ const getAppoimentServicesNames = async(appoimentID)=>{
     //console.log(servicesNameList, 'servicesNameList created');
     return servicesNameList;
 }
+
+exports.deleteAppoiment = async(appoimentID)  => {
+    let appimentServicesDeletedResult = await appoimentServiceRepository.delete(appoimentID);
+    let appimentDeletedResult = await appoimentRepository.delete(appoimentID);
+    if(appimentDeletedResult == 0)
+    {
+        console.log(appimentServicesDeletedResult, '  appimentServicesDeletedResult');
+        console.log(appimentDeletedResult, '  appimentDeletedResult');
+        throw new BadRequest('No se pudo elimar la cita por favor intentarlo de nuevo. Puede que la cita selecionada también ya haya sido eliminada o el id no existe');
+    }
+}

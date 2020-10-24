@@ -11,4 +11,6 @@ module.exports = function(app) {
     app.get('/api/appoiment/hairdressingSalon' ,auth.autentication, validate(getAppoimentList, {}, {}), controller.getAppoimentListBetweenDates);
 
     app.get('/api/appoiment/client' ,auth.autentication, controller.getAppoimentsByClient);
+
+    app.delete('/api/appoiment/:id' ,auth.autentication, controller.deleteAppoiment);
 }

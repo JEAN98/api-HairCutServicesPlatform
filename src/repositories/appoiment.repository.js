@@ -1,4 +1,5 @@
 'use strict';
+const { response } = require('express');
 const dbContext             = require('../config/db.config');
 const Appoiment             = dbContext.appoiment;
 const cleanHelper           = require('../utils/cleanEntity.helper');
@@ -86,6 +87,15 @@ exports.verifyConfilctWithLunch = async(workerID, shiftStarts,shiftEnds) => {
         );
     return conflictLunch;
 } 
+
+
+exports.delete = async(appoimentID) => {
+ let result =   await Appoiment.destroy({
+        where: {id: appoimentID}
+    })
+
+    return result;
+}
 
 exports.getAppoimentsByClient = async(clientID) =>{
     let appoimentList = await Appoiment.findAll({
