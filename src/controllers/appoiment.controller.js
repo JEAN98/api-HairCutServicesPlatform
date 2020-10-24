@@ -1,6 +1,7 @@
 const service = require('../services/appoiment.service');
 const {checkPermissionLevel} = require('../utils/checkAccess.helper');
 const {entitySelected} = require('../utils/entityType');
+const {BadRequest} = require('../middleware/error/error');
 
 exports.createAppoiment = async(req, res,next) => {
    try 
@@ -47,6 +48,23 @@ exports.getAppoimentsByClient = async(req, res,next) => {
    } 
    catch (error) 
    {
+      next(error);
+   }
+}
+
+
+exports.deleteAppoiment = async(req,res,next) => {
+   try {
+      checkPermissionLevel(req.token.accountType,entitySelected.Client);
+      var id = parseInt(req.params.id );
+      if(isNaN(req.params.id ))
+      {
+         throw new BadRequest('El id de la cita debe ser un número entero');
+      }
+      await service.deleteAppoiment(req.params.id);
+
+      res.status(204).send();
+   } catch (error) {
       next(error);
    }
 }

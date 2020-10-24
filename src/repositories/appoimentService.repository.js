@@ -29,3 +29,11 @@ exports.create = async(servicesList) => {
     let newServicesCreated = await AppoimentService.bulkCreate(servicesList);
     return cleanHelper.cleanEntityList(newServicesCreated,attributesToBeRemoved);
 } 
+
+
+exports.delete = async(appoimentID) => {
+   let result = await AppoimentService.destroy({
+        where: {appoimentID: appoimentID}
+    });
+    return result;
+}
