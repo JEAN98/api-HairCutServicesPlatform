@@ -12,7 +12,9 @@ const app = express();
 
 
 //BodyParser
-app.use(bodyParser.json())
+//app.use(bodyParser.json())
+
+app.use(bodyParser.json({limit: "50mb"}));
 
 
 //load routes
@@ -30,8 +32,8 @@ app.get("/", (req, res) => {
 
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
- 
+//app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 
 //Capture All 404 errors

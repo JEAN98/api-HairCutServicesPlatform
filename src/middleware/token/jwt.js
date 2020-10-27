@@ -5,7 +5,7 @@ const moment    = require("moment");
 const secretKey = env.secret_key;
 
 exports.createToken = (jwtData) => {
-    console.log(jwtData);
+    //console.log(jwtData);
     var loadToken = {
         iss: "HairCutServicesPlatform",
         sub: jwtData.id,
