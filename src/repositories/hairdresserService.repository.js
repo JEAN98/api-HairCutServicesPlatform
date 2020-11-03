@@ -1,6 +1,7 @@
 'use strict';
 const dbContext = require('../config/db.config');
 const HairdressersService = dbContext.hairdressersService;
+const { Op } = require("sequelize");
 const cleanHelper = require('../utils/cleanEntity.helper');
 const attributesToBeRemoved = ['createdAt','updatedAt','gender_id','hairdressing_salon_id'];
 
@@ -13,6 +14,20 @@ exports.getByHairdressingSalon = async(params) => {
     });
     return cleanHelper.cleanEntityList(servicesList,attributesToBeRemoved);
 }
+
+exports.isTitleOrCodeAlreadyBeingUsed = async(title,code,hairdressingSalonID) => {
+    let servicesList = await HairdressersService.findAll({
+        where: {
+           hairdressing_salon_id: hairdressingSalonID, 
+            [Op.or]: [
+                { title: title },
+                { code: code }
+              ]
+        }
+    });
+    return cleanHelper.cleanEntityList(servicesList,attributesToBeRemoved);
+}
+
 
 exports.create = async(newService) => {
     let service = await HairdressersService.create(newService);

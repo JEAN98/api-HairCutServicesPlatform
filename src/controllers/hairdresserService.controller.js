@@ -28,10 +28,21 @@ exports.findByHairdressingSalon = async(req, res,next) => {
         //console.log(req.token)
         checkPermissionLevel(req.token.accountType,entitySelected.HSalon);   
         req.body.hairdressingSalonID = req.token.sub; 
-        let result = await repository.create(req.body);
+        let newService = req.body;
+        await isTitleOrCodeAlreadyBeingUsed(newService.title,newService.code,newService.hairdressingSalonID);
+        let result = await repository.create(newService);
         res.status(201).send(result);
     } 
     catch (error) {
          next(error);
      }
+ }
+
+ const isTitleOrCodeAlreadyBeingUsed = async(title,code,hairdressingSalonID) => {
+    let result = await repository.isTitleOrCodeAlreadyBeingUsed(title,code,hairdressingSalonID);
+    if(result.length > 0)
+    {
+        throw new BadRequest('El título o nombre del código ya se encuentra registrados. Por favor intentarlo con nombres nuevos');
+    }
+   
  }
