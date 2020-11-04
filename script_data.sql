@@ -164,4 +164,10 @@ select * from weekdays;
 
 
 
+ 
+ ALTER TABLE hairdressers_services DROP CONSTRAINT hairdressers_services_code_key;
+ 
+ hairdressers_services_title_key
+
+
 */

@@ -27,10 +27,21 @@ exports.getAppoimentListBetweenDates = async(reqQuery) => {
         
         let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqQuery.hairdressingSalonID,
                                                                                 reqQuery.dateFrom,reqQuery.dateTo);
-        return setCamelCaseStandardInList(appoimentList);
+        appoimentList =  setCamelCaseStandardInList(appoimentList);
+
+        return  setDateFormatForHSResult(appoimentList);
     } 
     //throw new BadRequest('The dateFrom or dateTo are undefined');
     throw new BadRequest('Alguna de las fechas no se encuentra definida');
+}
+
+const setDateFormatForHSResult = (appoimentList) => {
+    for (let index = 0; index < appoimentList.length; index++) {
+        console.log( appoimentList[index].shiftStarts );
+        appoimentList[index].shiftStarts = applyDateFormat(new Date(appoimentList[index].shiftStarts));
+        appoimentList[index].shiftEnds = applyDateFormat(new Date(  appoimentList[index].shiftEnds));
+    }
+    return appoimentList;
 }
 
 
