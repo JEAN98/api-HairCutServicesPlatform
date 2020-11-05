@@ -4,6 +4,11 @@ const cleanEntity = (entity,attributeList) => {
         entity = entity.toJSON();
     }
 
+    if(entity.photo !== undefined && entity.photo !== null)
+    {
+        entity.photo =  entity.photo.toString('utf8');
+    }
+
     attributeList.forEach(attribute => {
         if(entity[attribute] !== undefined)
         {

@@ -34,6 +34,25 @@ describe('HairdresserServices suite. Post/',()=>{
         });
     });
 
+    it('should get a bad request error based on title already stored', (done) => {
+        let currentService = service;
+        currentService.title = 'Sacar las cejas';
+        chai.request(testHelper.baseURL)
+        .post(path)
+        .set('Authorization', `Bearer ${testHelper.hsToken}`)
+        .send(
+            currentService
+        )
+        .end( function(err,res){
+            //console.log(res);
+            expect(res).to.have.status(400);
+            expect(res.body.title).to.be.undefined;
+            expect(res.body.status).to.not.be.undefined;
+            expect(res.body.details).to.be.equals('El título o nombre del código ya se encuentra registrados. Por favor intentarlo con nombres nuevos');
+            done();
+        });
+    });
+
 
     it('should get an Unauthorized error when token is invalid', (done) => {
         chai.request(testHelper.baseURL)
@@ -97,6 +116,8 @@ describe('HairdresserServices suite. Post/',()=>{
             testHelper.expectedBadRequestErrorBasedOnInvalidField(res,done);
         });
     });
+
+   
 });
 
 
@@ -170,5 +191,7 @@ describe('HairdresserServices suite. Get/',()=>{
             done();
           });
     }); 
+
+    
 
 });

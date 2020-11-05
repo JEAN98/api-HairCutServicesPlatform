@@ -11,7 +11,7 @@ const hairdressinSalonValidator = {
       lunchEnds: Joi.string().regex(regexTimeValidation).required(),
       latitud: Joi.number().strict().required(),
       longitud: Joi.number().strict().required(),
-      photo: Joi.array().items(Joi.string()).min(1).optional(),
+      photo: Joi.string().min(500).required().optional(),
       website: Joi.string().uri().optional(),
       genderID: Joi.number().strict().integer().required()
     }),

@@ -42,6 +42,7 @@ exports.create = async(req, res,next) => {
          let newHairdressingSalon = await repository.create(req.body,next);
          let jwtData = new JWTData(newHairdressingSalon.id,newHairdressingSalon.email,newHairdressingSalon.name,'HairdressingSalon');
          let token = JWT.createToken(jwtData);
+        // newHairdressingSalon.photo =  newHairdressingSalon.photo.toString('utf8');
          let response = {
            hairdressingSalon: newHairdressingSalon,
            token: token

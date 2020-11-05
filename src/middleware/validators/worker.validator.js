@@ -3,8 +3,8 @@ const { Joi } = require('express-validation')
 exports.createWorker = {
     body: Joi.object({
       identificationCard: Joi.string().min(5).max(100).required(),
-      firstName: Joi.string().min(5).max(100).required(),
-      lastName: Joi.string().min(5).max(100).required(),
+      firstName: Joi.string().min(2).max(100).required(),
+      lastName: Joi.string().min(2).max(100).required(),
       genderID: Joi.number().strict().integer().required(),
     }),
 }

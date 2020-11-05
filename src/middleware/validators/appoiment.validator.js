@@ -10,8 +10,8 @@ const createAppoiment = {
 
 const getAppoimentList = {
   query: Joi.object({
-    dateTo: Joi.date().required(),
-    dateFrom: Joi.date().required()
+    dateTo: Joi.string().min(19).max(21).required(),
+    dateFrom: Joi.string().min(19).max(21).required(),
   }),
 }
 
