@@ -5,5 +5,5 @@ const { validate } = require('express-validation');
 
 module.exports = function(app) {
     // Retrieve a single debit by Id
-    app.get('/api/percentageOfServices/', auth.autentication,controller.getReportAppoimentServiceList);   
+    app.get('/api/report/', auth.autentication,controller.getReports);   
 }

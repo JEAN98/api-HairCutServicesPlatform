@@ -20,3 +20,25 @@ exports.getAppoimentServicesListByHS = async(hairdressingSalonID) => {
          );
      return appoimentServicesList ;
  }
+
+
+ exports.getTop10Client = async(hairdressingSalonID) => {
+    let top10List = await dbContext.sequelize.query(
+             'select COUNT(*) as appoimentCount,  (cl.first_name||\' \'||cl.last_name) as clientName,client_id as clientID \
+             from appoiments as ap \
+             inner join clients as cl on cl.id = ap.client_id \
+             inner join workers as wk on wk.id = ap.worker_id \
+             inner join hairdressing_salons as hs on hs.id = wk.hairdressing_salon_id \
+             where hs.id = :hairdressingSalonID \
+             group by client_id,clientName \
+             order by appoimentCount desc \
+             LIMIT 10 ',
+             {
+                 replacements: { 
+                    hairdressingSalonID: hairdressingSalonID
+                 },
+                 type: dbContext.sequelize.QueryTypes.SELECT
+             },
+         );
+     return top10List ;
+ }
