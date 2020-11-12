@@ -1,7 +1,9 @@
 const reportRepository = require('../repositories/report.repository');
 const {BadRequest, GeneralError} = require('../middleware/error/error');
+const {setCamelCaseStandardInList} = require('../utils/cleanEntity.helper');
 
-exports.getPercentageOfServicesByHSalon = async(hairdressingSalonID) => {
+
+async function getPercentageOfServicesByHSalon(hairdressingSalonID) {
      
     let appoimentServicesList = await reportRepository.getAppoimentServicesListByHS(hairdressingSalonID);
     let percentageOfServicesByHSalonList = [];
@@ -27,4 +29,22 @@ function calculatePercentage(count,totalCount) {
     let percentage = ((parseInt(count) * 100) / totalCount).toPrecision(4);
     
     return parseFloat(percentage) ;
+}
+
+
+async function getTop10Clients(hairdressingSalonID){
+    let top10List = await reportRepository.getTop10Client(hairdressingSalonID);
+
+    return setCamelCaseStandardInList(top10List);
+}
+
+
+exports.getReports = async(hairdressingSalonID) =>{
+    let percentageOfServices = await getPercentageOfServicesByHSalon(hairdressingSalonID);
+    let top10Clients = await getTop10Clients(hairdressingSalonID);
+
+    return {
+        percentageOfServices: percentageOfServices,
+        topClients: top10Clients
+    }
 }
