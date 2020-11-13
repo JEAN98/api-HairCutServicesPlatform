@@ -6,9 +6,11 @@ dotenv.config();
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/error/errrorHandler');
 const {getFilesName} = require('./utils/getFilesInDirectory');
+const cors = require('cors')
 //const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(cors());
 
 
 //BodyParser
@@ -43,11 +45,11 @@ app.use(function (req,res,next){
 
 // Enable CORS ()
 
-//if(process.env.CURRENT_ENV == 'Dev') {
+/*if(process.env.CURRENT_ENV == 'Dev') {
   console.log('CorsEnable in Dev env')
   var cors = require('cors')
   app.use(cors())
-//} 
+}*/ 
 
 
 // error handler middleware
