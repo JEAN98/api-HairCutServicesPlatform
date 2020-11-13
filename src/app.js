@@ -43,11 +43,11 @@ app.use(function (req,res,next){
 
 // Enable CORS ()
 
-if(process.env.CURRENT_ENV == 'Dev') {
+//if(process.env.CURRENT_ENV == 'Dev') {
   console.log('CorsEnable in Dev env')
   var cors = require('cors')
   app.use(cors())
-} 
+//} 
 
 
 // error handler middleware
