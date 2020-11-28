@@ -15,16 +15,19 @@ exports.create = async(appoiment) => {
 exports.getAppoimentListBetweenDates = async(hairdressingSalonID,dateFrom,dateTo) => {
  
     let appoimentList = await dbContext.sequelize.query(
-        'select ap.id as appoiment_id,ap.shift_starts,ap.shift_ends, \
-        ap.total_time,ap.total_cost, \
-        (wk.first_name||\' \'||wk.last_name) as worker_name, wk.id as worker_id, \
-        (cl.first_name||\' \'||cl.last_name) as client_name, cl.id as client_id \
-        from appoiments as ap	\
-        left join clients as cl on ap.client_id = cl.id \
-        left join workers as wk on wk.id = ap.worker_id \
-        left join hairdressing_salons as hs on hs.id = wk.hairdressing_salon_id \
-        where hs.id = :hairdressingSalonID and \
-        shift_starts between :dateFrom and :dateTo ' , 
+            'select ap.id as appoiment_id,ap.shift_starts,ap.shift_ends, \
+            ap.total_time,ap.total_cost, \
+            (wk.first_name||\' \'||wk.last_name) as worker_name, wk.id as worker_id, \
+            (cl.first_name||\' \'||cl.last_name) as client_name, cl.id as client_id \
+            from appoiments as ap	\
+            left join clients as cl on ap.client_id = cl.id \
+            left join workers as wk on wk.id = ap.worker_id \
+            left join hairdressing_salons as hs on hs.id = wk.hairdressing_salon_id \
+            where hs.id = :hairdressingSalonID and \
+            shift_starts between :dateFrom and :dateTo \
+            order by \
+	        case when date(ap.shift_starts) >= CURRENT_DATE then ap.shift_starts END asc, \
+	        case when date(ap.shift_starts) < CURRENT_DATE then ap.shift_starts END desc' , 
             {
                 replacements: { 
                     hairdressingSalonID: hairdressingSalonID,
