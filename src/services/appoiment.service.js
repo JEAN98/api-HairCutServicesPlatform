@@ -27,10 +27,12 @@ exports.getAppoimentListBetweenDates = async(reqQuery) => {
         
         let appoimentList = await appoimentRepository.getAppoimentListBetweenDates(reqQuery.hairdressingSalonID,
                                                                                 reqQuery.dateFrom,reqQuery.dateTo);
+
+        console.log(appoimentList,'Before Camel');
         appoimentList =  setCamelCaseStandardInList(appoimentList);
-        
+        console.log(appoimentList,'AfterCamel case');
         let finalResult = setDateFormatForHSResult(appoimentList);
-        console.log(finalResult,'FINAL RESULT');
+        
         return  finalResult;
     } 
     //throw new BadRequest('The dateFrom or dateTo are undefined');
