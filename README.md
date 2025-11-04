@@ -1,6 +1,5 @@
 # 💇‍♂️ HairCut Services Platform API
 
-[![Build Status](https://circleci.com/gh/JEAN98/api-HairCutServicesPlatform.svg?style=shield)](https://circleci.com/gh/JEAN98/api-HairCutServicesPlatform)
 ![Node.js](https://img.shields.io/badge/Node.js-18.x-brightgreen.svg)
 ![Express](https://img.shields.io/badge/Express.js-4.x-lightgrey.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue.svg)
